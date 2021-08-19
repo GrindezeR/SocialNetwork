@@ -1,0 +1,8 @@
+.profile {
+    grid-area: main;
+    background-color: cornsilk;
+}
+
+.profileWallpaper {
+    width: 100%;
+}

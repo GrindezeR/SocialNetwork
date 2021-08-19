@@ -1,0 +1,30 @@
+.wrapper {
+    padding: 10px;
+}
+
+.submitButton {
+    width: 100px;
+    height: 30px;
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid blue;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.submitButton:hover {
+    background-color: yellow;
+    transition: .5s;
+}
+
+.textArea {
+    height: 100px;
+    width: 100%;
+}
+
+.newPost {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 10px;
+}

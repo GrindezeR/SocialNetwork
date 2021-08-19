@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.profileAvatar {
+    width: 200px;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+li span {
+    font-weight: bold;
+}

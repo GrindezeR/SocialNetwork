@@ -1,5 +1,4 @@
-.wrapper {
-    border: 1px solid red;
+.app {
     width: 1200px;
     margin: 0 auto;
 
@@ -8,29 +7,6 @@
             "head head"
             "side main";
     grid-template-rows: 50px 1fr;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 5fr;
     gap: 10px;
-}
-
-.header {
-    grid-area: head;
-    background-color: aquamarine;
-}
-
-.header img {
-    width: 50px;
-}
-
-.sideBar {
-    grid-area: side;
-    background-color: rebeccapurple;
-}
-
-.mainBar {
-    grid-area: main;
-    background-color: mediumspringgreen;
-}
-
-.profileBack {
-    width: 100%;
 }

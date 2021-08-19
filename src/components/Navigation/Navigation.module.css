@@ -1,0 +1,14 @@
+.navigation {
+    grid-area: side;
+    background-color: rebeccapurple;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding-top: 40px;
+}
+
+.item {
+    color: white;
+    cursor: pointer;
+}

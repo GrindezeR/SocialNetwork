@@ -1,0 +1,38 @@
+.profileAvatar {
+    width: 50px;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.post {
+    color: blueviolet;
+    font-family: Hermit, sans-serif;
+    font-size: 14px;
+}
+
+.messageText {
+    margin: 20px 0;
+    background-color: white;
+    padding: 10px 30px;
+    border-radius: 30px;
+}
+
+.messagePost {
+    display: flex;
+    gap: 10px;
+}
+
+.like {
+    color: crimson;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.countLike {
+    display: block;
+    margin: 5px 25px;
+    color: deeppink;
+    font-weight: bold;
+}
