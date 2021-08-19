@@ -1,7 +1,10 @@
 .profileAvatar {
-    width: 50px;
+    width: 60px;
+    height: 60px;
     padding: 10px;
     border-radius: 30px;
+    display: block;
+    flex-grow: 0;
 }
 
 .post {
@@ -11,10 +14,12 @@
 }
 
 .messageText {
-    margin: 20px 0;
+    margin: 10px 0;
     background-color: white;
     padding: 10px 30px;
-    border-radius: 30px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 12% 75%, 0 97%, 0 75%, 0% 75%);
+    text-align: center;
+    color: black;
 }
 
 .messagePost {
