@@ -1,0 +1,36 @@
+.dialogsWrapper {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogItems img {
+    width: 40px;
+    border-radius: 30px;
+    margin: 0 10px;
+}
+
+.dialogItems {
+    padding: 10px;
+}
+
+.dialogItems a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: darkturquoise;
+}
+
+.dialog {
+    padding: 10px;
+}
+
+.messages {
+    padding: 10px;
+    border-left: 1px solid black;
+}
+
+.message {
+    padding: 10px;
+}
