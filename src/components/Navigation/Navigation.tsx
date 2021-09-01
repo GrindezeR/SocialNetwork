@@ -1,16 +1,28 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import style from './Navigation.module.css';
+import {NavLink} from "react-router-dom";
+import s from './Navigation.module.css';
+import Friends from "./Friends";
+import {friendsType} from "../../Redux/State";
 
+type navigationPropsType = {
+    state: {
+        sideBar: Array<friendsType>
+    }
+}
 
-function Navigation() {
-    return(
-        <div className={style.navigation}>
-            <div className={style.item}><NavLink to={'/profile'} activeClassName={style.activeLink}>Profile</NavLink></div>
-            <div className={style.item}><NavLink to={'/dialogs'} activeClassName={style.activeLink}>Messages</NavLink></div>
-            <div className={style.item}><NavLink to={'/news'} activeClassName={style.activeLink}>News</NavLink></div>
-            <div className={style.item}><NavLink to={'/music'} activeClassName={style.activeLink}>Music</NavLink></div>
-            <div className={style.item}><NavLink to={'/settings'} activeClassName={style.activeLink}>Settings</NavLink></div>
+function Navigation(props: navigationPropsType) {
+    return (
+        <div className={s.navigation}>
+            <div className={s.item}>
+                <NavLink to={'/profile'} activeClassName={s.activeLink}>Profile</NavLink>
+            </div>
+            <div className={s.item}><NavLink to={'/dialogs'} activeClassName={s.activeLink}>Messages</NavLink></div>
+            <div className={s.item}><NavLink to={'/news'} activeClassName={s.activeLink}>News</NavLink></div>
+            <div className={s.item}><NavLink to={'/music'} activeClassName={s.activeLink}>Music</NavLink></div>
+            <div className={s.item}><NavLink to={'/settings'} activeClassName={s.activeLink}>Settings</NavLink></div>
+            <div className={s.friends}>
+                <Friends friends={props.state.sideBar}/>
+            </div>
         </div>
     );
 }

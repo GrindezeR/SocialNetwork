@@ -1,18 +1,38 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import Post from "./Posts/Post";
-import style from './MyPosts.module.css';
+import s from './MyPosts.module.css';
+import {postDataType} from "./Posts/Post";
 
+type myPostsPropsType = {
+    postData: Array<postDataType>
+}
 
-function MyPosts() {
+function MyPosts(props: myPostsPropsType) {
+    const postsElements = props.postData.map(p => {
+        return (
+            <Post
+                id={p.id}
+                message={p.message}
+                likesCount={p.likesCount}
+            />
+        );
+    })
     return (
-        <div className={style.wrapper}>
-            <div className={style.newPost}>
-                <textarea className={style.textArea} placeholder={'Type your post'}/>
-                <button className={style.submitButton} type={'submit'}>Submit</button>
+        <div className={s.wrapper}>
+            <div className={s.newPost}>
+                <textarea
+                    className={s.textArea}
+                    placeholder={'Type your post'}
+                />
+                <button
+                    className={s.submitButton}
+                    type={'submit'}>
+                    <span>Submit</span>
+                </button>
             </div>
-
-            <Post message={'Hello Everyone!'} LikesCount={15}/>
-            <Post message={'Good day.'} LikesCount={20}/>
+            <div>
+                {postsElements}
+            </div>
         </div>
     );
 }

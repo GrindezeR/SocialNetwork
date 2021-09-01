@@ -6,6 +6,7 @@
     align-items: center;
     gap: 50px;
     padding: 40px 0 40px 0;
+    font-family: Bahnschrift, sans-serif;
 }
 
 .item {
@@ -17,7 +18,7 @@
     color: white;
 }
 
-a.activeLink, a:hover {
+a.activeLink, .item a:hover {
     color: yellow;
 }
 

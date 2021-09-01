@@ -1,6 +1,7 @@
 .dialogsWrapper {
     display: grid;
     grid-template-columns: 2fr 10fr;
+    height: 100%;
 }
 
 .dialogItems img {
@@ -18,7 +19,7 @@
     color: black;
 }
 
-a:hover {
+.dialogItems a:hover {
     color: darkturquoise;
 }
 

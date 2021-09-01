@@ -1,84 +1,43 @@
 import React from "react";
-import style from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
-import avatar from '../../images/dialogAvatar.png'
+import s from './Dialogs.module.css';
+import Messages from "./Message/Message";
+import DialogItem from "./DialigItem/DialogsItem";
 
-type dialogItemType = {
-    id: number
+type dialogsPropsType = {
+    state: {
+        dialogsNamesData: Array<dialogsNamesDataType>
+        dialogsMessagesData: Array<dialogsMessagesDataType>
+    }
+}
+
+export type dialogsNamesDataType = {
+    id: string
     name: string
 }
 
-type messageType = {
-    id: number
+export type dialogsMessagesDataType = {
+    id: string
     message: string
 }
 
-function Dialogs() {
-
-    let dialogsPersoneData: Array<dialogItemType> = [
-        {id: 1, name: 'Stas'},
-        {id: 2, name: 'Sergey'},
-        {id: 3, name: 'Yulia'},
-        {id: 4, name: 'Keris'},
-        {id: 5, name: 'Egor'},
-    ]
-
-    let messageDta: Array<messageType> = [
-        {id: 1, message: 'Hello'},
-        {id: 2, message: 'How are you?'},
-        {id: 3, message: 'Lets go!'},
-        {id: 4, message: 'Hi all!'},
-        {id: 5, message: 'Its work...'},
-    ]
-
-    const allDialogs = dialogsPersoneData.map(d => {
-        return (
-            <div className={style.dialog}>
-                <NavLink to={`/dialogs/${d.id}`}><img src={avatar} alt={'dialogAvatar'}/>{d.name}</NavLink>
-            </div>
-        );
-    })
-
-    const allMessages = messageDta.map(m => {
-        return (
-            <div className={style.message}>{m.message}</div>
-        );
-    })
-
+function Dialogs(props: dialogsPropsType) {
+    const dialogsElements = props.state.dialogsNamesData.map(d => <DialogItem id={d.id} name={d.name}/>)
+    const messagesElements = props.state.dialogsMessagesData.map(m => <Messages id={m.id} message={m.message}/>)
 
     return (
-        <div className={style.dialogsWrapper}>
-
-            <div className={style.dialogItems}>
-                <div>{allDialogs}</div>
+        <div className={s.dialogsWrapper}>
+            <div className={s.dialogItems}>
+                <span>{dialogsElements}</span>
             </div>
 
-            <div className={style.messages}>
-                <div>{allMessages}</div>
-                {/*<Messages message={'Hello!'}/>*/}
-                {/*<Messages message={'Yo!'}/>*/}
-                {/*<Messages message={'Whats up?'}/>*/}
+            <div className={s.messages}>
+                <div>
+                    <span>{messagesElements}</span>
+                </div>
             </div>
 
         </div>
     );
 }
-
-// function DialogItem(props: dialogItemType) {
-//     let path = `/dialogs/${props.id}`;
-//
-//
-//     return (
-//         <div className={style.dialog}>
-//             <NavLink to={path}><img src={avatar} alt={'dialogAvatar'}/>{props.name}</NavLink>
-//         </div>
-//     );
-// }
-
-// function Messages(props: messageType) {
-//     return (
-//         <div className={style.message}>{props.message}</div>
-//     );
-// }
 
 export default Dialogs;

@@ -1,14 +1,21 @@
 import React from "react";
-import style from './Profile.module.css';
+import s from './Profile.module.css';
 import wallpaper from '../../images/profileWallpaper.jpg';
 import MyPosts from "./MyPosts/MyPosts";
 import AboutProfile from "./AboutProfile/AboutProfile";
+import {postDataType} from "./MyPosts/Posts/Post";
 
-function Profile() {
+type profilePropsType = {
+    state: {
+        postData: Array<postDataType>
+    }
+}
+
+function Profile(props:profilePropsType) {
     return (
-        <div className={style.profile}>
+        <div className={s.profile}>
             <div>
-                <img className={style.profileWallpaper} src={wallpaper} alt={'profileWallpaper'}/>
+                <img className={s.profileWallpaper} src={wallpaper} alt={'profileWallpaper'}/>
             </div>
             <AboutProfile
                 name={' Tsarkov Stas '}
@@ -17,7 +24,7 @@ function Profile() {
                 education={' Future Frontend Developer '}
                 webSite={' http://weqshar.ru '}
             />
-            <MyPosts/>
+            <MyPosts postData={props.state.postData}/>
         </div>
     );
 }

@@ -1,24 +1,25 @@
 import React from "react";
-import style from './Post.module.css';
+import s from './Post.module.css';
 import avatarPost from '../../../../images/avatar.jpg'
 
-type postType = {
+export type postDataType = {
+    id: string
     message: string
-    LikesCount: number
+    likesCount: number
 }
 
-function Post(props: postType) {
+function Post(props: postDataType) {
     return (
-        <div className={style.post}>
-            <div className={style.messagePost}>
-                <img className={style.profileAvatar} src={avatarPost} alt={'Avatar'}/>
-                <span className={style.messageText}>{props.message}</span>
+        <div className={s.post}>
+            <div className={s.messagePost}>
+                <img className={s.profileAvatar} src={avatarPost} alt={'Avatar'}/>
+                <span className={s.messageText}>{props.message}</span>
             </div>
             <div>
-                <span className={style.like}>Like</span>
+                <span className={s.like}>Like</span>
             </div>
             <div>
-                <span className={style.countLike}>{props.LikesCount}</span>
+                <span className={s.countLike}>{props.likesCount}</span>
             </div>
         </div>
     );
