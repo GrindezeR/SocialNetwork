@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Friends.module.css';
-import {friendsType} from "../../Redux/State";
+import {friendsType} from "../../AllTypes";
 
 type friendsPropsType = {
     friends: Array<friendsType>
@@ -9,7 +9,7 @@ type friendsPropsType = {
 function Friends(props: friendsPropsType) {
     const friendList = props.friends.map(f => {
         return (
-            <div>
+            <div key={f.id}>
                 <img className={s.avatar} src={f.avatar} alt={'avatar'}/>
                 <span>{f.name}</span>
             </div>

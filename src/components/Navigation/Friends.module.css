@@ -1,11 +1,12 @@
 .friendWrapper {
     text-align: center;
+    margin: 50px 0;
 }
 
 .friendListWrapper {
     display: flex;
     flex-wrap: wrap;
-    margin: 15px 0;
+    margin: 20px 0;
     gap: 15px;
     color: greenyellow;
 }

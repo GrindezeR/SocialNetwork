@@ -1,12 +1,9 @@
 import React from "react";
-import {dialogsMessagesDataType} from "../Dialogs";
 import avatar from '../../../images/avatar.jpg';
 import style from './Message.module.css';
+import {dialogsMessagesDataType} from "../../../AllTypes";
 
 function Messages(props:dialogsMessagesDataType) {
-    // const messageStyle = {
-    //     margin: '15px',
-    // }
     return(
         <div className={style.wrapper}>
             <div className={style.avatar}>
@@ -19,11 +16,6 @@ function Messages(props:dialogsMessagesDataType) {
                 {/*<div className={style.time}>{props.time}</div>*/}
             </div>
         </div>
-
-        //start
-        // <div style={messageStyle}>
-        //     <span>{props.message}</span>
-        // </div>
     );
 
 }

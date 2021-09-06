@@ -35,3 +35,21 @@
 .message {
     padding: 10px;
 }
+
+.messageSendWrapper {
+    display: flex;
+    gap: 10px;
+    margin: 50px 10px;
+}
+
+.textarea {
+    height: 100px;
+    flex-grow: 1;
+}
+
+.submitBtn {
+    height: 30px;
+    flex-grow: 0;
+    align-self: center;
+}
+

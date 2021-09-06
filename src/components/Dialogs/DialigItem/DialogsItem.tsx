@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import avatar from '../../../images/dialogAvatar.png'
-import {dialogsNamesDataType} from "../Dialogs";
+import {dialogsNamesDataType} from "../../../AllTypes";
 
 
 function DialogItem(props: dialogsNamesDataType) {
