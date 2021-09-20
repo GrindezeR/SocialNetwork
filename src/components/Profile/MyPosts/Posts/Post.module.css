@@ -22,7 +22,7 @@
 .messageText {
     align-self: center;
     margin: 0 0 5px 0;
-    padding: 10px;
+    padding: 15px;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 10px;
     color: #c0d1c0;
@@ -30,9 +30,8 @@
 
 .angle {
     width: 10px;
-    height: 30px;
-    clip-path: polygon(100% 20%, 0 40%, 50px 100%);
-    margin-top: 15px;
+    height: 40px;
+    clip-path: polygon(100% 30%, 0 50%, 50px 100%);
     background-color: rgba(0, 0, 0, 0.8);
     align-self: center;
 }

@@ -16,3 +16,7 @@
     grid-area: main;
     background-color: cornsilk;
 }
+
+body {
+    background-color: gray;
+}

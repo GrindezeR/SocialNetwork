@@ -1,11 +1,14 @@
-import React from "react";
+import React, {KeyboardEvent} from "react";
 import Post from "./Posts/Post";
 import s from './MyPosts.module.css';
 import {postDataType} from "../../../AllTypes";
+import {updateNewPostText} from "../../../Redux/State";
 
 type myPostsPropsType = {
     postData: Array<postDataType>
-    addPost: (message:string) => void
+    newPostText: string
+    addPost: () => void
+    updateNewPostText: (text: string) => void
 }
 
 function MyPosts(props: myPostsPropsType) {
@@ -20,12 +23,21 @@ function MyPosts(props: myPostsPropsType) {
         );
     })
 
-    let newPostElement:React.RefObject<any> = React.createRef();
+    let newPostElement: React.RefObject<any> = React.createRef();
     const addPost = () => {
-        props.addPost(newPostElement.current.value);
-        newPostElement.current.value = '';
-        console.log(props.postData)
+            props.addPost();
     }
+    const onEnterAddPost = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addPost();
+        }
+    }
+
+    const onPostChange = () => {
+        props.updateNewPostText(newPostElement.current.value)
+    }
+
 
     return (
         <div className={s.wrapper}>
@@ -34,6 +46,9 @@ function MyPosts(props: myPostsPropsType) {
                     ref={newPostElement}
                     className={s.textArea}
                     placeholder={'Type your post'}
+                    onKeyPress={onEnterAddPost}
+                    value={props.newPostText}
+                    onChange={onPostChange}
                 />
                 <button
                     className={s.submitButton}

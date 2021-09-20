@@ -2,10 +2,12 @@ export type stateType = {
     sideBar: Array<friendsType>
     profilePage: {
         postData: Array<postDataType>
+        newPostText: string
     }
     dialogsPage: {
         dialogsNamesData: Array<dialogsNamesDataType>
         dialogsMessagesData: Array<dialogsMessagesDataType>
+        newMessageText: string
     }
 }
 
@@ -31,5 +33,5 @@ export type friendsType = {
     avatar: string;
 }
 
-export type postMessageTypeF = (Message:string) => void
-export type dialogMessageTypeF = (Message:string) => void
+export type postMessageTypeF = (Message: string) => void
+export type dialogMessageTypeF = (Message: string) => void

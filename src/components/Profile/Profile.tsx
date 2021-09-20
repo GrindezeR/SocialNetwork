@@ -4,15 +4,18 @@ import wallpaper from '../../images/profileWallpaper.jpg';
 import MyPosts from "./MyPosts/MyPosts";
 import AboutProfile from "./AboutProfile/AboutProfile";
 import {postDataType} from "../../AllTypes";
+import {updateNewPostText} from "../../Redux/State";
 
 type profilePropsType = {
     state: {
         postData: Array<postDataType>
+        newPostText: string
     }
-    addPost: (message:string) => void
+    addPost: () => void
+    updateNewPostText: (text: string) => void
 }
 
-function Profile(props:profilePropsType) {
+function Profile(props: profilePropsType) {
     return (
         <div className={s.profile}>
             <div>
@@ -25,7 +28,8 @@ function Profile(props:profilePropsType) {
                 education={' Future Frontend Developer '}
                 webSite={' http://weqshar.ru '}
             />
-            <MyPosts postData={props.state.postData} addPost={props.addPost}/>
+            <MyPosts postData={props.state.postData} addPost={props.addPost} newPostText={props.state.newPostText}
+                     updateNewPostText={props.updateNewPostText}/>
         </div>
     );
 }

@@ -2,9 +2,9 @@ import {v1} from "uuid";
 import orc from '../images/orc.jpg';
 import tau from '../images/tau.jpg';
 import chaos from '../images/chaos.jpg';
-import {rerenderEntireTree} from "../Render";
 import {stateType} from "../AllTypes";
 
+let rerenderEntireTree: () => void;
 
 let state: stateType = {
     sideBar: [
@@ -15,19 +15,17 @@ let state: stateType = {
     profilePage: {
         postData: [
             {id: v1(), message: 'Hello ALL!', likesCount: 15},
-            {id: v1(), message: 'Chaos is POWER!', likesCount: 30},
-            {id: v1(), message: 'AHAHAH', likesCount: 230},
-        ]
+            {id: v1(), message: 'How are you?', likesCount: 30},
+            {id: v1(), message: 'LOL', likesCount: 230},
+        ],
+        newPostText: '',
     },
-
     dialogsPage: {
         dialogsNamesData: [
             {id: v1(), name: 'Alex'},
-            {id: v1(), name: 'Slaanesh'},
-            {id: v1(), name: 'Gorka'},
-            {id: v1(), name: 'Morka'},
-            {id: v1(), name: 'Khorn'},
-            {id: v1(), name: 'Imperator'},
+            {id: v1(), name: 'Bob'},
+            {id: v1(), name: 'Tom'},
+            {id: v1(), name: 'John'},
         ],
 
         dialogsMessagesData: [
@@ -36,31 +34,45 @@ let state: stateType = {
             {id: v1(), message: 'Lets go!'},
             {id: v1(), message: 'Hi all!'},
             {id: v1(), message: 'Its work...'},
-            {id: v1(), message: 'WAAAGH!'},
-            {id: v1(), message: 'For the imperator!'},
-        ]
+        ],
+        newMessageText: '',
     },
 }
 
 //Functions
-export const addPost = (postMessage: string) => {
-    let newPost = {
-        id: v1(),
-        message: postMessage,
-        likesCount: 0
-    };
-
-    state.profilePage.postData.unshift(newPost);
-    rerenderEntireTree(state)
+export const addPost = () => {
+    const newPost = state.profilePage.newPostText.trim();
+    if (newPost !== '') {
+        state.profilePage.postData = [{id: v1(), message: newPost, likesCount: 0}, ...state.profilePage.postData];
+        state.profilePage.newPostText = '';
+        rerenderEntireTree();
+    }
 }
 
-export const addMessage = (message: string) => {
-    let newMessage = {
-        id: v1(),
-        message: message
+export const addMessage = () => {
+    const newMessage = state.dialogsPage.newMessageText.trim();
+    if (newMessage !== '') {
+        state.dialogsPage.dialogsMessagesData = [...state.dialogsPage.dialogsMessagesData, {
+            id: v1(),
+            message: newMessage
+        }];
+        state.dialogsPage.newMessageText = '';
+        rerenderEntireTree()
     }
-    state.dialogsPage.dialogsMessagesData.push(newMessage);
-    rerenderEntireTree(state);
+}
+
+export const updateNewPostText = (text: string) => {
+    state.profilePage.newPostText = text;
+    rerenderEntireTree();
+}
+
+export const updateNewMessageText = (text: string) => {
+    state.dialogsPage.newMessageText = text;
+    rerenderEntireTree();
+}
+
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer;
 }
 
 export default state;

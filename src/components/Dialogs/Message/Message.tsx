@@ -3,8 +3,9 @@ import avatar from '../../../images/avatar.jpg';
 import style from './Message.module.css';
 import {dialogsMessagesDataType} from "../../../AllTypes";
 
-function Messages(props:dialogsMessagesDataType) {
-    return(
+
+function Messages(props: dialogsMessagesDataType) {
+    return (
         <div className={style.wrapper}>
             <div className={style.avatar}>
                 <img src={avatar} alt={'avatar'}/>

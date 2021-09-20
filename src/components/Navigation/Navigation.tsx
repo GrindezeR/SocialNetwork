@@ -2,7 +2,8 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './Navigation.module.css';
 import Friends from "./Friends";
-import {friendsType} from "../../Redux/State";
+import {friendsType} from "../../AllTypes";
+
 
 type navigationPropsType = {
     state: {

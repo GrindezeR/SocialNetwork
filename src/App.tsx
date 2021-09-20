@@ -9,20 +9,29 @@ import {stateType} from "./AllTypes";
 
 type appPropsType = {
     state: stateType
-    addPost: (message:string) => void
-    addMessage: (message:string) => void
+    addPost: () => void
+    addMessage: () => void
+    updateNewPostText: (text: string) => void
+    updateNewMessageText: (text: string) => void
 }
 
 function App(props: appPropsType) {
     return (
-            <div className="app-wrapper">
-                <Header/>
-                <Navigation state={props.state}/>
-                <div className="app-wrapper-content">
-                    <Route render={() => <Profile state={props.state.profilePage} addPost={props.addPost}/>} path={'/profile'}/>
-                    <Route render={() => <Dialogs state={props.state.dialogsPage} addMessage={props.addMessage}/>} path={'/dialogs'}/>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <Navigation state={props.state}/>
+            <div className="app-wrapper-content">
+                <Route render={() => <Profile state={props.state.profilePage}
+                                              addPost={props.addPost}
+                                              updateNewPostText={props.updateNewPostText}/>} path={'/profile'}/>
+                <Route render={() => <Dialogs
+                    state={props.state.dialogsPage}
+                    addMessage={props.addMessage}
+                    updateNewMessageText={props.updateNewMessageText}
+                />}
+                       path={'/dialogs'}/>
             </div>
+        </div>
 
     );
 }
