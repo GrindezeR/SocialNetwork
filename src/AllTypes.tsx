@@ -1,3 +1,14 @@
+export type storeType = {
+    _callSubscriber: () => void
+    subscribe:(observer:() => void) => void
+    _state: stateType
+    getState: () => stateType
+    addPost: () => void
+    addMessage: () => void
+    updateNewPostText: (text:string) => void
+    updateNewMessageText: (text:string) => void
+}
+
 export type stateType = {
     sideBar: Array<friendsType>
     profilePage: {

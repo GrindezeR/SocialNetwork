@@ -3,14 +3,10 @@ import s from './Profile.module.css';
 import wallpaper from '../../images/profileWallpaper.jpg';
 import MyPosts from "./MyPosts/MyPosts";
 import AboutProfile from "./AboutProfile/AboutProfile";
-import {postDataType} from "../../AllTypes";
-import {updateNewPostText} from "../../Redux/State";
+import {stateType} from "../../AllTypes";
 
 type profilePropsType = {
-    state: {
-        postData: Array<postDataType>
-        newPostText: string
-    }
+    state: stateType
     addPost: () => void
     updateNewPostText: (text: string) => void
 }
@@ -25,10 +21,11 @@ function Profile(props: profilePropsType) {
                 name={' Tsarkov Stas '}
                 dateBirth={' 17 august '}
                 city={' Saint-Petersburg '}
-                education={' Future Frontend Developer '}
+                education={' Frontend Developer '}
                 webSite={' http://weqshar.ru '}
             />
-            <MyPosts postData={props.state.postData} addPost={props.addPost} newPostText={props.state.newPostText}
+            <MyPosts postData={props.state.profilePage.postData} addPost={props.addPost}
+                     newPostText={props.state.profilePage.newPostText}
                      updateNewPostText={props.updateNewPostText}/>
         </div>
     );

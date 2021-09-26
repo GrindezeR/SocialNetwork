@@ -2,7 +2,6 @@ import React, {KeyboardEvent} from "react";
 import Post from "./Posts/Post";
 import s from './MyPosts.module.css';
 import {postDataType} from "../../../AllTypes";
-import {updateNewPostText} from "../../../Redux/State";
 
 type myPostsPropsType = {
     postData: Array<postDataType>

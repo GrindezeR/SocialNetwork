@@ -4,7 +4,7 @@ import Header from "./components/Header/Header";
 import Navigation from "./components/Navigation/Navigation";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
-import {Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {stateType} from "./AllTypes";
 
 type appPropsType = {
@@ -21,15 +21,16 @@ function App(props: appPropsType) {
             <Header/>
             <Navigation state={props.state}/>
             <div className="app-wrapper-content">
-                <Route render={() => <Profile state={props.state.profilePage}
-                                              addPost={props.addPost}
-                                              updateNewPostText={props.updateNewPostText}/>} path={'/profile'}/>
+                <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                <Route exact render={() => <Profile state={props.state}
+                                                    addPost={props.addPost}
+                                                    updateNewPostText={props.updateNewPostText}/>} path={'/profile'}/>
+
                 <Route render={() => <Dialogs
                     state={props.state.dialogsPage}
                     addMessage={props.addMessage}
                     updateNewMessageText={props.updateNewMessageText}
-                />}
-                       path={'/dialogs'}/>
+                />} path={'/dialogs'}/>
             </div>
         </div>
 
