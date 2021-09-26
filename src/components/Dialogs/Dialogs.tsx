@@ -2,7 +2,8 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './Dialogs.module.css';
 import Messages from "./Message/Message";
 import DialogItem from "./DialigItem/DialogsItem";
-import {dialogsMessagesDataType, dialogsNamesDataType} from "../../AllTypes";
+import {actionsTypes, dialogsMessagesDataType, dialogsNamesDataType} from "../../AllTypes";
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../Redux/State";
 
 type dialogsPropsType = {
     state: {
@@ -10,29 +11,23 @@ type dialogsPropsType = {
         dialogsMessagesData: Array<dialogsMessagesDataType>
         newMessageText: string
     }
-    addMessage: () => void
-    updateNewMessageText: (text: string) => void
+    dispatch: (action: actionsTypes) => void
 }
 
 function Dialogs(props: dialogsPropsType) {
     const dialogsElements = props.state.dialogsNamesData.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
-    const messagesElements = props.state.dialogsMessagesData.map(m => <Messages key={m.id} id={m.id}
-                                                                                message={m.message}/>)
-
-    let newMessageElement: React.RefObject<any> = React.createRef();
+    const messagesElements = props.state.dialogsMessagesData.map(m => <Messages key={m.id} id={m.id} message={m.message}/>)
     const addMessage = () => {
-        props.addMessage();
+        props.dispatch(addMessageActionCreator())
     }
-
     const onEnterAddMessage = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             addMessage();
         }
     }
-
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageText(newMessageElement.current.value);
+        props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value));
     }
 
     return (
@@ -49,15 +44,12 @@ function Dialogs(props: dialogsPropsType) {
                     <textarea
                         placeholder={'Type your message'}
                         className={s.textarea}
-                        ref={newMessageElement}
                         onKeyPress={onEnterAddMessage}
                         onChange={onMessageChange}
-                        value={props.state.newMessageText}
-                    />
-
+                        value={props.state.newMessageText}/>
                     <button
                         className={s.submitBtn}
-                        onClick={addMessage}>Add
+                        onClick={addMessage}>Send
                     </button>
                 </div>
             </div>

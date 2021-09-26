@@ -1,30 +1,27 @@
-import React, {KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import Post from "./Posts/Post";
 import s from './MyPosts.module.css';
-import {postDataType} from "../../../AllTypes";
+import {actionsTypes, postDataType} from "../../../AllTypes";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Redux/State";
 
 type myPostsPropsType = {
     postData: Array<postDataType>
     newPostText: string
-    addPost: () => void
-    updateNewPostText: (text: string) => void
+    dispatch: (action: actionsTypes) => void
 }
 
 function MyPosts(props: myPostsPropsType) {
     const postsElements = props.postData.map(p => {
         return (
-            <Post
-                key={p.id}
-                id={p.id}
-                message={p.message}
-                likesCount={p.likesCount}
-            />
+            <Post key={p.id}
+                  id={p.id}
+                  message={p.message}
+                  likesCount={p.likesCount}/>
         );
     })
 
-    let newPostElement: React.RefObject<any> = React.createRef();
     const addPost = () => {
-            props.addPost();
+        props.dispatch(addPostActionCreator());
     }
     const onEnterAddPost = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
@@ -32,17 +29,14 @@ function MyPosts(props: myPostsPropsType) {
             addPost();
         }
     }
-
-    const onPostChange = () => {
-        props.updateNewPostText(newPostElement.current.value)
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value));
     }
-
 
     return (
         <div className={s.wrapper}>
             <div className={s.newPost}>
                 <textarea
-                    ref={newPostElement}
                     className={s.textArea}
                     placeholder={'Type your post'}
                     onKeyPress={onEnterAddPost}

@@ -10,11 +10,8 @@ export const rerenderEntireTree = () => {
         <BrowserRouter>
             <React.StrictMode>
                 <App state={store.getState()}
-                     addPost={store.addPost.bind(store)}
-                     addMessage={store.addMessage.bind(store)}
-                     updateNewPostText={store.updateNewPostText.bind(store)}
-                     updateNewMessageText={store.updateNewMessageText.bind(store)}/>
-            </React.StrictMode>,
+                     dispatch={store.dispatch.bind(store)}/>
+            </React.StrictMode>
         </BrowserRouter>, document.getElementById('root')
     );
 }

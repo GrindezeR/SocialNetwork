@@ -3,12 +3,14 @@ import s from './Profile.module.css';
 import wallpaper from '../../images/profileWallpaper.jpg';
 import MyPosts from "./MyPosts/MyPosts";
 import AboutProfile from "./AboutProfile/AboutProfile";
-import {stateType} from "../../AllTypes";
+import {actionsTypes, postDataType, stateType} from "../../AllTypes";
 
 type profilePropsType = {
-    state: stateType
-    addPost: () => void
-    updateNewPostText: (text: string) => void
+    state: {
+        postData: postDataType[]
+        newPostText: string
+    }
+    dispatch: (action: actionsTypes) => void
 }
 
 function Profile(props: profilePropsType) {
@@ -24,9 +26,10 @@ function Profile(props: profilePropsType) {
                 education={' Frontend Developer '}
                 webSite={' http://weqshar.ru '}
             />
-            <MyPosts postData={props.state.profilePage.postData} addPost={props.addPost}
-                     newPostText={props.state.profilePage.newPostText}
-                     updateNewPostText={props.updateNewPostText}/>
+            <MyPosts postData={props.state.postData}
+                     dispatch={props.dispatch}
+                     newPostText={props.state.newPostText}
+            />
         </div>
     );
 }

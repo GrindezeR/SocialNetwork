@@ -1,12 +1,31 @@
+import {addPostActionCreator} from "./Redux/State";
+
 export type storeType = {
-    _callSubscriber: () => void
-    subscribe:(observer:() => void) => void
     _state: stateType
+    _callSubscriber: () => void
+    subscribe: (observer: () => void) => void
     getState: () => stateType
-    addPost: () => void
-    addMessage: () => void
-    updateNewPostText: (text:string) => void
-    updateNewMessageText: (text:string) => void
+    dispatch: (action: actionsTypes) => void
+}
+
+export type actionsTypes = actionAddPost
+    | actionUpdateNewPostText
+    | actionAddMessage
+    | actionUpdateNewMessageText
+
+export type actionAddPost = ReturnType<typeof addPostActionCreator>
+//Можно так, автоматически возьмет тип который вернет функция
+
+export type actionUpdateNewPostText = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    postText: string
+}
+export type actionAddMessage = {
+    type: 'ADD-MESSAGE'
+}
+export type actionUpdateNewMessageText = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    messageText: string
 }
 
 export type stateType = {
@@ -21,28 +40,21 @@ export type stateType = {
         newMessageText: string
     }
 }
-
 export type postDataType = {
     id: string
     message: string
     likesCount: number
 }
-
 export type dialogsNamesDataType = {
     id: string
     name: string
 }
-
 export type dialogsMessagesDataType = {
     id: string
     message: string
 }
-
 export type friendsType = {
     id: string
     name: string
     avatar: string;
 }
-
-export type postMessageTypeF = (Message: string) => void
-export type dialogMessageTypeF = (Message: string) => void
