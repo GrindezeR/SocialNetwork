@@ -1,5 +1,3 @@
-import {addPostActionCreator} from "./Redux/State";
-
 export type storeType = {
     _state: stateType
     _callSubscriber: () => void
@@ -7,15 +5,11 @@ export type storeType = {
     getState: () => stateType
     dispatch: (action: actionsTypes) => void
 }
-
-export type actionsTypes = actionAddPost
-    | actionUpdateNewPostText
-    | actionAddMessage
-    | actionUpdateNewMessageText
-
-export type actionAddPost = ReturnType<typeof addPostActionCreator>
-//Можно так, автоматически возьмет тип который вернет функция
-
+export type actionsTypes = actionAddPost | actionUpdateNewPostText | actionAddMessage | actionUpdateNewMessageText
+// export type actionAddPost = ReturnType<typeof addPostActionCreator> //Можно так, автоматически возьмет тип который вернет функция
+export type actionAddPost = {
+    type: 'ADD-POST'
+}
 export type actionUpdateNewPostText = {
     type: 'UPDATE-NEW-POST-TEXT'
     postText: string
@@ -27,7 +21,6 @@ export type actionUpdateNewMessageText = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     messageText: string
 }
-
 export type stateType = {
     sideBar: Array<friendsType>
     profilePage: {

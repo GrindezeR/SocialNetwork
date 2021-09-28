@@ -2,27 +2,9 @@ import {v1} from "uuid";
 import orc from '../images/orc.jpg';
 import tau from '../images/tau.jpg';
 import chaos from '../images/chaos.jpg';
-import {
-    actionAddMessage,
-    actionsTypes,
-    actionUpdateNewMessageText,
-    actionUpdateNewPostText,
-    storeType
-} from "../AllTypes";
-
-
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
-
-export const addPostActionCreator = () => ({type: ADD_POST}) as const;
-export const updateNewPostTextActionCreator = (text: string): actionUpdateNewPostText =>
-    ({type: UPDATE_NEW_POST_TEXT, postText: text});
-export const addMessageActionCreator = (): actionAddMessage => ({type: "ADD-MESSAGE"});
-export const updateNewMessageTextActionCreator = (text: string): actionUpdateNewMessageText =>
-    ({type: "UPDATE-NEW-MESSAGE-TEXT", messageText: text})
-
+import {actionsTypes, storeType} from "../AllTypes";
+import profileReducer from "./Profile-reducer";
+import dialogsReducer from "./Dialogs-reducer";
 
 export let store: storeType = {
     _state: {
@@ -68,41 +50,9 @@ export let store: storeType = {
     },
 
     dispatch(action: actionsTypes) {
-        switch (action.type) {
-            case ADD_POST:
-                const newPost = this._state.profilePage.newPostText.trim();
-                if (newPost !== '') {
-                    this._state.profilePage.postData = [{
-                        id: v1(),
-                        message: newPost,
-                        likesCount: 0
-                    }, ...this._state.profilePage.postData];
-                    this._state.profilePage.newPostText = '';
-                    this._callSubscriber();
-                }
-                break;
-
-            case UPDATE_NEW_POST_TEXT:
-                this._state.profilePage.newPostText = action.postText;
-                this._callSubscriber();
-                break;
-
-            case ADD_MESSAGE:
-                const newMessage = this._state.dialogsPage.newMessageText.trim();
-                if (newMessage !== '') {
-                    this._state.dialogsPage.dialogsMessagesData = [...this._state.dialogsPage.dialogsMessagesData, {
-                        id: v1(),
-                        message: newMessage
-                    }];
-                    this._state.dialogsPage.newMessageText = '';
-                    this._callSubscriber();
-                }
-                break;
-            case UPDATE_NEW_MESSAGE_TEXT:
-                this._state.dialogsPage.newMessageText = action.messageText;
-                this._callSubscriber();
-                break;
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._callSubscriber();
     }
 }
 export default store;
