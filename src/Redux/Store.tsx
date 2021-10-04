@@ -2,11 +2,19 @@ import {v1} from "uuid";
 import orc from '../images/orc.jpg';
 import tau from '../images/tau.jpg';
 import chaos from '../images/chaos.jpg';
-import {actionsTypes, storeType} from "../AllTypes";
 import profileReducer from "./Profile-reducer";
 import dialogsReducer from "./Dialogs-reducer";
+import {actionsTypes, AppStateType} from "./Redux-store";
 
-export let store: storeType = {
+type storeType = {
+    _state: AppStateType
+    _callSubscriber: () => void
+    subscribe: (observer: () => void) => void
+    getState: () => AppStateType
+    dispatch: (action: actionsTypes) => void
+}
+
+let store: storeType = {
     _state: {
         sideBar: [
             {id: v1(), name: 'Orcs', avatar: orc},
@@ -55,4 +63,3 @@ export let store: storeType = {
         this._callSubscriber();
     }
 }
-export default store;

@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Post.module.css';
 import avatarPost from '../../../../images/avatar.jpg'
-import {postDataType} from "../../../../AllTypes";
+import {postDataType} from "../../../../Redux/Profile-reducer";
 
 function Post(props: postDataType) {
     return (
@@ -11,11 +11,9 @@ function Post(props: postDataType) {
                 <div className={s.angle}/>
                 <span className={s.messageText}>{props.message}</span>
             </div>
-            <div>
-                <span className={s.like}>Like</span>
-            </div>
-            <div>
-                <span className={s.countLike}>{props.likesCount}</span>
+            <div className={s.likeWrapper}>
+                <div className={s.like}>Like</div>
+                <div className={s.countLike}>{props.likesCount}</div>
             </div>
         </div>
     );

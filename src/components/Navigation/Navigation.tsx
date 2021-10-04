@@ -1,17 +1,9 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './Navigation.module.css';
-import Friends from "./Friends";
-import {friendsType} from "../../AllTypes";
+import {FriendsContainer} from "./FriendsContainer";
 
-
-type navigationPropsType = {
-    state: {
-        sideBar: Array<friendsType>
-    }
-}
-
-function Navigation(props: navigationPropsType) {
+function Navigation() {
     return (
         <div className={s.navigation}>
             <div className={s.item}>
@@ -22,7 +14,7 @@ function Navigation(props: navigationPropsType) {
             <div className={s.item}><NavLink to={'/music'} activeClassName={s.activeLink}>Music</NavLink></div>
             <div className={s.item}><NavLink to={'/settings'} activeClassName={s.activeLink}>Settings</NavLink></div>
             <div className={s.friends}>
-                <Friends friends={props.state.sideBar}/>
+                <FriendsContainer/>
             </div>
         </div>
     );

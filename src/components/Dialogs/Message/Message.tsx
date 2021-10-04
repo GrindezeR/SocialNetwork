@@ -1,8 +1,7 @@
 import React from "react";
 import avatar from '../../../images/avatar.jpg';
 import style from './Message.module.css';
-import {dialogsMessagesDataType} from "../../../AllTypes";
-
+import {dialogsMessagesDataType} from "../../../Redux/Dialogs-reducer";
 
 function Messages(props: dialogsMessagesDataType) {
     return (

@@ -1,17 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import Post from "./Posts/Post";
 import s from './MyPosts.module.css';
-import {actionsTypes, postDataType} from "../../../AllTypes";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Redux/Profile-reducer";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type myPostsPropsType = {
-    postData: Array<postDataType>
-    newPostText: string
-    dispatch: (action: actionsTypes) => void
-}
-
-function MyPosts(props: myPostsPropsType) {
-    const postsElements = props.postData.map(p => {
+function MyPosts(props: MyPostsPropsType) {
+    const postsElements = props.postsData.map(p => {
         return (
             <Post key={p.id}
                   id={p.id}
@@ -21,7 +14,7 @@ function MyPosts(props: myPostsPropsType) {
     })
 
     const addPost = () => {
-        props.dispatch(addPostActionCreator());
+        props.addPost();
     }
     const onEnterAddPost = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
@@ -30,7 +23,7 @@ function MyPosts(props: myPostsPropsType) {
         }
     }
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value));
+        props.onPostChange(e.currentTarget.value);
     }
 
     return (
@@ -45,9 +38,8 @@ function MyPosts(props: myPostsPropsType) {
                 />
                 <button
                     className={s.submitButton}
-                    onClick={addPost}
-                    type={'submit'}>
-                    <span>Submit</span>
+                    onClick={addPost}>
+                    <span>Send</span>
                 </button>
             </div>
             <div>

@@ -2,23 +2,14 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './Dialogs.module.css';
 import Messages from "./Message/Message";
 import DialogItem from "./DialigItem/DialogsItem";
-import {actionsTypes, dialogsMessagesDataType, dialogsNamesDataType} from "../../AllTypes";
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../Redux/Dialogs-reducer";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type dialogsPropsType = {
-    state: {
-        dialogsNamesData: Array<dialogsNamesDataType>
-        dialogsMessagesData: Array<dialogsMessagesDataType>
-        newMessageText: string
-    }
-    dispatch: (action: actionsTypes) => void
-}
-
-function Dialogs(props: dialogsPropsType) {
-    const dialogsElements = props.state.dialogsNamesData.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
-    const messagesElements = props.state.dialogsMessagesData.map(m => <Messages key={m.id} id={m.id} message={m.message}/>)
+function Dialogs(props: DialogsPropsType) {
+    const dialogsElements = props.dialogsNamesData.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
+    const messagesElements = props.dialogsMessagesData.map(m => <Messages key={m.id} id={m.id}
+                                                                          message={m.message}/>)
     const addMessage = () => {
-        props.dispatch(addMessageActionCreator())
+        props.addMessage();
     }
     const onEnterAddMessage = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
@@ -27,7 +18,7 @@ function Dialogs(props: dialogsPropsType) {
         }
     }
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value));
+        props.onMessageChange(e.currentTarget.value);
     }
 
     return (
@@ -46,7 +37,7 @@ function Dialogs(props: dialogsPropsType) {
                         className={s.textarea}
                         onKeyPress={onEnterAddMessage}
                         onChange={onMessageChange}
-                        value={props.state.newMessageText}/>
+                        value={props.newMessageText}/>
                     <button
                         className={s.submitBtn}
                         onClick={addMessage}>Send

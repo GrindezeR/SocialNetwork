@@ -1,6 +1,5 @@
 .profileAvatar {
-    width: 60px;
-    height: 60px;
+    width: 80px;
     padding: 10px;
     border-radius: 30px;
     display: block;
@@ -8,15 +7,19 @@
 }
 
 .post {
+    /*border: 1px solid red;*/
     display: flex;
     flex-direction: column;
+    text-align: center;
     color: blueviolet;
     font-family: Bahnschrift, sans-serif;
     font-size: 16px;
 }
 
 .messagePost {
+    /*border: 1px solid red;*/
     display: flex;
+    word-break: break-all;
 }
 
 .messageText {
@@ -37,6 +40,7 @@
 }
 
 .like {
+    width: 50px;
     color: crimson;
     border: 1px solid red;
     border-radius: 10px;
@@ -45,8 +49,15 @@
 }
 
 .countLike {
-    display: block;
+    width: 50px;
     margin: 5px 25px;
     color: deeppink;
     font-weight: bold;
+}
+
+.likeWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    padding: 0 5px;
 }
