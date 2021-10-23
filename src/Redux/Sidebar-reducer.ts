@@ -13,9 +13,9 @@ export type friendsType = {
 export type initialStateType = typeof initialState;
 
 const initialState = [
-    {id: v1(), name: 'Orcs', avatar: orc},
-    {id: v1(), name: 'Tau', avatar: tau},
-    {id: v1(), name: 'Chaos', avatar: chaos},
+    {id: v1(), name: 'Alex', avatar: orc},
+    {id: v1(), name: 'Bob', avatar: tau},
+    {id: v1(), name: 'Alise', avatar: chaos},
 ];
 
 const sidebarReducer = (state: initialStateType = initialState, action: actionsTypes) => {

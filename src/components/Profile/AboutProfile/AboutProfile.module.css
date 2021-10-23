@@ -1,6 +1,7 @@
 .wrapper {
     display: flex;
     justify-content: flex-start;
+    font-family: Bahnschrift, sans-serif;
 }
 
 .profileAvatar {

@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation/Navigation";
 import Profile from "./components/Profile/Profile";
 import {Redirect, Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
                 <Route exact render={() => <Profile/>} path={'/profile'}/>
                 <Route render={() => <DialogsContainer/>} path={'/dialogs'}/>
+                <Route render={() => <UsersContainer/>} path={'/users'}/>
             </div>
         </div>
     );

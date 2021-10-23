@@ -1,0 +1,103 @@
+.wrapper {
+    display: flex;
+    font-family: Bahnschrift, sans-serif;
+    width: 600px;
+    margin: 20px auto;
+    gap: 10px;
+    /*border: 1px solid red;*/
+}
+
+.avatarWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    gap: 5px;
+}
+
+.userWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    padding: 10px;
+    border: 2px solid #1ea7fd;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.avatar {
+    width: 80px;
+    border-radius: 50%;
+}
+
+.followBtn, .unfollowBtn {
+    font-weight: bold;
+    width: 90px;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: greenyellow;
+    border: none;
+    cursor: pointer;
+}
+
+.unfollowBtn {
+    background-color: crimson;
+    color: white;
+}
+
+.name {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 18px;
+    color: green;
+    /*border: 1px solid red;*/
+}
+
+.location {
+    color: #a99ad6;
+    align-self: flex-end;
+    /*border: 1px solid red;*/
+}
+
+.statusMessage {
+    color: #282c34;
+    word-break: break-all;
+    /*border: 1px solid red;*/
+}
+
+.showMoreBtn {
+    display: block;
+    margin: 20px auto;
+    height: 40px;
+    width: 150px;
+    background-color: #00db4a;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.pagesWrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    font-family: Bahnschrift, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.currentPage {
+    color: red;
+    font-size: 28px;
+}
+
+.page {
+    cursor: pointer;
+}
+
+.page:hover {
+    color: greenyellow;
+}

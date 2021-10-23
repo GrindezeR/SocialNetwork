@@ -14,10 +14,12 @@ function Friends(props: FriendsPropsType) {
 
     return (
         <div className={s.friendWrapper}>
+            <hr/>
             <span className={s.friends}>Friends</span>
             <div className={s.friendListWrapper}>
                 {friendList}
             </div>
+            <hr/>
         </div>
     );
 }
