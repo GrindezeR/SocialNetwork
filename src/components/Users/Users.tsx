@@ -1,5 +1,5 @@
 import React from "react";
-import s from './Users.module.css';
+import s from './UsersPresentation.module.css';
 import {UsersPropsType} from "./UsersContainer";
 import axios from 'axios';
 import avatarMan from "../../images/avatarMan.png";

@@ -4,6 +4,7 @@
     width: 600px;
     margin: 20px auto;
     gap: 10px;
+    box-sizing: border-box;
     /*border: 1px solid red;*/
 }
 
@@ -82,6 +83,7 @@
 
 .pagesWrapper {
     display: flex;
+    margin: 10px 0;
     gap: 10px;
     justify-content: center;
     font-family: Bahnschrift, sans-serif;
@@ -101,3 +103,4 @@
 .page:hover {
     color: greenyellow;
 }
+
