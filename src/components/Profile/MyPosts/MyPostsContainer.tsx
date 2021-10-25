@@ -1,6 +1,5 @@
-import React from "react";
 import MyPosts from "./MyPosts";
-import {addPostAC, postDataType, updateNewPostTextAC} from "../../../Redux/Profile-reducer";
+import {addPost, PostDataType, updateNewPostText} from "../../../Redux/Profile-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/Redux-store";
 import {Dispatch} from "redux";
@@ -8,7 +7,7 @@ import {Dispatch} from "redux";
 export type MyPostsPropsType = MapStatePropsType & MapDispatchPropsType // Типизация пропсов для компоненты которая сидит в обертке
 
 type MapStatePropsType = {
-    postsData: postDataType[]
+    postsData: PostDataType[]
     newPostText: string
 }
 
@@ -25,8 +24,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
-        onPostChange: (text: string) => dispatch(updateNewPostTextAC(text)),
-        addPost: () => dispatch(addPostAC()),
+        onPostChange: (text: string) => dispatch(updateNewPostText(text)),
+        addPost: () => dispatch(addPost()),
     }
 }
 

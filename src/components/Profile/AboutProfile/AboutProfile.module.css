@@ -10,6 +10,24 @@
     border-radius: 50px;
 }
 
-li span {
+.name {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    font-size: 24px;
+    margin: 5px;
+}
+
+.aboutMe {
+    color: green;
+    font-size: 16px;
+}
+
+.li {
+    margin: 5px 0;
+}
+
+.li span{
     font-weight: bold;
+    margin-right: 5px;
 }

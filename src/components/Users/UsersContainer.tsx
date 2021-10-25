@@ -1,38 +1,41 @@
 import {connect} from "react-redux";
 import {
-    ActionTypes,
-    followToggleAC,
-    initialStateType,
-    setCurrentPageAC,
-    setFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
+    followToggle,
+    InitialStateType,
+    setCurrentPage,
+    setFetching,
+    setTotalUsersCount,
+    setUsers,
     UsersType
 } from "../../Redux/User-reducer";
-import {Dispatch} from "redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import React from "react";
 import axios from "axios";
 import {UsersPresentation} from "./UsersPresentation";
 import {Preloader} from "../Preloader/Preloader";
 
+
+let allUsers: number;
+
 //Container for API requests
 export class UsersClassComponentAPI extends React.Component<UsersPropsType> {
     componentDidMount() {
+
         this.props.setFetching(true);
         axios
-            .get<initialStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .get<InitialStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items);
+                // this.props.setTotalUsersCount(response.data.totalCount); //Too many users
+                allUsers = response.data.totalCount;
                 this.props.setFetching(false);
-                this.props.setTotalUsersCount(response.data.totalCount); //Too many users
             });
     }
 
     getUsers = (page: number) => {
         this.props.setFetching(true);
         axios
-            .get<initialStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+            .get<InitialStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items);
                 this.props.setFetching(false);
@@ -43,7 +46,8 @@ export class UsersClassComponentAPI extends React.Component<UsersPropsType> {
     render() {
         return (
             <>
-                <Preloader isFetching={this.props.isFetching}/>
+                <div style={{textAlign: 'center', fontWeight: 'bold'}}>Total users: {allUsers}</div>
+                {this.props.isFetching && <Preloader/>}
                 <UsersPresentation users={this.props.users}
                                    totalCount={this.props.totalCount}
                                    pageSize={this.props.pageSize}
@@ -87,25 +91,31 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 
 //Third
-const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
-    return {
-        followToggle: (userId: number) => {
-            dispatch(followToggleAC(userId))
-        },
-        setUsers: (users: UsersType[]) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (number: number) => {
-            dispatch(setCurrentPageAC(number));
-        },
-        setTotalUsersCount: (number: number) => {
-            dispatch(setTotalUsersCountAC(number));
-        },
-        setFetching: (status: boolean) => {
-            dispatch(setFetchingAC(status));
-        }
-    }
-}
+// const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
+//     return {
+//         followToggle: (userId: number) => {
+//             dispatch(followToggleAC(userId))
+//         },
+//         setUsers: (users: UsersType[]) => {
+//             dispatch(setUsersAC(users));
+//         },
+//         setCurrentPage: (number: number) => {
+//             dispatch(setCurrentPageAC(number));
+//         },
+//         setTotalUsersCount: (number: number) => {
+//             dispatch(setTotalUsersCountAC(number));
+//         },
+//         setFetching: (status: boolean) => {
+//             dispatch(setFetchingAC(status));
+//         }
+//     }
+// }
 
 //First
-export default connect(mapStateToProps, mapDispatchToProps)(UsersClassComponentAPI)
+export default connect(mapStateToProps, {
+    followToggle,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    setFetching,
+})(UsersClassComponentAPI)

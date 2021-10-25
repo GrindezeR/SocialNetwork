@@ -1,9 +1,9 @@
 import React from "react";
 import s from './Post.module.css';
 import avatarPost from '../../../../images/avatar.jpg'
-import {postDataType} from "../../../../Redux/Profile-reducer";
+import {PostDataType} from "../../../../Redux/Profile-reducer";
 
-function Post(props: postDataType) {
+function Post(props: PostDataType) {
     return (
         <div className={s.post}>
             <div className={s.messagePost}>

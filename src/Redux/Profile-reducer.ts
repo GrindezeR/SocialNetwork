@@ -1,24 +1,50 @@
 import {v1} from "uuid";
-import {actionsTypes} from "./Redux-store";
 
-export type postDataType = {
+export type PostDataType = {
     id: string
     message: string
     likesCount: number
 }
 
-export type initialStateType = typeof initialState
+export type ProfileType = {
+    aboutMe: string,
+    contacts: {
+        facebook: string,
+        website: string,
+        vk: string,
+        twitter: string,
+        instagram: string,
+        youtube: string,
+        github: string,
+        mainLink: string
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    }
+}
+
+export type InitialStateType = {
+    postData: PostDataType[]
+    newPostText: string
+    profile: ProfileType | null
+}
 
 const initialState = {
     postData: [
         {id: v1(), message: 'Hello ALL!', likesCount: 15},
         {id: v1(), message: 'How are you?', likesCount: 30},
         {id: v1(), message: 'LOL', likesCount: 230},
-    ] as postDataType[],
+    ],
     newPostText: '',
+    profile: null
 }
 
-const profileReducer = (state: initialStateType = initialState, action: actionsTypes): initialStateType => {
+const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "ADD-POST":
             const newPost = state.newPostText.trim();
@@ -33,24 +59,35 @@ const profileReducer = (state: initialStateType = initialState, action: actionsT
 
         case "UPDATE-NEW-POST-TEXT":
             return {...state, newPostText: action.postText};
-
+        case "SET-USERS-PROFILE":
+            return {...state, profile: action.profile}
         default:
             return state;
     }
 }
 
-export type addPostACType = ReturnType<typeof addPostAC>;
-export type updateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>;
+type ActionsType = addPostActionType | updateNewPostTextActionType | setUsersProfile
 
-export const addPostAC = () => {
+
+type addPostActionType = ReturnType<typeof addPost>;
+type updateNewPostTextActionType = ReturnType<typeof updateNewPostText>;
+type setUsersProfile = ReturnType<typeof setUsersProfile>;
+
+export const addPost = () => {
     return {type: "ADD-POST"} as const
 };
 
-export const updateNewPostTextAC = (text: string) => {
+export const updateNewPostText = (text: string) => {
     return {
         type: "UPDATE-NEW-POST-TEXT",
         postText: text
     } as const
 };
+
+export const setUsersProfile = (profile: ProfileType) => {
+    return {
+        type: 'SET-USERS-PROFILE', profile
+    } as const
+}
 
 export default profileReducer;

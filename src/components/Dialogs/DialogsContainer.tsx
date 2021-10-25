@@ -1,10 +1,9 @@
-import React from "react";
 import Dialogs from "./Dialogs";
 import {
-    addMessageAC,
+    addMessage,
     dialogsMessagesDataType,
     dialogsNamesDataType,
-    updateNewMessageTextAC,
+    updateNewMessageText,
 } from "../../Redux/Dialogs-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
@@ -33,8 +32,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
-        addMessage: () => dispatch(addMessageAC()),
-        onMessageChange: (text: string) => dispatch(updateNewMessageTextAC(text))
+        addMessage: () => dispatch(addMessage()),
+        onMessageChange: (text: string) => dispatch(updateNewMessageText(text))
     }
 }
 

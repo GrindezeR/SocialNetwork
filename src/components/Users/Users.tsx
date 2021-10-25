@@ -4,7 +4,7 @@ import {UsersPropsType} from "./UsersContainer";
 import axios from 'axios';
 import avatarMan from "../../images/avatarMan.png";
 import avatarWoman from "../../images/avatarWoman.png";
-import {initialStateType} from "../../Redux/User-reducer";
+import {InitialStateType} from "../../Redux/User-reducer";
 
 export function Users({users, followToggle, setUsers}: UsersPropsType) {
     const usersList = users.map(u => {
@@ -34,7 +34,7 @@ export function Users({users, followToggle, setUsers}: UsersPropsType) {
 
     const onClickShowMoreHandler = () => {
         if (users.length === 0) {
-            axios.get<initialStateType>('https://social-network.samuraijs.com/api/1.0/users')
+            axios.get<InitialStateType>('https://social-network.samuraijs.com/api/1.0/users')
                 .then(response => setUsers(response.data.items));
         }
     }

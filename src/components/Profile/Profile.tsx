@@ -3,21 +3,16 @@ import s from './Profile.module.css';
 import wallpaper from '../../images/profileWallpaper.jpg';
 import AboutProfile from "./AboutProfile/AboutProfile";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {ProfilePropsType} from "./ProfileContainer";
 
-function Profile() {
-    return (
+function Profile(props: ProfilePropsType) {
+    return props.profile && (
         <div className={s.profile}>
             <div>
                 <img className={s.profileWallpaper} src={wallpaper} alt={'profileWallpaper'}/>
             </div>
 
-            <AboutProfile
-                name={' Tsarkov Stas '}
-                dateBirth={' 17 august '}
-                city={' Saint-Petersburg '}
-                education={' Frontend '}
-                webSite={' http://weqshar.ru '}/>
-
+            <AboutProfile profile={props.profile}/>
             <MyPostsContainer/>
         </div>
     );

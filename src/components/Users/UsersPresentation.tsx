@@ -3,6 +3,7 @@ import s from "./UsersPresentation.module.css";
 import avatarMan from "../../images/avatarMan.png";
 import avatarWoman from "../../images/avatarWoman.png";
 import {UsersType} from "../../Redux/User-reducer";
+import {NavLink} from 'react-router-dom';
 
 type UsersPresentationPropsType = {
     users: UsersType[]
@@ -18,35 +19,37 @@ export const UsersPresentation = (props: UsersPresentationPropsType) => {
     const pageCounts = Math.ceil(props.totalCount / props.pageSize);
     const pages = [];
 
-    //Check
-    let pageLimit = 10;
-    let startPage = props.currentPage - pageLimit / 2; //-4
-    let endPage = props.currentPage + pageLimit / 2; //6
+    //Google Pagination
+    // let pageLimit = 10;
+    // let startPage = props.currentPage - pageLimit / 2;
+    // let endPage = props.currentPage + pageLimit / 2;
+    //
+    // if (startPage < 1) {
+    //     startPage = 1;
+    //     endPage = pageLimit;
+    // }
+    //
+    // if (endPage > pageCounts) {
+    //     endPage = pageCounts;
+    //     startPage = pageCounts - pageLimit;
+    // }
+    //
+    // for (let i = startPage; i <= endPage; i++) {
+    //     pages.push(i);
+    //     if (pages[pageLimit] === props.currentPage) pages.length = pages.length - 1
+    // }
 
-    if (startPage < 1) { //-4 < 1
-        startPage = 1;
-        endPage = pageLimit; //10
-    }
-
-    if (endPage > pageCounts) {
-        endPage = pageCounts;
-        startPage = pageCounts - pageLimit;
-    }
-
-    // 1, 1 <= 10
-    for (let i = startPage; i <= endPage; i++) {
+    for (let i = 1; i <= pageCounts; i++) {
         pages.push(i);
     }
-
-    // for (let i = 1; i <= pageCounts; i++) {
-    //     pages.push(i);
-    // }
 
 
     const pageList = pages.map(n => {
         return (
-            <span className={props.currentPage === n ? s.currentPage : s.page}
-                  onClick={() => props.getUsers(n)}>{n}</span>
+            <span key={n}
+                  className={props.currentPage === n ? s.currentPage : s.page}
+                  onClick={() => props.getUsers(n)}>{n}
+            </span>
         );
     })
 
@@ -55,14 +58,16 @@ export const UsersPresentation = (props: UsersPresentationPropsType) => {
         return (
             <div key={Math.random()} className={s.wrapper}>
                 <div className={s.avatarWrapper}>
-                    <img className={s.avatar}
-                         src={u.photos.small ? u.photos.small : (u.id % 2 === 0 ? avatarMan : avatarWoman)}
-                         alt="avatar"/>
+                    <NavLink to={`/profile/${u.id}`}>
+                        <img className={s.avatar}
+                             src={u.photos.small ? u.photos.small : (u.id % 2 === 0 ? avatarMan : avatarWoman)}
+                             alt="avatar"/>
+                    </NavLink>
                     {
                         u.followed ?
-                            <button onClick={onClickFollowHandler} className={s.followBtn}>Follow</button>
-                            :
                             <button onClick={onClickFollowHandler} className={s.unfollowBtn}>Unfollow</button>
+                            :
+                            <button onClick={onClickFollowHandler} className={s.followBtn}>Follow</button>
                     }
                 </div>
                 <div className={s.userWrapper}>

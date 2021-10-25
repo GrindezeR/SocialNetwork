@@ -1,17 +1,16 @@
-import React from "react";
 import {connect} from "react-redux";
 import Friends from "./Friends";
 import {AppStateType} from "../../Redux/Redux-store";
 import {Dispatch} from "redux";
 import {friendsType} from "../../Redux/Sidebar-reducer";
 
-export type FriendsPropsType = mapStateToProps & mapDespatchToProps
+export type FriendsPropsType = mapStateToProps & mapDispatchToProps
 
 type mapStateToProps = {
     friends: friendsType[]
 }
 
-type mapDespatchToProps = {}
+type mapDispatchToProps = {}
 
 const mapStateToProps = (state: AppStateType): mapStateToProps => {
     return {
@@ -19,8 +18,8 @@ const mapStateToProps = (state: AppStateType): mapStateToProps => {
     }
 }
 
-const mapDespatchToProps = (dispatch:Dispatch): mapDespatchToProps => {
-  return {}
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {
+    return {}
 }
 
-export const FriendsContainer = connect(mapStateToProps, mapDespatchToProps)(Friends);
+export const FriendsContainer = connect(mapStateToProps, mapDispatchToProps)(Friends);
