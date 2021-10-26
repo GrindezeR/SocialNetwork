@@ -2,7 +2,6 @@ import {v1} from "uuid";
 import orc from "../images/orc.jpg";
 import tau from "../images/tau.jpg";
 import chaos from '../images/chaos.jpg';
-import {actionsTypes} from "./Redux-store";
 
 export type friendsType = {
     id: string
@@ -18,8 +17,10 @@ const initialState = [
     {id: v1(), name: 'Alise', avatar: chaos},
 ];
 
-const sidebarReducer = (state: initialStateType = initialState, action: actionsTypes) => {
+const sidebarReducer = (state: initialStateType = initialState, action: ActionsType) => {
     return state;
 }
+
+type ActionsType = string
 
 export default sidebarReducer;

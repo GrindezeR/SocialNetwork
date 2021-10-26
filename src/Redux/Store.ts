@@ -1,9 +1,4 @@
-import {v1} from "uuid";
-import orc from '../images/orc.jpg';
-import tau from '../images/tau.jpg';
-import chaos from '../images/chaos.jpg';
-import profileReducer from "./Profile-reducer";
-import dialogsReducer from "./Dialogs-reducer";
+//@ts-ignore
 import {actionsTypes, AppStateType} from "./Redux-store";
 
 type storeType = {
