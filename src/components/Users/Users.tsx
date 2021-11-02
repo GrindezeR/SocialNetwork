@@ -1,25 +1,90 @@
 import React from "react";
-import s from './UsersPresentation.module.css';
-import {UsersPropsType} from "./UsersContainer";
-import axios from 'axios';
+import s from "./Users.module.css";
 import avatarMan from "../../images/avatarMan.png";
 import avatarWoman from "../../images/avatarWoman.png";
-import {InitialStateType} from "../../Redux/User-reducer";
+import {UsersType} from "../../Redux/User-reducer";
+import {NavLink} from 'react-router-dom';
+import {usersAPI} from "../../API/api";
 
-export function Users({users, followToggle, setUsers}: UsersPropsType) {
-    const usersList = users.map(u => {
-        const onClickFollowHandler = () => followToggle(u.id);
+type UsersPropsType = {
+    users: UsersType[]
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
+    followToggle: (userId: number) => void
+    getUsers: (number: number) => void
+}
+
+
+export const Users = (props: UsersPropsType) => {
+    let pageCounts = Math.ceil(props.totalCount / props.pageSize);
+    const pages = [];
+
+    // // Google Pagination
+    // let pageLimit = 10;
+    // let startPage = props.currentPage - pageLimit / 2;
+    // let endPage = props.currentPage + pageLimit / 2;
+    //
+    // if (startPage < 1) {
+    //     startPage = 1;
+    //     endPage = pageLimit;
+    // }
+    //
+    // if (endPage > pageCounts) {
+    //     endPage = pageCounts;
+    //     startPage = pageCounts - pageLimit;
+    // }
+    //
+    // for (let i = startPage; i <= endPage; i++) {
+    //     pages.push(i);
+    // }
+
+    for (let i = 1; i <= pageCounts; i++) {
+        pages.push(i);
+    }
+
+
+    const pageList = pages.map(n => {
         return (
-            <div key={u.id} className={s.wrapper}>
+            <span key={n} className={props.currentPage === n ? s.currentPage : s.page}
+                  onClick={() => props.getUsers(n)}>
+                    {n}
+                </span>
+        );
+    })
+
+    const usersList = props.users.map(u => {
+        const onClickFollowHandler = () => {
+            usersAPI.setFollow(u.id).then(response => {
+                if (response.data.resultCode === 0) {
+                    props.followToggle(u.id)
+                }
+            })
+        }
+
+        const onClickUnfollowHandler = () => {
+            usersAPI.setUnfollow(u.id).then(response => {
+                if (response.data.resultCode === 0) {
+                    props.followToggle(u.id)
+                }
+            })
+        }
+
+
+        return (
+            <div key={Math.random()} className={s.wrapper}>
                 <div className={s.avatarWrapper}>
-                    <img className={s.avatar}
-                         src={u.photos.small ? u.photos.small : (u.id % 2 === 0 ? avatarMan : avatarWoman)}
-                         alt="avatar"/>
+                    <NavLink to={`/profile/${u.id}`}>
+                        <img className={s.avatar}
+                             src={u.photos.small ? u.photos.small : (u.id % 2 === 0 ? avatarMan : avatarWoman)}
+                             alt="avatar"/>
+                    </NavLink>
                     {
                         u.followed ?
-                            <button onClick={onClickFollowHandler} className={s.followBtn}>Follow</button>
+                            <button onClick={onClickUnfollowHandler} className={s.unfollowBtn}>Unfollow</button>
                             :
-                            <button onClick={onClickFollowHandler} className={s.unfollowBtn}>Unfollow</button>
+                            <button onClick={onClickFollowHandler} className={s.followBtn}>Follow</button>
                     }
                 </div>
                 <div className={s.userWrapper}>
@@ -32,48 +97,23 @@ export function Users({users, followToggle, setUsers}: UsersPropsType) {
         );
     })
 
-    const onClickShowMoreHandler = () => {
-        if (users.length === 0) {
-            axios.get<InitialStateType>('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => setUsers(response.data.items));
-        }
-    }
+    //Functions Buttons
+    const firstPageHandler = () => props.getUsers(1);
+    const lastPageHandler = () => props.getUsers(pageCounts);
+    const nextPageHandler = () => props.getUsers(props.currentPage + 1);
+    const previousPageHandler = () => props.getUsers(props.currentPage - 1);
 
-    // const onClickShowMoreHandler = () => {
-    //     setUsers([
-    //         {
-    //             id: v1(),
-    //             userName: 'Stas T.',
-    //             statusMessage: 'Hello! Im Good, how are you?',
-    //             avatar: avatarMan,
-    //             location: {
-    //                 counry: 'Russia',
-    //                 city: 'Dubna',
-    //             },
-    //             follow: false
-    //         },
-    //         {
-    //             id: v1(),
-    //             userName: 'Yulia T.',
-    //             statusMessage: 'Good morning!',
-    //             avatar: avatarWoman,
-    //             location: {
-    //                 counry: 'Belarus',
-    //                 city: 'Minsk',
-    //             },
-    //             follow: true
-    //         }
-    //     ])
-    // }
-
-
+    //COMPLETE JSX
     return (
         <div>
+            <div className={s.pagesWrapper}>
+                <span className={s.page} onClick={firstPageHandler}>{'<<'}</span>
+                <span className={s.page} onClick={previousPageHandler}>{'<'}</span>
+                <div className={s.pageList}>{pageList}</div>
+                <span className={s.page} onClick={nextPageHandler}>{'>'}</span>
+                <span className={s.page} onClick={lastPageHandler}>{'>>'}</span>
+            </div>
             {usersList}
-            <button className={s.showMoreBtn}
-                    onClick={onClickShowMoreHandler}>
-                Show More
-            </button>
         </div>
     );
 }

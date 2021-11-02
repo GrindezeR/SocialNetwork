@@ -91,6 +91,12 @@
     font-weight: bold;
 }
 
+.pageList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 .currentPage {
     color: red;
     font-size: 28px;
@@ -98,6 +104,7 @@
 
 .page {
     cursor: pointer;
+    user-select: none;
 }
 
 .page:hover {

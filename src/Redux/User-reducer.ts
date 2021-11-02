@@ -6,39 +6,39 @@ export type UsersType = {
         small: string
         large: string
     }
-    status: null
+    status: string
     followed: boolean
 }
 
 export type InitialStateType = {
-    items: UsersType[]
-    pageSize: number
-    totalCount: number
+    users: UsersType[]
+    pageLimit: number
+    totalUsersCount: number
     currentPage: number
     isFetching: boolean
 }
 
 const initialState: InitialStateType = {
-    items: [],
+    users: [],
     currentPage: 1,
-    pageSize: 5,
-    totalCount: 50,
+    pageLimit: 15,
+    totalUsersCount: 200,
     isFetching: true,
 }
 
 export const userReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case "SET-USERS":
-            return {...state, items: [...action.users]}
+            return {...state, users: [...action.users]}
         case "FOLLOW-TOGGLE":
             return {
                 ...state,
-                items: state.items.map(u => u.id === action.userId ? {...u, followed: !u.followed} : u)
+                users: state.users.map(u => u.id === action.userId ? {...u, followed: !u.followed} : u)
             }
         case "SET-CURRENT-PAGE":
             return {...state, currentPage: action.number}
         case "SET-TOTAL-USERS-COUNT":
-            return {...state, totalCount: action.number}
+            return {...state, totalUsersCount: action.number}
         case "SET-FETCHING":
             return {...state, isFetching: action.status}
         default:

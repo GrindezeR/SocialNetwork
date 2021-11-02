@@ -1,13 +1,22 @@
 import React from "react";
-import style from './Header.module.css';
+import s from './Header.module.css';
 import logo from '../../images/logo.png'
+import {NavLink} from 'react-router-dom'
+import {HeaderPropsType} from "./HeaderContainer";
 
-function Header() {
+export const Header = (props: HeaderPropsType) => {
+
     return (
-        <header className={style.header}>
+        <header className={s.header}>
             <img src={logo} alt={'logo'}/>
+            <div className={s.loginWrapper}>
+                {
+                    props.isAuth ?
+                        <span>{props.login}</span>
+                        :
+                        <NavLink to={'/auth'}>Login</NavLink>
+                }
+            </div>
         </header>
     );
 }
-
-export default Header;
