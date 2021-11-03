@@ -16,6 +16,7 @@ export type InitialStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
 }
 
 const initialState: InitialStateType = {
@@ -23,7 +24,8 @@ const initialState: InitialStateType = {
     currentPage: 1,
     pageLimit: 15,
     totalUsersCount: 200,
-    isFetching: true,
+    isFetching: false,
+    followingInProgress: [],
 }
 
 export const userReducer = (state = initialState, action: ActionTypes): InitialStateType => {
@@ -41,6 +43,14 @@ export const userReducer = (state = initialState, action: ActionTypes): InitialS
             return {...state, totalUsersCount: action.number}
         case "SET-FETCHING":
             return {...state, isFetching: action.status}
+        case "FOLLOWING-PROGRESS":
+            return {
+                ...state,
+                followingInProgress: action.isLoading ?
+                    [...state.followingInProgress, action.userId]
+                    :
+                    state.followingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
@@ -48,13 +58,14 @@ export const userReducer = (state = initialState, action: ActionTypes): InitialS
 
 export type ActionTypes = unFollowActionType
     | setUsersActionType | setCurrentPageActionType
-    | setTotalUsersCountActionType | setFetchingActionType
+    | setTotalUsersCountActionType | setFetchingActionType | followingInProgress
 
 type unFollowActionType = ReturnType<typeof followToggle>;
 type setUsersActionType = ReturnType<typeof setUsers>;
 type setCurrentPageActionType = ReturnType<typeof setCurrentPage>;
 type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>;
 type setFetchingActionType = ReturnType<typeof setFetching>;
+type followingInProgress = ReturnType<typeof setFollowingInProgress>;
 
 export const followToggle = (userId: number) => {
     return {type: 'FOLLOW-TOGGLE', userId} as const
@@ -74,4 +85,8 @@ export const setTotalUsersCount = (number: number) => {
 
 export const setFetching = (status: boolean) => {
     return {type: 'SET-FETCHING', status} as const
+}
+
+export const setFollowingInProgress = (isLoading: boolean, userId:number) => {
+    return {type: 'FOLLOWING-PROGRESS', isLoading, userId} as const
 }

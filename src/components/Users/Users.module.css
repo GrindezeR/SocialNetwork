@@ -43,8 +43,8 @@
 }
 
 .unfollowBtn {
-    background-color: crimson;
-    color: white;
+    background-color: #ff9075;
+    /*color: white;*/
 }
 
 .name {

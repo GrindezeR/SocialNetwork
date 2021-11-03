@@ -12,8 +12,10 @@ type UsersPropsType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
     followToggle: (userId: number) => void
     getUsers: (number: number) => void
+    setFollowingInProgress: (isLoading: boolean, userId: number) => void
 }
 
 
@@ -46,9 +48,11 @@ export const Users = (props: UsersPropsType) => {
 
 
     const pageList = pages.map(n => {
+        const onClickGetUsersByPage = () => props.getUsers(n);
+
         return (
             <span key={n} className={props.currentPage === n ? s.currentPage : s.page}
-                  onClick={() => props.getUsers(n)}>
+                  onClick={onClickGetUsersByPage}>
                     {n}
                 </span>
         );
@@ -56,21 +60,35 @@ export const Users = (props: UsersPropsType) => {
 
     const usersList = props.users.map(u => {
         const onClickFollowHandler = () => {
-            usersAPI.setFollow(u.id).then(response => {
-                if (response.data.resultCode === 0) {
-                    props.followToggle(u.id)
-                }
-            })
+            props.setFollowingInProgress(true, u.id);
+            usersAPI.setFollow(u.id)
+                .then(response => {
+                    if (response.data.resultCode === 0) {
+                        props.followToggle(u.id)
+                        props.setFollowingInProgress(false, u.id);
+                    }
+                })
         }
 
         const onClickUnfollowHandler = () => {
-            usersAPI.setUnfollow(u.id).then(response => {
-                if (response.data.resultCode === 0) {
-                    props.followToggle(u.id)
-                }
-            })
+            props.setFollowingInProgress(true, u.id);
+            usersAPI.setUnfollow(u.id)
+                .then(response => {
+                    if (response.data.resultCode === 0) {
+                        props.followToggle(u.id)
+                        props.setFollowingInProgress(false, u.id);
+                    }
+                })
         }
 
+        const followingButton = u.followed ?
+            <button disabled={props.followingInProgress.some(id => id === u.id)}
+                    onClick={onClickUnfollowHandler}
+                    className={s.unfollowBtn}>Unfollow</button>
+            :
+            <button disabled={props.followingInProgress.some(id => id === u.id)}
+                    onClick={onClickFollowHandler}
+                    className={s.followBtn}>Follow</button>
 
         return (
             <div key={Math.random()} className={s.wrapper}>
@@ -80,12 +98,7 @@ export const Users = (props: UsersPropsType) => {
                              src={u.photos.small ? u.photos.small : (u.id % 2 === 0 ? avatarMan : avatarWoman)}
                              alt="avatar"/>
                     </NavLink>
-                    {
-                        u.followed ?
-                            <button onClick={onClickUnfollowHandler} className={s.unfollowBtn}>Unfollow</button>
-                            :
-                            <button onClick={onClickFollowHandler} className={s.followBtn}>Follow</button>
-                    }
+                    {followingButton}
                 </div>
                 <div className={s.userWrapper}>
                     <span className={s.name}>{u.name}</span>
