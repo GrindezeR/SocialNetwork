@@ -1,3 +1,6 @@
+import {usersAPI} from "../API/api";
+import {Dispatch} from "redux";
+
 export type UsersType = {
     name: string
     id: number
@@ -22,7 +25,7 @@ export type InitialStateType = {
 const initialState: InitialStateType = {
     users: [],
     currentPage: 1,
-    pageLimit: 15,
+    pageLimit: 10,
     totalUsersCount: 200,
     isFetching: false,
     followingInProgress: [],
@@ -87,6 +90,45 @@ export const setFetching = (status: boolean) => {
     return {type: 'SET-FETCHING', status} as const
 }
 
-export const setFollowingInProgress = (isLoading: boolean, userId:number) => {
+export const setFollowingInProgress = (isLoading: boolean, userId: number) => {
     return {type: 'FOLLOWING-PROGRESS', isLoading, userId} as const
+}
+
+//Thunks
+export const getUsers = (currentPage: number, pageLimit: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFetching(true));
+        usersAPI.getUsers(currentPage, pageLimit)
+            .then(response => {
+                dispatch(setUsers(response.items));
+                dispatch(setFetching(false));
+                // setTotalUsersCount(response.data.totalCount); //Too many users
+            });
+    }
+}
+
+export const followingUsers = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFollowingInProgress(true, userId));
+        usersAPI.setFollow(userId)
+            .then(response => {
+                if (response.resultCode === 0) {
+                    dispatch(followToggle(userId));
+                    dispatch(setFollowingInProgress(false, userId));
+                }
+            })
+    }
+}
+
+export const unfollowingUsers = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFollowingInProgress(true, userId));
+        usersAPI.setUnfollow(userId)
+            .then(response => {
+                if (response.resultCode === 0) {
+                    dispatch(followToggle(userId));
+                    dispatch(setFollowingInProgress(false, userId));
+                }
+            })
+    }
 }

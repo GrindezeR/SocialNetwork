@@ -6,6 +6,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 function App() {
     return (
@@ -14,10 +15,11 @@ function App() {
             <Navigation/>
 
             <div className="app-wrapper-content">
-                <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                {/*<Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>*/}
                 <Route render={() => <ProfileContainer/>} path={'/profile/:userId?'}/>
                 <Route render={() => <DialogsContainer/>} path={'/dialogs'}/>
                 <Route render={() => <UsersContainer/>} path={'/users'}/>
+                <Route render={() => <Login/>} path={'/login'}/>
             </div>
         </div>
     );

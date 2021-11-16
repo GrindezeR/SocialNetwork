@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {usersAPI} from "../API/api";
 
 export type PostDataType = {
     id: string
@@ -44,7 +46,7 @@ const initialState = {
     profile: null
 }
 
-const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "ADD-POST":
             const newPost = state.newPostText.trim();
@@ -90,4 +92,12 @@ export const setUsersProfile = (profile: ProfileType) => {
     } as const
 }
 
-export default profileReducer;
+export const getUsersProfile = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getUserProfile(userId)
+            .then(data => {
+                dispatch(setUsersProfile(data));
+            })
+    }
+}
+

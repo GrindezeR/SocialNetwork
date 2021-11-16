@@ -4,18 +4,16 @@ import avatarMan from "../../images/avatarMan.png";
 import avatarWoman from "../../images/avatarWoman.png";
 import {UsersType} from "../../Redux/User-reducer";
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from "../../API/api";
 
 type UsersPropsType = {
     users: UsersType[]
     totalCount: number
     pageSize: number
     currentPage: number
-    isFetching: boolean
     followingInProgress: number[]
-    followToggle: (userId: number) => void
     getUsers: (number: number) => void
-    setFollowingInProgress: (isLoading: boolean, userId: number) => void
+    followingUsers: (userId: number) => void
+    unfollowingUsers: (userId: number) => void
 }
 
 
@@ -60,25 +58,27 @@ export const Users = (props: UsersPropsType) => {
 
     const usersList = props.users.map(u => {
         const onClickFollowHandler = () => {
-            props.setFollowingInProgress(true, u.id);
-            usersAPI.setFollow(u.id)
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        props.followToggle(u.id)
-                        props.setFollowingInProgress(false, u.id);
-                    }
-                })
+            props.followingUsers(u.id);
+            // props.setFollowingInProgress(true, u.id);
+            // usersAPI.setFollow(u.id)
+            //     .then(response => {
+            //         if (response.resultCode === 0) {
+            //             props.followToggle(u.id)
+            //             props.setFollowingInProgress(false, u.id);
+            //         }
+            //     })
         }
 
         const onClickUnfollowHandler = () => {
-            props.setFollowingInProgress(true, u.id);
-            usersAPI.setUnfollow(u.id)
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        props.followToggle(u.id)
-                        props.setFollowingInProgress(false, u.id);
-                    }
-                })
+            props.unfollowingUsers(u.id);
+            // props.setFollowingInProgress(true, u.id);
+            // usersAPI.setUnfollow(u.id)
+            //     .then(response => {
+            //         if (response.resultCode === 0) {
+            //             props.followToggle(u.id)
+            //             props.setFollowingInProgress(false, u.id);
+            //         }
+            //     })
         }
 
         const followingButton = u.followed ?
@@ -95,7 +95,8 @@ export const Users = (props: UsersPropsType) => {
                 <div className={s.avatarWrapper}>
                     <NavLink to={`/profile/${u.id}`}>
                         <img className={s.avatar}
-                             src={u.photos.small ? u.photos.small : (u.id % 2 === 0 ? avatarMan : avatarWoman)}
+                             src={u.photos.small ?
+                                 u.photos.small : (u.id % 2 === 0 ? avatarMan : avatarWoman)}
                              alt="avatar"/>
                     </NavLink>
                     {followingButton}

@@ -36,7 +36,7 @@ function AboutProfile({profile}: AboutProfileType) {
                         <span>Description for job:</span> {profile.lookingForAJobDescription || '-'}
                     </li>
                     <li className={s.li}>
-                        <span>VK:</span> {profile.contacts.vk}
+                        <span>VK:</span> {profile.contacts.vk || '-'}
                     </li>
                     <li className={s.li}>
                         <span>Facebook:</span> {profile.contacts.facebook || '-'}
