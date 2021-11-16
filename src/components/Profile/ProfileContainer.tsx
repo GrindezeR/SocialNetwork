@@ -1,11 +1,12 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import Profile from "./Profile";
 import {Preloader} from "../Preloader/Preloader";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
-import {getUsersProfile, ProfileType} from "../../Redux/Profile-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {getProfileStatus, getUsersProfile, ProfileType, updateProfileStatus} from "../../Redux/Profile-reducer";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
+import {compose} from "redux";
 
 
 class ProfileContainer extends React.Component<withRouterPropsType> {
@@ -15,13 +16,10 @@ class ProfileContainer extends React.Component<withRouterPropsType> {
             userId = '20102';
         }
         this.props.getUsersProfile(userId);
+        this.props.getProfileStatus(userId);
     }
 
     render() {
-        // if (!this.props.isAuth) {
-        //     return <Redirect to={'/login'}/>
-        // }
-
         return (
             <>
                 {!this.props.profile && <Preloader/>}
@@ -39,20 +37,25 @@ type PathParamsType = {
 }
 
 type mapStateToPropsType = {
-    profile: ProfileType | null
-    // isAuth: boolean
+    profile: ProfileType,
+    status: string,
 }
 
 type mapDispatchToPropsType = {
     getUsersProfile: (userId: string) => void
+    getProfileStatus: (userId: string) => void
+    updateProfileStatus: (status: string) => void
 }
 
 const mapStateToProps = (state: AppStateType) => {
     return {
         profile: state.profilePage.profile,
-        // isAuth: state.auth.isAuth,
+        status: state.profilePage.status,
     }
 }
 
-const WithURLComponent = withRouter(withAuthRedirect(ProfileContainer));
-export default connect(mapStateToProps, {getUsersProfile})(WithURLComponent)
+export default compose(
+    connect(mapStateToProps, {getUsersProfile, getProfileStatus, updateProfileStatus}),
+    withRouter,
+    // withAuthRedirect,
+)(ProfileContainer) as ComponentType

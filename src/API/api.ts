@@ -6,11 +6,9 @@ type AxiosGetUsersType = {
     items: UsersType[]
     totalCount: number
 }
-
 type AxiosFollowType = {
     resultCode: number
 }
-
 export type AxiosAuthType = {
     data: {
         id: number
@@ -19,6 +17,9 @@ export type AxiosAuthType = {
     }
     resultCode: number
     messages: string[]
+}
+type AxiosUpdateStatus = {
+    resultCode: 0 | 1
 }
 
 const instance = axios.create({
@@ -42,10 +43,6 @@ export const usersAPI = {
         return instance.delete<AxiosFollowType>(`follow/${userId}`)
             .then(res => res.data)
     },
-    getUserProfile(userId: string) {
-        return instance.get<ProfileType>(`/profile/${userId}`)
-            .then(res => res.data)
-    }
 }
 
 export const authAPI = {
@@ -53,4 +50,20 @@ export const authAPI = {
         return instance.get<AxiosAuthType>(`auth/me`)
             .then(res => res.data)
     },
+}
+
+export const profileAPI = {
+    getUserProfile(userId: number) {
+        return instance.get<ProfileType>(`profile/${userId}`)
+            .then(res => res.data)
+    },
+
+    getStatus(userId: number) {
+        return instance.get<string>(`profile/status/${userId}`)
+    },
+
+    setStatus(newStatus: string) {
+        return instance.put<AxiosUpdateStatus>(`profile/status`, {status: newStatus})
+            .then(res => res.data)
+    }
 }

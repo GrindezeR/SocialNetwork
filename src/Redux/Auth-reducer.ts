@@ -34,6 +34,7 @@ export const setAuthUserData = (userId: number, email: string, login: string) =>
 }
 
 export const authUser = () => {
+    // Функция authUser это thunkCreator, сам thunk это функция которую возвращает authUser
     return (dispatch: Dispatch) => {
         authAPI.authMe()
             .then(response => {

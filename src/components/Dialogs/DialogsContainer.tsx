@@ -7,8 +7,9 @@ import {
 } from "../../Redux/Dialogs-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
+import {ComponentType} from "react";
 
 export type DialogsPropsType = MapStatePropsType & MapDispatchPropsType
 
@@ -16,7 +17,6 @@ type MapStatePropsType = {
     dialogsNamesData: dialogsNamesDataType[]
     dialogsMessagesData: dialogsMessagesDataType[]
     newMessageText: string
-    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
@@ -29,7 +29,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         dialogsNamesData: state.dialogsPage.dialogsNamesData,
         dialogsMessagesData: state.dialogsPage.dialogsMessagesData,
         newMessageText: state.dialogsPage.newMessageText,
-        isAuth: state.auth.isAuth,
     }
 }
 
@@ -40,4 +39,11 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(withAuthRedirect(Dialogs));
+// Compose позволяет нам собрать все обертки\HOC's вместе и обернуть целевую компоненту,
+// важна последовательность, на данном примере - возьми Dialogs и передай в withAuthRedirect,
+// далее возьми ее результат и передай в connect, т.е. распутываем снизу вверх
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect,
+)(Dialogs) as ComponentType
+

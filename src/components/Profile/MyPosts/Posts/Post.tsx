@@ -7,14 +7,17 @@ function Post(props: PostDataType) {
     return (
         <div className={s.post}>
             <div className={s.messagePost}>
-                <img className={s.profileAvatar} src={avatarPost} alt={'Avatar'}/>
-                <div className={s.angle}/>
-                <span className={s.messageText}>{props.message}</span>
+                <div className={s.likeWrapper}>
+                    <img className={s.profileAvatar} src={avatarPost} alt={'Avatar'}/>
+                    <div className={s.like}>Like</div>
+                    <div className={s.countLike}>{props.likesCount}</div>
+                </div>
+                <div className={s.bubbleWrapper}>
+                    <div className={s.angle}/>
+                    <span className={s.messageText}>{props.message}</span>
+                </div>
             </div>
-            <div className={s.likeWrapper}>
-                <div className={s.like}>Like</div>
-                <div className={s.countLike}>{props.likesCount}</div>
-            </div>
+
         </div>
     );
 }

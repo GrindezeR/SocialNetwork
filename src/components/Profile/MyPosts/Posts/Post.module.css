@@ -1,15 +1,12 @@
 .profileAvatar {
+    display: block;
     width: 80px;
     padding: 10px;
     border-radius: 30px;
-    display: block;
-    flex-grow: 0;
 }
 
 .post {
-    /*border: 1px solid red;*/
     display: flex;
-    flex-direction: column;
     text-align: center;
     color: blueviolet;
     font-family: Bahnschrift, sans-serif;
@@ -17,13 +14,16 @@
 }
 
 .messagePost {
-    /*border: 1px solid red;*/
     display: flex;
     word-break: break-all;
 }
 
-.messageText {
+.bubbleWrapper {
+    display: flex;
     align-self: center;
+}
+
+.messageText {
     margin: 0 0 5px 0;
     padding: 15px;
     background-color: rgba(0, 0, 0, 0.8);
@@ -39,25 +39,26 @@
     align-self: center;
 }
 
+.likeWrapper {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: fit-content;
+    gap: 2px;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .like {
-    width: 50px;
-    color: crimson;
-    border: 1px solid red;
+    background-color: crimson;
+    color: white;
     border-radius: 10px;
     padding: 0 20px;
     cursor: pointer;
 }
 
 .countLike {
-    width: 50px;
-    margin: 5px 25px;
     color: deeppink;
     font-weight: bold;
 }
 
-.likeWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 150px;
-    padding: 0 5px;
-}

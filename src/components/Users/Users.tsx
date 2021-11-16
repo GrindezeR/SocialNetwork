@@ -59,26 +59,10 @@ export const Users = (props: UsersPropsType) => {
     const usersList = props.users.map(u => {
         const onClickFollowHandler = () => {
             props.followingUsers(u.id);
-            // props.setFollowingInProgress(true, u.id);
-            // usersAPI.setFollow(u.id)
-            //     .then(response => {
-            //         if (response.resultCode === 0) {
-            //             props.followToggle(u.id)
-            //             props.setFollowingInProgress(false, u.id);
-            //         }
-            //     })
         }
 
         const onClickUnfollowHandler = () => {
             props.unfollowingUsers(u.id);
-            // props.setFollowingInProgress(true, u.id);
-            // usersAPI.setUnfollow(u.id)
-            //     .then(response => {
-            //         if (response.resultCode === 0) {
-            //             props.followToggle(u.id)
-            //             props.setFollowingInProgress(false, u.id);
-            //         }
-            //     })
         }
 
         const followingButton = u.followed ?

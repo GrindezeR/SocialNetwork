@@ -8,12 +8,12 @@ import {
     UsersType
 } from "../../Redux/User-reducer";
 import {AppStateType} from "../../Redux/Redux-store";
-import React from "react";
+import React, {ComponentType} from "react";
 import {Users} from "./Users";
 import {Preloader} from "../Preloader/Preloader";
+import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
+import {compose} from "redux";
 
-
-//Container for API requests
 export class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageLimit);
@@ -70,7 +70,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, {
-    followToggle, setCurrentPage, setFollowingInProgress,
-    getUsers, followingUsers, unfollowingUsers
-})(UsersContainer)
+export default compose(
+    connect(mapStateToProps, {followToggle, setCurrentPage, setFollowingInProgress,
+        getUsers, followingUsers, unfollowingUsers}),
+    withAuthRedirect,
+)(UsersContainer) as ComponentType

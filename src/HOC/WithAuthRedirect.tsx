@@ -6,7 +6,8 @@ import {AppStateType} from "../Redux/Redux-store";
 type MstpType = {
     isAuth: boolean
 }
-
+// Создаем HOC чтобы не писать в каждой компоненте проверку на авторизацию,
+// просто оборачиваем нужные компоненты в данный HOC
 export function withAuthRedirect<T>(Component: ComponentType<T>) {
 
     const RedirectComponent = (props: MstpType) => {
