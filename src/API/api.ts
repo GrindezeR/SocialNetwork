@@ -60,7 +60,7 @@ export const authAPI = {
     },
 
     authorizeMe(email: string, password: string, remember: boolean) {
-        return instance.post<any>(`auth/login`, {
+        return instance.post<AxiosAuthoriseResponseType>(`auth/login`, {
             email: email,
             password: password,
             rememberMe: remember,
