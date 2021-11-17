@@ -18,8 +18,15 @@ export type AxiosAuthType = {
     resultCode: number
     messages: string[]
 }
-type AxiosUpdateStatus = {
+type AxiosUpdateStatusType = {
     resultCode: 0 | 1
+}
+
+type AxiosAuthoriseResponseType = {
+    resultCode: 0 | 1,
+    data: {
+        userId: number
+    }
 }
 
 const instance = axios.create({
@@ -46,10 +53,20 @@ export const usersAPI = {
 }
 
 export const authAPI = {
+    //Залогинены ли мы?
     authMe() {
         return instance.get<AxiosAuthType>(`auth/me`)
             .then(res => res.data)
     },
+
+    authorizeMe(email: string, password: string, remember: boolean) {
+        return instance.post<any>(`auth/login`, {
+            email: email,
+            password: password,
+            rememberMe: remember,
+        })
+            .then(res => res.data)
+    }
 }
 
 export const profileAPI = {
@@ -63,7 +80,7 @@ export const profileAPI = {
     },
 
     setStatus(newStatus: string) {
-        return instance.put<AxiosUpdateStatus>(`profile/status`, {status: newStatus})
+        return instance.put<AxiosUpdateStatusType>(`profile/status`, {status: newStatus})
             .then(res => res.data)
     }
 }
