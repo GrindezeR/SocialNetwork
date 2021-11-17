@@ -10,7 +10,7 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     // Так создается state в классовых компонентах
     state = {
         editMode: false,
-        status: this.props.status,
+        inputValue: this.props.status,
     }
 
     //Важно использовать тут стрелочную функцию, чтобы не потерять контекст this
@@ -27,7 +27,10 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         this.setState({
             editMode: false,
         })
-        this.props.updateProfileStatus(this.state.status);
+
+        if(this.state.inputValue !== this.props.status) {
+            this.props.updateProfileStatus(this.state.inputValue);
+        }
     }
 
     deactivateEditEnter = (e: KeyboardEvent) => {
@@ -36,10 +39,18 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         }
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>) {
+        if(prevProps.status !== this.props.status) {
+            this.setState({
+                inputValue: this.props.status
+            });
+        }
+    }
+
     render() {
         const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
             this.setState({
-                status: e.currentTarget.value
+                inputValue: e.currentTarget.value
             })
         }
 
@@ -50,7 +61,7 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         return (
             <>
                 {this.state.editMode ?
-                    <input value={this.state.status}
+                    <input value={this.state.inputValue}
                            autoFocus
                            onBlur={this.deactivateEdit}
                            onChange={onChangeInputHandler}

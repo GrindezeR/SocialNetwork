@@ -66,7 +66,7 @@ const initialState: InitialStateType = {
             large: ''
         }
     },
-    status: 'Type status'
+    status: ''
 }
 
 export const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
