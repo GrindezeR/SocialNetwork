@@ -25,45 +25,33 @@ const initialState = {
         {id: v1(), message: 'Hi all!'},
         {id: v1(), message: 'Its work...'},
     ] as Array<dialogsMessagesDataType>,
-    newMessageText: '',
 }
 
 const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
-            const newMessage = state.newMessageText.trim();
-            if (newMessage !== '') {
+            if (action.newMessage.trim() !== '') {
                 return {
                     ...state,
-                    dialogsMessagesData: [...state.dialogsMessagesData, {id: v1(), message: newMessage}],
-                    newMessageText: ''
-                };
+                    dialogsMessagesData: [
+                        ...state.dialogsMessagesData,
+                        {id: v1(), message: action.newMessage}
+                    ]
+                }
             }
             return state;
-
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            return {...state, newMessageText: action.messageText};
 
         default:
             return state;
     }
 }
 
-type ActionsType = addMessageActionType | updateNewMessageTextActionType
+type ActionsType = addMessageActionType
 
 type addMessageActionType = ReturnType<typeof addMessage>;
-type updateNewMessageTextActionType = ReturnType<typeof updateNewMessageText>;
 
-export const addMessage = () => {
-    return {
-        type: "ADD-MESSAGE"
-    } as const
-};
-export const updateNewMessageText = (text: string) => {
-    return {
-        type: "UPDATE-NEW-MESSAGE-TEXT",
-        messageText: text
-    } as const
+export const addMessage = (newMessageText: string) => {
+    return {type: "ADD-MESSAGE", newMessage: newMessageText} as const
 };
 
 export default dialogsReducer;

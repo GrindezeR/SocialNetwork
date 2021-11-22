@@ -12,14 +12,14 @@ type mapStateToProps = {
 
 type mapDispatchToProps = {}
 
-const mapStateToProps = (state: AppStateType): mapStateToProps => {
+const mstp = (state: AppStateType): mapStateToProps => {
     return {
         friends: state.sideBar
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {
+const mdtp = (dispatch: Dispatch): mapDispatchToProps => {
     return {}
 }
 
-export const FriendsContainer = connect(mapStateToProps, mapDispatchToProps)(Friends);
+export const FriendsContainer = connect(mstp, mdtp)(Friends);

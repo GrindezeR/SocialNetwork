@@ -4,15 +4,13 @@ import {Field, Form, Formik, FormikHelpers, FormikValues} from "formik";
 import {authUser} from "../../Redux/Auth-reducer";
 import {useDispatch} from "react-redux";
 
-type LoginPropsType = {}
-
 type MyFormValues = {
     email: string
     password: string
     remember: boolean
 }
 
-export const Login = (props: LoginPropsType) => {
+export const Login = () => {
     return (
         <div className={s.wrapper}>
             <div className={s.title}>Login to Social Network</div>

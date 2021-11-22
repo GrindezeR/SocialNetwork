@@ -66,9 +66,13 @@ export const authUser = (email: string, password: string, remember: boolean) => 
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(setUserLoginData({email, password, remember}));
-                } else {
-                    console.error('Auth error');
                 }
+                else {
+                    console.log('Error')
+                }
+            })
+            .catch(() => {
+                console.error('Error')
             })
     }
 }
