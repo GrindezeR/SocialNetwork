@@ -23,6 +23,7 @@ type AxiosUpdateStatusType = {
 }
 
 type AxiosAuthoriseResponseType<T> = {
+    messages: string[]
     resultCode: 0 | 1,
     data: T
 }

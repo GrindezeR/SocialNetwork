@@ -7,7 +7,7 @@ export type InitialStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
-
+    error: string
     password: string
     remember: boolean
 }
@@ -18,7 +18,8 @@ const initialState: InitialStateType = {
     login: null,
     isAuth: false,
     remember: false,
-    password: '',
+    password: ``,
+    error: ``,
 }
 
 export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -26,19 +27,27 @@ export const authReducer = (state = initialState, action: ActionsType): InitialS
     switch (action.type) {
         case "SET-USER-DATA":
             return {...state, ...action.payload}
+        case "SET-ERROR":
+            return {...state, error: action.error}
         default:
             return state;
     }
 }
 
-export type ActionsType = setAuthDataActionType
+export type ActionsType = setAuthDataActionType | setAuthErrorActionType
 
 type setAuthDataActionType = ReturnType<typeof setAuthUserData>;
+type setAuthErrorActionType = ReturnType<typeof setAuthError>;
 
+//AC
 export const setAuthUserData = (userId: number, email: string, login: string, isAuth: boolean) => {
     return {type: 'SET-USER-DATA', payload: {userId, email, login, isAuth}} as const
 }
+export const setAuthError = (error: string) => {
+    return {type: 'SET-ERROR', error} as const
+}
 
+//TC
 export const getAuthUserData = () => {
     // Функция getAuthUserData это thunkCreator,
     // сам thunk это функция которую возвращает getAuthUserData
@@ -58,7 +67,9 @@ export const login = (email: string, password: string, remember: boolean): AppTh
         authAPI.login(email, password, remember)
             .then(res => {
                 if (res.data.resultCode === 0) {
-                    dispatch(getAuthUserData())
+                    dispatch(getAuthUserData());
+                } else {
+                    dispatch(setAuthError(res.data.messages[0]));
                 }
             })
     }

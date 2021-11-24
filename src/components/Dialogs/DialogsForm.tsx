@@ -1,5 +1,5 @@
-import {Field, Form, Formik, FormikHelpers} from "formik";
-import s from "./Dialogs.module.css";
+import {Field, FieldProps, Form, Formik, FormikHelpers} from "formik";
+import s from "./DialogsForm.module.css";
 import React from "react";
 import {CustomInput} from "../../common/FormsControls/FormsControls";
 import {maxLengthCreator} from "../../Utils/validators/validators";
@@ -24,18 +24,23 @@ export const DialogsForm = ({addMessage}: DialogsFormType) => {
         actions.setSubmitting(false);
     }
 
+    const customField = (props: FieldProps) => {
+        return <CustomInput ClassName={s.customInput}
+                            placeholder={`Type you message`}
+                            {...props}/>
+    }
     return (
         <Formik initialValues={initialValues} onSubmit={onSubmitHandler}>
             {
                 ({errors}) => (
                     <Form className={s.messageSendWrapper}>
-                        <Field
-                            component={CustomInput}
-                            validate={maxLengthCreator(3)}
-                            // className={s.textarea}
-                            name={'message'}
-                            placeholder={'Type your message'}/>
-                        <button className={s.submitBtn} type={'submit'}>Send</button>
+                        <Field name={'message'}
+                               validate={maxLengthCreator(3)}>
+                            {customField}
+                        </Field>
+                        <div>
+                            <button className={s.submitBtn} type={'submit'}>Send</button>
+                        </div>
                     </Form>
                 )
             }

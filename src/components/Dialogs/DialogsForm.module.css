@@ -1,0 +1,20 @@
+.messageSendWrapper {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.submitBtn {
+    height: 30px;
+    flex-grow: 0;
+    align-self: center;
+}
+
+.customInput {
+    height: 20px;
+    width: 97%;
+    font-size: 16px;
+    padding: 10px;
+    outline: none;
+}

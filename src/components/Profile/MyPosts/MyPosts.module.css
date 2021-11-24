@@ -2,6 +2,16 @@
     padding: 10px;
 }
 
+.textFieldWrapper {
+    font-family: Bahnschrift, sans-serif;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .submitButton {
     width: 100px;
     height: 30px;
@@ -18,7 +28,7 @@
     transition: .5s;
 }
 
-.textArea {
+.customInput {
     height: 30px;
     width: 97%;
     font-size: 16px;

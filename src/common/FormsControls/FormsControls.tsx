@@ -2,14 +2,19 @@ import React from "react";
 import {FieldProps} from "formik";
 import s from './FormsControls.module.css';
 
-export const CustomInput = ({form: {touched, errors}, field, ...props}: FieldProps) => {
-    let err = Object.values(errors);
+type CustomInputPropsType = FieldProps & {
+    ClassName: string
+    placeholder: string
+}
+
+export const CustomInput = ({form: {touched, errors}, field, ClassName, placeholder, ...props}: CustomInputPropsType) => {
+
     return (
-        <div className={s.wrapper}>
-            <input className={err.length > 0 ? s.error : s.input} {...field} {...props}/>
+        <>
+            <input placeholder={placeholder} className={(touched && errors[field.name]) ? `${ClassName} ${s.error}` : ClassName} {...field} {...props}/>
             <div className={s.errorText}>
-                {touched && errors && err[0]}
+                {touched && errors[field.name]}
             </div>
-        </div>
+        </>
     );
 }
