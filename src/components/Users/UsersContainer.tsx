@@ -10,7 +10,7 @@ import {
 import {AppStateType} from "../../Redux/Redux-store";
 import React, {ComponentType} from "react";
 import {Users} from "./Users";
-import {Preloader} from "../Preloader/Preloader";
+import {Preloader} from "../../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
 import {compose} from "redux";
 

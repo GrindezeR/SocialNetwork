@@ -14,10 +14,19 @@
 .loginWrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100px;
+    justify-content: flex-end;
+    min-width: 200px;
     font-size: 18px;
     font-weight: bold;
     font-family: Bahnschrift, sans-serif;
     padding: 5px;
+    gap: 20px;
+}
+
+.login {
+    display: block;
+}
+
+.logBtn {
+    height: 30px;
 }

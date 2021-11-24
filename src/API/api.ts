@@ -22,11 +22,9 @@ type AxiosUpdateStatusType = {
     resultCode: 0 | 1
 }
 
-type AxiosAuthoriseResponseType = {
+type AxiosAuthoriseResponseType<T> = {
     resultCode: 0 | 1,
-    data: {
-        userId: number
-    }
+    data: T
 }
 
 const instance = axios.create({
@@ -54,18 +52,21 @@ export const usersAPI = {
 
 export const authAPI = {
     //Залогинены ли мы?
-    authMe() {
+    me() {
         return instance.get<AxiosAuthType>(`auth/me`)
             .then(res => res.data)
     },
 
-    authorizeMe(email: string, password: string, remember: boolean) {
-        return instance.post<AxiosAuthoriseResponseType>(`auth/login`, {
+    login(email: string, password: string, remember: boolean) {
+        return instance.post<AxiosAuthoriseResponseType<{ userId: number }>>(`auth/login`, {
             email: email,
             password: password,
             rememberMe: remember,
         })
-            .then(res => res.data)
+    },
+
+    logout() {
+        return instance.delete<AxiosAuthoriseResponseType<{}>>(`auth/login`)
     }
 }
 

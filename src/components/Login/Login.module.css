@@ -1,4 +1,5 @@
 .wrapper {
+    font-family: Bahnschrift, sans-serif;
     width: 500px;
     margin: 10% auto;
     display: flex;
@@ -23,5 +24,10 @@
 
 .title {
     font-size: 24px;
-    font-family: Bahnschrift, sans-serif;
+}
+
+.error {
+    text-align: center;
+    margin: 5px 0;
+    color: red;
 }

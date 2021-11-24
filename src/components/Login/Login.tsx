@@ -1,55 +1,24 @@
 import React from "react";
 import s from './Login.module.css';
-import {Field, Form, Formik, FormikHelpers, FormikValues} from "formik";
-import {authUser} from "../../Redux/Auth-reducer";
-import {useDispatch} from "react-redux";
-
-type MyFormValues = {
-    email: string
-    password: string
-    remember: boolean
-}
+import {LoginForm} from "./LoginForm";
+import {Redirect} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/Redux-store";
 
 export const Login = () => {
+    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth);
+
+    if (isAuth) {
+        return (
+            <Redirect to={'/profile'}/>
+        );
+    }
+
     return (
         <div className={s.wrapper}>
             <div className={s.title}>Login to Social Network</div>
             <LoginForm/>
         </div>
-    );
-}
-
-const LoginForm = () => {
-    const dispatch = useDispatch();
-    const initialValues: MyFormValues = {
-        email: '',
-        password: '',
-        remember: false,
-    };
-
-    const onSubmitHandler = (values: FormikValues, actions: FormikHelpers<MyFormValues>) => {
-        console.log({values, actions});
-        let {email, password, remember} = values
-        dispatch(authUser(email, password, remember));
-        actions.resetForm();
-        actions.setSubmitting(false);
-    }
-
-    return (
-        <Formik initialValues={initialValues} onSubmit={onSubmitHandler}>
-            <Form className={s.formWrapper}>
-                <label htmlFor="email">Email</label>
-                <Field id="email" name="email" placeholder="Type email"/>
-
-                <label htmlFor="password">Password</label>
-                <Field type="password" id="password" name="password" placeholder="Type password"/>
-                <div>
-                    <Field type={"checkbox"} name={"remember"}/>
-                    <label>Remember me</label>
-                </div>
-                <button className={s.loginBtn} type="submit">LogIn</button>
-            </Form>
-        </Formik>
     );
 }
 

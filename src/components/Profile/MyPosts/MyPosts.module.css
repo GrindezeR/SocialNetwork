@@ -26,6 +26,10 @@
     outline: none;
 }
 
+.error {
+    border: 1px solid red;
+}
+
 .newPost {
     display: flex;
     align-items: flex-end;

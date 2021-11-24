@@ -2,7 +2,7 @@ import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
 import Profile from "./Profile";
-import {Preloader} from "../Preloader/Preloader";
+import {Preloader} from "../../common/Preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {getProfileStatus, getUsersProfile, ProfileType, updateProfileStatus} from "../../Redux/Profile-reducer";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";

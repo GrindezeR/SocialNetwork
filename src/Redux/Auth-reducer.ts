@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../API/api";
+import {AppThunk} from "./Redux-store";
 
 export type InitialStateType = {
     userId: number | null
@@ -24,56 +25,55 @@ export const authReducer = (state = initialState, action: ActionsType): InitialS
 
     switch (action.type) {
         case "SET-USER-DATA":
-            return {...state, ...action.data, isAuth: true}
-        case "SET-USER-DATA-FROM-LOGIN":
-            return {...state, ...action.payload, isAuth: true}
+            return {...state, ...action.payload}
         default:
             return state;
     }
 }
 
-type ActionsType = setAuthDataActionType | authoriseMeType
+export type ActionsType = setAuthDataActionType
 
 type setAuthDataActionType = ReturnType<typeof setAuthUserData>;
-type authoriseMeType = ReturnType<typeof setUserLoginData>;
 
-export const setAuthUserData = (userId: number, email: string, login: string) => {
-    return {type: 'SET-USER-DATA', data: {userId, email, login}} as const
+export const setAuthUserData = (userId: number, email: string, login: string, isAuth: boolean) => {
+    return {type: 'SET-USER-DATA', payload: {userId, email, login, isAuth}} as const
 }
 
-export const setUserLoginData = (payload: { email: string, password: string, remember: boolean }) => {
-    return {
-        type: 'SET-USER-DATA-FROM-LOGIN', payload
-    } as const
-}
-
-export const authUserCheck = () => {
-    // Функция authUser это thunkCreator, сам thunk это функция которую возвращает authUser
+export const getAuthUserData = () => {
+    // Функция getAuthUserData это thunkCreator,
+    // сам thunk это функция которую возвращает getAuthUserData
     return (dispatch: Dispatch) => {
-        authAPI.authMe()
+        authAPI.me()
             .then(response => {
                 if (response.resultCode === 0) {
                     let {id, email, login} = response.data;
-                    dispatch(setAuthUserData(id, email, login));
+                    dispatch(setAuthUserData(id, email, login, true));
                 }
             });
     }
 }
 
-export const authUser = (email: string, password: string, remember: boolean) => {
-    return (dispatch: Dispatch) => {
-        authAPI.authorizeMe(email, password, remember)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setUserLoginData({email, password, remember}));
+export const login = (email: string, password: string, remember: boolean): AppThunk => {
+    return (dispatch) => {
+        authAPI.login(email, password, remember)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(getAuthUserData())
                 }
-                else {
-                    console.log('Error')
-                }
-            })
-            .catch(() => {
-                console.error('Error')
             })
     }
 }
+
+export const logout = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.logout()
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(setAuthUserData(0, '', '', false));
+                }
+            })
+    }
+}
+
+
 

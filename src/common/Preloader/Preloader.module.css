@@ -1,0 +1,16 @@
+.preloader {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    align-self: center;
+    background: url('../../images/preloader.svg') center no-repeat rgba(217, 210, 193,0.4);
+    background-size: 100px;
+    z-index: 1;
+    /*border: 1px solid red;*/
+}
