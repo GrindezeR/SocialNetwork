@@ -2,24 +2,16 @@ import {Dispatch} from "redux";
 import {authAPI} from "../API/api";
 import {AppThunk} from "./Redux-store";
 
-export type InitialStateType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    error: string
-    password: string
-    remember: boolean
-}
+export type InitialStateType = typeof initialState
 
-const initialState: InitialStateType = {
-    userId: null,
-    email: null,
-    login: null,
+const initialState = {
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
     remember: false,
-    password: ``,
-    error: ``,
+    password: '',
+    error: '',
 }
 
 export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -41,7 +33,12 @@ type setAuthErrorActionType = ReturnType<typeof setAuthError>;
 
 //AC
 export const setAuthUserData = (userId: number, email: string, login: string, isAuth: boolean) => {
-    return {type: 'SET-USER-DATA', payload: {userId, email, login, isAuth}} as const
+    return {
+        type: 'SET-USER-DATA',
+        payload: {
+            userId, email, login, isAuth
+        }
+    } as const
 }
 export const setAuthError = (error: string) => {
     return {type: 'SET-ERROR', error} as const

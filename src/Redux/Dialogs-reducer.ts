@@ -16,7 +16,7 @@ const initialState = {
         {id: v1(), name: 'Bob'},
         {id: v1(), name: 'Tom'},
         {id: v1(), name: 'John'},
-    ] as Array<dialogsNamesDataType>,
+    ] as dialogsNamesDataType[],
 
     dialogsMessagesData: [
         {id: v1(), message: 'Hello'},
@@ -24,10 +24,10 @@ const initialState = {
         {id: v1(), message: 'Lets go!'},
         {id: v1(), message: 'Hi all!'},
         {id: v1(), message: 'Its work...'},
-    ] as Array<dialogsMessagesDataType>,
+    ] as dialogsMessagesDataType[],
 }
 
-const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             if (action.newMessage.trim() !== '') {

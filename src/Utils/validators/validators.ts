@@ -10,7 +10,7 @@ export const required = (value: string) => {
 export const maxLengthCreator = (maxLength: number) => {
     let error = ''
     return (value: string) => {
-        if (value.length >= maxLength) {
+        if (value.length > maxLength) {
             error = `Max length is ${maxLength} symbols`
             return error;
         }
