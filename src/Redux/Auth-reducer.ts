@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../API/api";
+import {authAPI, ResultCode} from "../API/api";
 import {AppThunk} from "./Redux-store";
 
 export type InitialStateType = typeof initialState
@@ -51,7 +51,7 @@ export const getAuthUserData = () => {
     return (dispatch: Dispatch) => {
         authAPI.me()
             .then(response => {
-                if (response.resultCode === 0) {
+                if (response.resultCode === ResultCode.Success) {
                     let {id, email, login} = response.data;
                     dispatch(setAuthUserData(id, email, login, true));
                 }
@@ -62,11 +62,11 @@ export const getAuthUserData = () => {
 export const login = (email: string, password: string, remember: boolean): AppThunk => {
     return (dispatch) => {
         authAPI.login(email, password, remember)
-            .then(res => {
-                if (res.data.resultCode === 0) {
+            .then(data => {
+                if (data.resultCode === ResultCode.Success) {
                     dispatch(getAuthUserData());
-                } else {
-                    dispatch(setAuthError(res.data.messages[0]));
+                } else if (data.resultCode === ResultCode.Error) {
+                    dispatch(setAuthError(data.messages[0]));
                 }
             })
     }
@@ -75,8 +75,8 @@ export const login = (email: string, password: string, remember: boolean): AppTh
 export const logout = () => {
     return (dispatch: Dispatch) => {
         authAPI.logout()
-            .then(res => {
-                if (res.data.resultCode === 0) {
+            .then(data => {
+                if (data.resultCode === ResultCode.Success) {
                     dispatch(setAuthUserData(0, '', '', false));
                 }
             })

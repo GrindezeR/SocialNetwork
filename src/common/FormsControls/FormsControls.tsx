@@ -7,11 +7,16 @@ type CustomInputPropsType = FieldProps & {
     placeholder: string
 }
 
-export const CustomInput = ({form: {touched, errors}, field, ClassName, placeholder, ...props}: CustomInputPropsType) => {
+export const CustomInput = ({form: {touched, errors}, field,
+                                ClassName, placeholder, ...props}: CustomInputPropsType) => {
+
+    const customClass = (touched && errors[field.name]) ? `${ClassName} ${s.error}` : ClassName
 
     return (
         <>
-            <input placeholder={placeholder} className={(touched && errors[field.name]) ? `${ClassName} ${s.error}` : ClassName} {...field} {...props}/>
+            <input
+                placeholder={placeholder}
+                className={customClass} {...field} {...props}/>
             <div className={s.errorText}>
                 {touched && errors[field.name]}
             </div>

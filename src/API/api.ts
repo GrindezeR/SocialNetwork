@@ -2,30 +2,21 @@ import axios from "axios";
 import {UsersType} from "../Redux/User-reducer";
 import {ProfileType} from "../Redux/Profile-reducer";
 
-type AxiosGetUsersType = {
+
+type GetUsersType = {
     items: UsersType[]
     totalCount: number
 }
-type AxiosFollowType = {
-    resultCode: number
-}
-export type AxiosAuthType = {
-    data: {
-        id: number
-        email: string
-        login: string
-    }
-    resultCode: number
+type ResponseType<T = {}> = {
+    data: T
+    fieldsErrors: string[]
     messages: string[]
-}
-type AxiosUpdateStatusType = {
-    resultCode: 0 | 1
+    resultCode: ResultCode,
 }
 
-type AxiosAuthoriseResponseType<T> = {
-    messages: string[]
-    resultCode: 0 | 1,
-    data: T
+export enum ResultCode {
+    Success = 0,
+    Error = 1,
 }
 
 const instance = axios.create({
@@ -38,15 +29,15 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number, pageLimit: number) {
-        return instance.get<AxiosGetUsersType>(`users?page=${currentPage}&count=${pageLimit}`)
+        return instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageLimit}`)
             .then(res => res.data)
     },
     setFollow(userId: number) {
-        return instance.post<AxiosFollowType>(`follow/${userId}`, {})
+        return instance.post<ResponseType>(`follow/${userId}`, {})
             .then(res => res.data)
     },
     setUnfollow(userId: number) {
-        return instance.delete<AxiosFollowType>(`follow/${userId}`)
+        return instance.delete<ResponseType>(`follow/${userId}`)
             .then(res => res.data)
     },
 }
@@ -54,20 +45,19 @@ export const usersAPI = {
 export const authAPI = {
     //Залогинены ли мы?
     me() {
-        return instance.get<AxiosAuthType>(`auth/me`)
-            .then(res => res.data)
+        return instance.get<ResponseType<{ id: number, email: string, login: string }>>
+        (`auth/me`).then(res => res.data)
     },
 
     login(email: string, password: string, remember: boolean) {
-        return instance.post<AxiosAuthoriseResponseType<{ userId: number }>>(`auth/login`, {
-            email: email,
-            password: password,
-            rememberMe: remember,
-        })
+        return instance.post<ResponseType<{ userId: number }>>
+        (`auth/login`, {email: email, password: password, rememberMe: remember,})
+            .then(res => res.data)
     },
 
     logout() {
-        return instance.delete<AxiosAuthoriseResponseType<{}>>(`auth/login`)
+        return instance.delete<ResponseType>(`auth/login`)
+            .then(res => res.data)
     }
 }
 
@@ -82,7 +72,7 @@ export const profileAPI = {
     },
 
     setStatus(newStatus: string) {
-        return instance.put<AxiosUpdateStatusType>(`profile/status`, {status: newStatus})
+        return instance.put<ResponseType>(`profile/status`, {status: newStatus})
             .then(res => res.data)
     }
 }

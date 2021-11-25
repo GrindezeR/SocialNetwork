@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {profileAPI} from "../API/api";
+import {profileAPI, ResultCode} from "../API/api";
 
 export type PostDataType = {
     id: string
@@ -138,7 +138,7 @@ export const updateProfileStatus = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.setStatus(status)
             .then(res => {
-                if (res.resultCode === 0) {
+                if (res.resultCode === ResultCode.Success) {
                     dispatch(setProfileStatus(status))
                 }
             })

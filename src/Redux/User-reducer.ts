@@ -1,4 +1,4 @@
-import {usersAPI} from "../API/api";
+import {ResultCode, usersAPI} from "../API/api";
 import {Dispatch} from "redux";
 
 export type UsersType = {
@@ -112,7 +112,7 @@ export const followingUsers = (userId: number) => {
         dispatch(setFollowingInProgress(true, userId));
         usersAPI.setFollow(userId)
             .then(response => {
-                if (response.resultCode === 0) {
+                if (response.resultCode === ResultCode.Success) {
                     dispatch(followToggle(userId));
                     dispatch(setFollowingInProgress(false, userId));
                 }
@@ -125,7 +125,7 @@ export const unfollowingUsers = (userId: number) => {
         dispatch(setFollowingInProgress(true, userId));
         usersAPI.setUnfollow(userId)
             .then(response => {
-                if (response.resultCode === 0) {
+                if (response.resultCode === ResultCode.Success) {
                     dispatch(followToggle(userId));
                     dispatch(setFollowingInProgress(false, userId));
                 }
