@@ -13,7 +13,7 @@ type LoginFormType = {
 }
 export const LoginForm = () => {
     const dispatch = useDispatch();
-    const errorFromAPI = useSelector<AppStateType, string>(state => state.auth.error);
+    const errorLogin = useSelector<AppStateType, string>(state => state.auth.error);
 
     const initialValues: LoginFormType = {
         email: '',
@@ -59,7 +59,7 @@ export const LoginForm = () => {
                                 <Field type={"checkbox"} name={"remember"}/>
                                 <span>Remember me</span>
                             </div>
-                            {errorFromAPI && <div className={s.error}>{errorFromAPI}</div>}
+                            {errorLogin && <div className={s.error}>{errorLogin}</div>}
                             <button className={s.loginBtn} type="submit">LogIn</button>
                         </Form>
                     )

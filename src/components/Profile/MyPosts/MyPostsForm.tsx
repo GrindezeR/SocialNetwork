@@ -33,8 +33,6 @@ export const MyPostsForm = ({addPost}: MyPostsFormPropsType) => {
             initialValues={initialValues}
             onSubmit={onSubmitHandler}
             validateOnBlur={false}>
-            {
-                ({errors}) => (
                     <Form className={s.newPost}>
                         <Field name={'newPostText'}
                                validate={maxLengthCreator(5)}
@@ -43,8 +41,6 @@ export const MyPostsForm = ({addPost}: MyPostsFormPropsType) => {
                         </Field>
                         <button className={s.submitButton} type={'submit'}>Send</button>
                     </Form>
-                )
-            }
         </Formik>
     );
 }
