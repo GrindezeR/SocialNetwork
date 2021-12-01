@@ -4,15 +4,22 @@ import {
     followToggle,
     getUsers,
     setCurrentPage,
-    setFollowingInProgress, unfollowingUsers,
+    setFollowingInProgress,
+    unfollowingUsers,
     UsersType
 } from "../../Redux/User-reducer";
 import {AppStateType} from "../../Redux/Redux-store";
 import React, {ComponentType} from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../common/Preloader/Preloader";
-import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
 import {compose} from "redux";
+import {
+    getFollowingInProgressSelector,
+    getCurrentPageSelector,
+    getPageLimitSelector,
+    getTotalCountSelector,
+    getUsersSelector, getIsFetchingSelector
+} from "../../Redux/Users-selectors";
 
 export class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
@@ -21,7 +28,6 @@ export class UsersContainer extends React.Component<UsersPropsType> {
 
     getUsers = (page: number) => {
         this.props.getUsers(page, this.props.pageLimit);
-        this.props.setCurrentPage(page);
     }
 
     render() {
@@ -59,19 +65,31 @@ type mapDispatchToPropsType = {
     unfollowingUsers: (userId: number) => void
 }
 
+// const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+//     return {
+//         users: state.usersPage.users,
+//         pageLimit: state.usersPage.pageLimit,
+//         totalCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//     }
+// }
+
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageLimit: state.usersPage.pageLimit,
-        totalCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsersSelector(state),
+        pageLimit: getPageLimitSelector(state),
+        totalCount: getTotalCountSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        followingInProgress: getFollowingInProgressSelector(state),
+        isFetching: getIsFetchingSelector(state),
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {followToggle, setCurrentPage, setFollowingInProgress,
-        getUsers, followingUsers, unfollowingUsers}),
-    withAuthRedirect,
+    connect(mapStateToProps, {
+        followToggle, setCurrentPage, setFollowingInProgress,
+        getUsers, followingUsers, unfollowingUsers
+    }),
 )(UsersContainer) as ComponentType

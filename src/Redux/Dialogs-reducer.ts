@@ -27,7 +27,7 @@ const initialState = {
     ] as dialogsMessagesDataType[],
 }
 
-const dialogsReducer = (state = initialState, action: ActionsType): InitialStateType => {
+const dialogsReducer = (state = initialState, action: DialogsActionsType): InitialStateType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             if (action.newMessage.trim() !== '') {
@@ -46,7 +46,7 @@ const dialogsReducer = (state = initialState, action: ActionsType): InitialState
     }
 }
 
-type ActionsType = addMessageActionType
+export type DialogsActionsType = addMessageActionType
 
 type addMessageActionType = ReturnType<typeof addMessage>;
 

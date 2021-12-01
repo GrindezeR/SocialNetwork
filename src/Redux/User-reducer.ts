@@ -31,7 +31,7 @@ const initialState: InitialStateType = {
     followingInProgress: [],
 }
 
-export const userReducer = (state = initialState, action: ActionTypes): InitialStateType => {
+export const userReducer = (state = initialState, action: UserActionsType): InitialStateType => {
     switch (action.type) {
         case "SET-USERS":
             return {...state, users: [...action.users]}
@@ -59,7 +59,7 @@ export const userReducer = (state = initialState, action: ActionTypes): InitialS
     }
 }
 
-export type ActionTypes = unFollowActionType
+export type UserActionsType = unFollowActionType
     | setUsersActionType | setCurrentPageActionType
     | setTotalUsersCountActionType | setFetchingActionType | followingInProgress
 
@@ -73,32 +73,29 @@ type followingInProgress = ReturnType<typeof setFollowingInProgress>;
 export const followToggle = (userId: number) => {
     return {type: 'FOLLOW-TOGGLE', userId} as const
 }
-
 export const setUsers = (users: UsersType[]) => {
     return {type: 'SET-USERS', users} as const
 }
-
 export const setCurrentPage = (number: number) => {
     return {type: 'SET-CURRENT-PAGE', number} as const
 }
-
 export const setTotalUsersCount = (number: number) => {
     return {type: 'SET-TOTAL-USERS-COUNT', number} as const
 }
-
 export const setFetching = (status: boolean) => {
     return {type: 'SET-FETCHING', status} as const
 }
-
 export const setFollowingInProgress = (isLoading: boolean, userId: number) => {
     return {type: 'FOLLOWING-PROGRESS', isLoading, userId} as const
 }
 
 //Thunks
-export const getUsers = (currentPage: number, pageLimit: number) => {
+export const getUsers = (page: number, pageLimit: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setFetching(true));
-        usersAPI.getUsers(currentPage, pageLimit)
+        dispatch(setCurrentPage(page));
+
+        usersAPI.getUsers(page, pageLimit)
             .then(response => {
                 dispatch(setUsers(response.items));
                 dispatch(setFetching(false));

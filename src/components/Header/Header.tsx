@@ -12,12 +12,12 @@ export const Header = (props: HeaderPropsType) => {
             <div className={s.loginWrapper}>
                 {
                     props.isAuth ?
-                        <>
+                        <React.Fragment>
                             {props.login}
                             <NavLink className={s.login} to={'/login'}>
                                 <button className={s.logBtn} onClick={props.logout}>Log out</button>
                             </NavLink>
-                        </>
+                        </React.Fragment>
                         :
                         <NavLink className={s.login} to={'/login'}>
                             <button className={s.logBtn}>Login</button>

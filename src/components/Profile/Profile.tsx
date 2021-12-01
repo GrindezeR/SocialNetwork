@@ -5,7 +5,7 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfilePropsType} from "./ProfileContainer";
 
 function Profile(props: ProfilePropsType) {
-    return props.profile && (
+    return (
         <div className={s.profileWallpaper}>
             <AboutProfile profile={props.profile}
                           updateProfileStatus={props.updateProfileStatus}

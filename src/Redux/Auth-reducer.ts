@@ -14,7 +14,7 @@ const initialState = {
     error: '',
 }
 
-export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const authReducer = (state = initialState, action: AuthActionsType): InitialStateType => {
 
     switch (action.type) {
         case "SET-USER-DATA":
@@ -26,9 +26,9 @@ export const authReducer = (state = initialState, action: ActionsType): InitialS
     }
 }
 
-export type ActionsType = setAuthDataActionType | setAuthErrorActionType
+export type AuthActionsType = setAuthDataActionType | setAuthErrorActionType
 
-type setAuthDataActionType = ReturnType<typeof setAuthUserData>;
+export type setAuthDataActionType = ReturnType<typeof setAuthUserData>;
 type setAuthErrorActionType = ReturnType<typeof setAuthError>;
 
 //AC
@@ -49,13 +49,13 @@ export const getAuthUserData = () => {
     // Функция getAuthUserData это thunkCreator,
     // сам thunk это функция которую возвращает getAuthUserData
     return (dispatch: Dispatch) => {
-        authAPI.me()
+        return authAPI.me()
             .then(response => {
                 if (response.resultCode === ResultCode.Success) {
                     let {id, email, login} = response.data;
                     dispatch(setAuthUserData(id, email, login, true));
                 }
-            });
+            })
     }
 }
 

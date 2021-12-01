@@ -67,7 +67,7 @@ const initialState: InitialStateType = {
     status: ''
 }
 
-export const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const profileReducer = (state = initialState, action: ProfileActionType): InitialStateType => {
     switch (action.type) {
         case "ADD-POST":
             if (action.newPostText.trim() !== '') {
@@ -90,13 +90,13 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
     }
 }
 
-type ActionsType = addPostActionType | setUsersProfileActionType
-    | setUserStatusActionType
+export type ProfileActionType = addPostActionType | setUsersProfileActionType
+    | setUserStatusActionsType
 
 
 type addPostActionType = ReturnType<typeof addPost>;
 type setUsersProfileActionType = ReturnType<typeof setUsersProfile>;
-type setUserStatusActionType = ReturnType<typeof setProfileStatus>;
+type setUserStatusActionsType = ReturnType<typeof setProfileStatus>;
 
 //Action Creators
 export const addPost = (newPostText: string) => {
