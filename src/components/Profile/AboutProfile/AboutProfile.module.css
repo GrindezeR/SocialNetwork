@@ -5,9 +5,11 @@
 }
 
 .profileAvatar {
-    height: 200px;
+    height: 90%;
+    max-width: 300px;
     padding: 10px;
     border-radius: 50px;
+    object-fit: cover;
 }
 
 .name {

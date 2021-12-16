@@ -1,0 +1,29 @@
+.pagesWrapper {
+    display: flex;
+    margin: 10px 0;
+    gap: 10px;
+    justify-content: center;
+    font-family: Bahnschrift, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.pageList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.currentPage {
+    color: red;
+    font-size: 28px;
+}
+
+.page {
+    cursor: pointer;
+    user-select: none;
+}
+
+.page:hover {
+    color: greenyellow;
+}

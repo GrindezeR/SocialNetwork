@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Header.module.css';
-import logo from '../../images/logo.svg'
+import logo from '../../common/images/logo.png'
 import {NavLink} from 'react-router-dom'
 import {HeaderPropsType} from "./HeaderContainer";
 

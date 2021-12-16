@@ -1,9 +1,9 @@
 import React from "react";
-import avatar from '../../../images/avatar.jpg';
+import avatar from '../../../common/images/avatar.webp';
 import s from './AboutProfile.module.css';
 import {ProfileType} from "../../../Redux/Profile-reducer";
-import workYes from '../../../images/workYes.png';
-import workNo from '../../../images/workNo.png';
+import workYes from '../../../common/images/workYes.png';
+import workNo from '../../../common/images/workNo.png';
 import {ProfileStatus} from "./ProfileStatus";
 
 type AboutProfileType = {

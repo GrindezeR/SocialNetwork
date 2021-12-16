@@ -1,9 +1,9 @@
 import React from "react";
 import s from './Login.module.css';
 import {LoginForm} from "./LoginForm";
-import {Redirect} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/Redux-store";
+import {Redirect} from "react-router-dom";
 
 export const Login = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth);

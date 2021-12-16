@@ -12,12 +12,12 @@ type MyPostsFormPropsType = {
     addPost: (newPostText: string) => void
 }
 export const MyPostsForm = ({addPost}: MyPostsFormPropsType) => {
+
     const initialValues: NewPostType = {
         newPostText: ''
     }
 
     const onSubmitHandler = (values: NewPostType, actions: FormikHelpers<NewPostType>) => {
-        // console.log(values.post);
         addPost(values.newPostText);
         actions.resetForm();
         actions.setSubmitting(false);

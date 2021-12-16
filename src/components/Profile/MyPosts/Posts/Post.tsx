@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Post.module.css';
-import avatarPost from '../../../../images/avatar.jpg'
+import avatarPost from '../../../../common/images/avatar.webp'
 import {PostDataType} from "../../../../Redux/Profile-reducer";
 
 function Post(props: PostDataType) {

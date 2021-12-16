@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import avatar from '../../../images/dialogAvatar.png'
+import avatar from '../../../common/images/dialogAvatar.png'
 import {dialogsNamesDataType} from "../../../Redux/Dialogs-reducer";
 import s from './DialogsItem.module.css';
 

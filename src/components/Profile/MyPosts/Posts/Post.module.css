@@ -1,8 +1,10 @@
 .profileAvatar {
-    display: block;
-    width: 80px;
+    /*display: block;*/
+    height: 100px;
+    width: 100px;
     padding: 10px;
     border-radius: 30px;
+    object-fit: cover;
 }
 
 .post {

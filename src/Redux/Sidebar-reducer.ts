@@ -1,7 +1,7 @@
 import {v1} from "uuid";
-import orc from "../images/orc.jpg";
-import tau from "../images/tau.jpg";
-import chaos from '../images/chaos.jpg';
+import orc from "../common/images/orc.jpg";
+import tau from "../common/images/tau.jpg";
+import chaos from '../common/images/chaos.jpg';
 
 export type friendsType = {
     id: string

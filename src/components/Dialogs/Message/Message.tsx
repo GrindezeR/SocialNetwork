@@ -1,5 +1,5 @@
 import React from "react";
-import avatar from '../../../images/avatar.jpg';
+import avatar from '../../../common/images/avatar.webp';
 import style from './Message.module.css';
 import {dialogsMessagesDataType} from "../../../Redux/Dialogs-reducer";
 

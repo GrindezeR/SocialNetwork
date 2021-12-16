@@ -1,0 +1,40 @@
+* {
+}
+
+.app-wrapper {
+    width: 1200px;
+    min-height: 98vh;
+    margin: 0 auto;
+    display: grid;
+    grid-template-areas:
+            "head head"
+            "side main";
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 1fr 5fr;
+    border-radius: 10px 10px 0 0;
+    animation: start .5s ease;
+
+    /*gap: 10px;*/
+}
+
+.app-wrapper-content {
+    grid-area: main;
+    background: linear-gradient(to bottom, #FEFEFF, #ECECF9);
+    border-radius: 0 0 10px 0;
+    animation: start .5s ease;
+
+}
+
+body {
+    background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%) no-repeat center center fixed;
+    background-size: cover;
+}
+
+@keyframes start {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

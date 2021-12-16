@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import './App.css';
-import Navigation from "./components/Navigation/Navigation";
+import Navigation from "./Navigation/Navigation";
 import {Redirect, Route} from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import {Login} from "./components/Login/Login";
+import DialogsContainer from "./Dialogs/DialogsContainer";
+import UsersContainer from "./Users/UsersContainer";
+import ProfileContainer from "./Profile/ProfileContainer";
+import HeaderContainer from "./Header/HeaderContainer";
+import {Login} from "./Login/Login";
 import {connect} from "react-redux";
-import {initializeApp} from "./Redux/App-reducer";
-import {AppStateType} from "./Redux/Redux-store";
-import {Preloader} from "./common/Preloader/Preloader";
+import {initializeApp} from "../Redux/App-reducer";
+import {AppStateType} from "../Redux/Redux-store";
+import {Preloader} from "../common/Preloader/Preloader";
 
 class App extends Component<AppPropsType> {
     componentDidMount() {
@@ -24,6 +24,7 @@ class App extends Component<AppPropsType> {
 
         return (
             <div className="app-wrapper">
+                {this.props.loading && <Preloader/>}
                 <HeaderContainer/>
                 <Navigation/>
 
@@ -43,6 +44,7 @@ type AppPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 type MapStateToPropsType = {
     initialized: boolean
+    loading: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -51,7 +53,8 @@ type MapDispatchToPropsType = {
 
 const MapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        initialized: state.app.initialized
+        initialized: state.app.initialized,
+        loading: state.app.loading,
     }
 }
 

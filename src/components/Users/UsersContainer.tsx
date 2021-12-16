@@ -19,7 +19,7 @@ import {
     getPageLimitSelector,
     getTotalCountSelector,
     getUsersSelector, getIsFetchingSelector
-} from "../../Redux/Users-selectors";
+} from "../../Redux/User-selectors";
 
 export class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {

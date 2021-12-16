@@ -38,6 +38,9 @@
 }
 
 .avatar img {
-    width: 60px;
-    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+    border-radius: 50px;
+    object-fit: cover;
 }

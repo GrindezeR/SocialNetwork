@@ -67,47 +67,19 @@
     /*border: 1px solid red;*/
 }
 
-.showMoreBtn {
-    display: block;
-    margin: 20px auto;
-    height: 40px;
-    width: 150px;
-    background-color: #00db4a;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-}
+/*.showMoreBtn {*/
+/*    display: block;*/
+/*    margin: 20px auto;*/
+/*    height: 40px;*/
+/*    width: 150px;*/
+/*    background-color: #00db4a;*/
+/*    color: white;*/
+/*    font-weight: bold;*/
+/*    font-size: 18px;*/
+/*    border: none;*/
+/*    border-radius: 20px;*/
+/*    cursor: pointer;*/
+/*}*/
 
-.pagesWrapper {
-    display: flex;
-    margin: 10px 0;
-    gap: 10px;
-    justify-content: center;
-    font-family: Bahnschrift, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-}
 
-.pageList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.currentPage {
-    color: red;
-    font-size: 28px;
-}
-
-.page {
-    cursor: pointer;
-    user-select: none;
-}
-
-.page:hover {
-    color: greenyellow;
-}
 

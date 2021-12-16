@@ -1,13 +1,13 @@
 //@ts-ignore
 import {actionsTypes, AppStateType} from "./Redux-store";
 
-type storeType = {
-    _state: AppStateType
-    _callSubscriber: () => void
-    subscribe: (observer: () => void) => void
-    getState: () => AppStateType
-    dispatch: (action: actionsTypes) => void
-}
+// type storeType = {
+//     _state: AppStateType
+//     _callSubscriber: () => void
+//     subscribe: (observer: () => void) => void
+//     getState: () => AppStateType
+//     dispatch: (action: actionsTypes) => void
+// }
 
 // let store: storeType = {
 //     _state: {

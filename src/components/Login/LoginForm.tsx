@@ -1,70 +1,66 @@
 import {useDispatch, useSelector} from "react-redux";
-import {Field, Form, Formik, FormikHelpers} from "formik";
+import {useFormik} from "formik";
 import {login} from "../../Redux/Auth-reducer";
 import s from "./Login.module.css";
 import React from "react";
-import {required} from "../../Utils/validators/validators";
 import {AppStateType} from "../../Redux/Redux-store";
+import {validateFormik} from "../../Utils/validators/validators";
 
-type LoginFormType = {
-    email: string
-    password: string
-    remember: boolean
+export type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
 }
+
 export const LoginForm = () => {
     const dispatch = useDispatch();
     const errorLogin = useSelector<AppStateType, string>(state => state.auth.error);
 
-    const initialValues: LoginFormType = {
-        email: '',
-        password: '',
-        remember: false,
-    };
-
-    const onSubmitHandler = (values: LoginFormType, actions: FormikHelpers<LoginFormType>) => {
-        console.log({values, actions});
-
-        let {email, password, remember} = values
-        dispatch(login(email, password, remember));
-        actions.resetForm();
-        actions.setSubmitting(false);
-    }
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            remember: false,
+        },
+        onSubmit: values => {
+            // console.log({values});
+            let {email, password, remember} = values
+            dispatch(login(email, password, remember));
+            formik.resetForm();
+        },
+        validate: values => {
+            const errors: FormikErrorType = {};
+            validateFormik(values, errors, 3);
+        }
+    });
 
     return (
-        <Formik initialValues={initialValues}
-                onSubmit={onSubmitHandler}>
-            {
-                ({errors}) => {
-                    return (
-                        <Form className={s.formWrapper}>
-                            <div>
-                                <div>Email</div>
-                                <Field className={s.inputs}
-                                       validate={required}
-                                       name="email"
-                                       placeholder="Type email"/>
-                                {errors.email && <span className={s.error}>{errors.email}</span>}
-                            </div>
+        <form className={s.formWrapper} onSubmit={formik.handleSubmit}>
+            <div>
+                <div>Email</div>
+                <input className={s.inputs}
+                       placeholder="Type email"
+                       {...formik.getFieldProps('email')}/>
+                {formik.touched.email && formik.errors.email &&
+                    <span className={s.error}>{formik.errors.email}</span>}
+            </div>
 
-                            <div>
-                                <div>Password</div>
-                                <Field className={s.inputs}
-                                       validate={required}
-                                       type="password"
-                                       name="password"
-                                       placeholder="Type password"/>
-                                {errors.password && <span className={s.error}>{errors.password}</span>}
-                            </div>
-                            <div>
-                                <Field type={"checkbox"} name={"remember"}/>
-                                <span>Remember me</span>
-                            </div>
-                            {errorLogin && <div className={s.error}>{errorLogin}</div>}
-                            <button className={s.loginBtn} type="submit">LogIn</button>
-                        </Form>
-                    )
-                }
-            }
-        </Formik>
+            <div>
+                <div>Password</div>
+                <input className={s.inputs}
+                       type="password"
+                       placeholder="Type password"
+                       {...formik.getFieldProps('password')}
+                />
+                {formik.touched.password && formik.errors.password &&
+                    <span className={s.error}>{formik.errors.password}</span>}
+            </div>
+            <div>
+                <input type={"checkbox"} {...formik.getFieldProps('remember')}/>
+                <span>Remember me</span>
+            </div>
+            {errorLogin && <div className={s.error}>{errorLogin}</div>}
+            <button className={s.loginBtn} type="submit">LogIn</button>
+        </form>
     );
 }

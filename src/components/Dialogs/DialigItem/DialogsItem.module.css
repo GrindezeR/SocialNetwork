@@ -1,6 +1,7 @@
 .wrapper {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+    margin: 10px 0;
     font-family: Bahnschrift, sans-serif;
 }

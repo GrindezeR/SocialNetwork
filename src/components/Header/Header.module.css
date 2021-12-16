@@ -1,8 +1,12 @@
 .header {
     grid-area: head;
-    background-color: darkturquoise;
+    background: linear-gradient(to right, darkgray, #88c9ff, #a99ad6);
     display: flex;
     justify-content: space-between;
+    border-radius: 10px 10px 0 0;
+    height: 50px;
+    width: 1200px;
+    padding: 0 10px;
 }
 
 .header img {
