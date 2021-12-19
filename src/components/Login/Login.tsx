@@ -18,6 +18,11 @@ export const Login = () => {
         <div className={s.wrapper}>
             <div className={s.title}>Login to Social Network</div>
             <LoginForm/>
+            <div className={s.infoAccount}>
+                Free Account Data:
+                Email: free@samuraijs.com
+                Password: free
+            </div>
         </div>
     );
 }

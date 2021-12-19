@@ -39,3 +39,9 @@
     margin: 5px 0;
     color: red;
 }
+
+.infoAccount {
+    display: flex;
+    justify-content: center;
+    opacity: .8;
+}

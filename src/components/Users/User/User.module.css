@@ -1,0 +1,66 @@
+.userWrapper {
+    display: flex;
+    font-family: Bahnschrift, sans-serif;
+    width: 600px;
+    margin: 20px auto;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.userDataWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    max-height: 80px;
+    padding: 10px;
+    border: 2px solid #1ea7fd;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.avatarWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    gap: 5px;
+}
+
+.avatar {
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.name {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 18px;
+    color: green;
+}
+
+.location {
+    color: #a99ad6;
+    align-self: flex-end;
+}
+
+.statusMessage {
+    color: #282c34;
+    word-break: break-all;
+}
+
+
+.followBtn, .unfollowBtn {
+    font-weight: bold;
+    width: 90px;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: greenyellow;
+    border: none;
+    cursor: pointer;
+}
+
+.unfollowBtn {
+    background-color: #ff9075;
+}

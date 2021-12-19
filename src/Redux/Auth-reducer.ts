@@ -1,7 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI, ResultCode} from "../API/api";
 import {AppThunk} from "./Redux-store";
-import axios from "axios";
 import {setLoading} from "./App-reducer";
 
 export type InitialStateType = typeof initialState

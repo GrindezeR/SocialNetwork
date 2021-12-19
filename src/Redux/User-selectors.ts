@@ -1,6 +1,4 @@
 import {AppStateType} from "./Redux-store";
-import {createSelector} from "reselect";
-import {UsersType} from "./User-reducer";
 
 export const getUsersSelector = (state: AppStateType) => state.usersPage.users
 export const getPageLimitSelector = (state: AppStateType) => state.usersPage.pageLimit

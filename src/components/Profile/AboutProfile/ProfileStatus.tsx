@@ -6,7 +6,7 @@ type ProfileStatusPropsType = {
     updateProfileStatus: (status: string) => void
 }
 
-export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
+export class ProfileStatus extends React.PureComponent<ProfileStatusPropsType> {
     // Так создается state в классовых компонентах
     state = {
         editMode: false,
@@ -78,35 +78,3 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         );
     }
 }
-
-// // Functional Component
-// export const ProfileStatus = (props: ProfileStatusPropsType) => {
-//     let {status} = props
-//
-//     if (status === null) {
-//         status = 'Type status'
-//     }
-//
-//     const [inputValue, setInputValue] = useState<string>(status);
-//     const [editMod, setEditMod] = useState<boolean>(false);
-//
-//     const editON = () => setEditMod(true)
-//
-//     const editOFF = () => setEditMod(false)
-//
-//     return (
-//         <>
-//             {editMod ?
-//                 <input value={status}
-//                        autoFocus
-//                        onBlur={editOFF}
-//                 />
-//                 :
-//                 <span className={s.status}
-//                       onDoubleClick={editON}>
-//                 {status}
-//                 </span>
-//             }
-//         </>
-//     );
-// }
