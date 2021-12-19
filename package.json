@@ -1,6 +1,7 @@
 {
   "name": "social",
   "version": "0.1.0",
+  "homepage": "https://grindezer.github.io/SocialNetwork",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -16,6 +17,7 @@
     "@types/uuid": "^8.3.1",
     "axios": "^0.23.0",
     "formik": "^2.2.9",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
@@ -32,6 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+	"predeploy": "npm run build",
+	"deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
