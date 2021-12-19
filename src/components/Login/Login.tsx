@@ -19,9 +19,9 @@ export const Login = () => {
             <div className={s.title}>Login to Social Network</div>
             <LoginForm/>
             <div className={s.infoAccount}>
-                Free Account Data:
-                Email: free@samuraijs.com
-                Password: free
+                <span>Free Account Data:</span>
+                <span>Email: free@samuraijs.com</span>
+                <span>Password: free</span>
             </div>
         </div>
     );

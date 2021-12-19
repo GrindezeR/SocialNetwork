@@ -42,6 +42,8 @@
 
 .infoAccount {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: Bahnschrift, sans-serif;
     opacity: .8;
 }
