@@ -21,7 +21,7 @@ import {
     getUsersSelector, getIsFetchingSelector
 } from "../../Redux/User-selectors";
 
-export class UsersContainer extends React.Component<UsersPropsType> {
+export class UsersContainer extends React.PureComponent<UsersPropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageLimit);
     }

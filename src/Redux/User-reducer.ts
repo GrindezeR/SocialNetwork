@@ -90,15 +90,16 @@ export const setFollowingInProgress = (isLoading: boolean, userId: number) => {
 }
 
 //Thunks
-export const getUsers = (page: number, pageLimit: number) => async (dispatch: Dispatch) => {
-    dispatch(setFetching(true));
-    dispatch(setCurrentPage(page));
+export const getUsers = (page: number, pageLimit: number) =>
+    async (dispatch: Dispatch) => {
+        dispatch(setFetching(true));
+        dispatch(setCurrentPage(page));
 
-    const response = await usersAPI.getUsers(page, pageLimit)
-    dispatch(setUsers(response.items));
-    dispatch(setFetching(false));
-    // setTotalUsersCount(response.data.totalCount); //Too many users
-}
+        const response = await usersAPI.getUsers(page, pageLimit);
+        dispatch(setUsers(response.items));
+        dispatch(setTotalUsersCount(response.totalCount)); //Too many users
+        dispatch(setFetching(false));
+    }
 
 export const followingUsers = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(setFollowingInProgress(true, userId));

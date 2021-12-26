@@ -28,7 +28,7 @@ export class ProfileStatus extends React.PureComponent<ProfileStatusPropsType> {
             editMode: false,
         })
 
-        if(this.state.inputValue !== this.props.status) {
+        if (this.state.inputValue !== this.props.status) {
             this.props.updateProfileStatus(this.state.inputValue);
         }
     }
@@ -40,7 +40,7 @@ export class ProfileStatus extends React.PureComponent<ProfileStatusPropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>) {
-        if(prevProps.status !== this.props.status) {
+        if (prevProps.status !== this.props.status) {
             this.setState({
                 inputValue: this.props.status
             });
@@ -54,8 +54,8 @@ export class ProfileStatus extends React.PureComponent<ProfileStatusPropsType> {
             })
         }
 
-        const selectAllHandler = (e:ChangeEvent<HTMLInputElement>) => {
-          e.currentTarget.select();
+        const selectAllHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            e.currentTarget.select();
         }
 
         return (
@@ -71,8 +71,8 @@ export class ProfileStatus extends React.PureComponent<ProfileStatusPropsType> {
                     :
                     <span className={s.status}
                           onDoubleClick={this.activateEdit}>
-                {this.props.status || 'No status'}
-                </span>
+                        {this.props.status || 'No status'}
+                    </span>
                 }
             </>
         );

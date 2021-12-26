@@ -43,18 +43,15 @@ export const usersAPI = {
 }
 
 export const authAPI = {
-    //Залогинены ли мы?
     me() {
         return instance.get<ResponseType<{ id: number, email: string, login: string }>>
         (`auth/me`).then(res => res.data)
     },
-
     login(email: string, password: string, remember: boolean) {
         return instance.post<ResponseType<{ userId: number }>>
         (`auth/login`, {email: email, password: password, rememberMe: remember,})
             .then(res => res.data)
     },
-
     logout() {
         return instance.delete<ResponseType>(`auth/login`)
             .then(res => res.data)
@@ -66,11 +63,9 @@ export const profileAPI = {
         return instance.get<ProfileType>(`profile/${userId}`)
             .then(res => res.data)
     },
-
     getStatus(userId: number) {
         return instance.get<string>(`profile/status/${userId}`)
     },
-
     setStatus(newStatus: string) {
         return instance.put<ResponseType>(`profile/status`, {status: newStatus})
             .then(res => res.data)
