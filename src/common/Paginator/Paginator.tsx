@@ -28,12 +28,11 @@ export const Paginator = React.memo(({totalCount, pageSize, currentPage, getItem
     }
 
     for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
+        if (i > 0) {
+            pages.push(i);
+        }
     }
 
-    // for (let i = 1; i <= pageCounts; i++) {
-    //     pages.push(i);
-    // }
 
     const pageList = pages.map(n => {
         const onClickGetUsersByPage = () => {
@@ -57,24 +56,14 @@ export const Paginator = React.memo(({totalCount, pageSize, currentPage, getItem
         document.documentElement.scrollTop = 0;
         getItems(pageCounts);
     }
-    // const nextPageHandler = () => {
-    //     document.documentElement.scrollTop = 0;
-    //     getItems(currentPage + 1);
-    // }
-    // const previousPageHandler = () => {
-    //     document.documentElement.scrollTop = 0;
-    //     getItems(currentPage - 1);
-    // }
 
     //COMPLETE JSX
     return (
         <div className={s.pagesWrapper}>
             <span className={s.page} onClick={firstPageHandler}>{'<<'}</span>
-            {/*<span className={s.page} onClick={previousPageHandler}>{'<'}</span>*/}
             <div className={s.pageList}>
                 {pageList}
             </div>
-            {/*<span className={s.page} onClick={nextPageHandler}>{'>'}</span>*/}
             <span className={s.page} onClick={lastPageHandler}>{'>>'}</span>
         </div>
     );

@@ -1,21 +1,20 @@
 /*Circle*/
-/*.preloader {*/
-/*    position: absolute;*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    transform: translate(-50%, -50%);*/
-/*    width: 200px;*/
-/*    height: 200px;*/
-/*    border-radius: 50%;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    box-sizing: border-box;*/
-/*    align-self: center;*/
-/*    background: url('../../images/preloader.svg') center no-repeat rgba(217, 210, 193,0.4);*/
-/*    background-size: 100px;*/
-/*    z-index: 1;*/
-/*    !*border: 1px solid red;*!*/
-/*}*/
+.preloaderCircle {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    align-self: center;
+    background: url('../images/preloader.svg') center no-repeat rgba(217, 210, 193,0.4);
+    background-size: 100px;
+    z-index: 1;
+}
 
 /*Line*/
 .preloader {

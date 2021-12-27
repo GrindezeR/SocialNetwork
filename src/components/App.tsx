@@ -1,16 +1,18 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense} from 'react';
 import './App.css';
 import Navigation from "./Navigation/Navigation";
 import {Redirect, Route} from "react-router-dom";
-import DialogsContainer from "./Dialogs/DialogsContainer";
-import UsersContainer from "./Users/UsersContainer";
-import ProfileContainer from "./Profile/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
-import {Login} from "./Login/Login";
 import {connect} from "react-redux";
 import {initializeApp} from "../Redux/App-reducer";
 import {AppStateType} from "../Redux/Redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
+
+const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./Profile/ProfileContainer'));
+const UsersContainer = React.lazy(() => import('./Users/UsersContainer'));
+const Login = React.lazy(() => import('./Login/Login'));
+
 
 class App extends Component<AppPropsType> {
     componentDidMount() {
@@ -29,11 +31,13 @@ class App extends Component<AppPropsType> {
                 <Navigation/>
 
                 <div className="app-wrapper-content">
-                    <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
-                    <Route render={() => <ProfileContainer/>} path={'/profile/:userId?'}/>
-                    <Route render={() => <DialogsContainer/>} path={'/dialogs'}/>
-                    <Route render={() => <UsersContainer/>} path={'/users'}/>
-                    <Route render={() => <Login/>} path={'/login'}/>
+                    <Suspense fallback={<Preloader type={"circle"}/>}>
+                        <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                        <Route render={() => <ProfileContainer/>} path={'/profile/:userId?'}/>
+                        <Route render={() => <DialogsContainer/>} path={'/dialogs'}/>
+                        <Route render={() => <UsersContainer/>} path={'/users'}/>
+                        <Route render={() => <Login/>} path={'/login'}/>
+                    </Suspense>
                 </div>
             </div>
         );
