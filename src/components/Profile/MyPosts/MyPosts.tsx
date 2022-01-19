@@ -10,7 +10,8 @@ function MyPosts(props: MyPostsPropsType) {
             <Post key={p.id}
                   id={p.id}
                   message={p.message}
-                  likesCount={p.likesCount}/>
+                  likesCount={p.likesCount}
+            />
         );
     })
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import {UsersType} from "../Redux/User-reducer";
 import {ProfileType} from "../Redux/Profile-reducer";
+import profile from "../components/Profile/Profile";
 
 
 type GetUsersType = {
@@ -69,5 +70,15 @@ export const profileAPI = {
     setStatus(newStatus: string) {
         return instance.put<ResponseType>(`profile/status`, {status: newStatus})
             .then(res => res.data)
+    },
+    setPhoto(file: any) {
+        const formData = new FormData();
+        formData.append('image', file);
+        return instance.put<ResponseType<{ photos: { small: string, large: string } }>>
+        (`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res => res.data)
     }
 }

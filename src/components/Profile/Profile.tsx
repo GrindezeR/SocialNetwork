@@ -9,7 +9,9 @@ function Profile(props: ProfilePropsType) {
         <div className={s.profileWallpaper}>
             <AboutProfile profile={props.profile}
                           updateProfileStatus={props.updateProfileStatus}
+                          savePhoto={props.savePhoto}
                           status={props.status}
+                          isOwner={props.isOwner}
             />
             <MyPostsContainer/>
         </div>

@@ -40,6 +40,10 @@
     color: red;
 }
 
+.rememberMe {
+    user-select: none;
+}
+
 .infoAccount {
     display: flex;
     flex-direction: column;

@@ -1,9 +1,8 @@
 .profileAvatar {
-    /*display: block;*/
     height: 100px;
     width: 100px;
     padding: 10px;
-    border-radius: 30px;
+    border-radius: 50%;
     object-fit: cover;
 }
 

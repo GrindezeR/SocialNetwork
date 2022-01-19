@@ -1,5 +1,4 @@
 import {addPost, deletePost, InitialStateType, profileReducer} from "../Redux/Profile-reducer";
-import {v1} from "uuid";
 
 let state: InitialStateType
 beforeEach(() => {
@@ -31,7 +30,8 @@ beforeEach(() => {
                 large: ''
             }
         },
-        status: ''
+        status: '',
+        error: '',
     }
 })
 

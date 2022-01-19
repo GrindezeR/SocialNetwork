@@ -56,8 +56,10 @@ export const LoginForm = () => {
                     <span className={s.error}>{formik.errors.password}</span>}
             </div>
             <div>
-                <input type={"checkbox"} {...formik.getFieldProps('remember')}/>
-                <span>Remember me</span>
+                <label>
+                    <input type={"checkbox"} {...formik.getFieldProps('remember')}/>
+                    <span className={s.rememberMe}>Remember me</span>
+                </label>
             </div>
             {errorLogin && <div className={s.error}>{errorLogin}</div>}
             <button className={s.loginBtn} type="submit">LogIn</button>
