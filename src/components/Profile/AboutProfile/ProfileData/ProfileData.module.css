@@ -1,0 +1,16 @@
+.title {
+    margin: 5px 0;
+}
+
+.value {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    font-size: 24px;
+    margin: 5px;
+}

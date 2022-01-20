@@ -1,12 +1,12 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import noAvatar from '../../../common/images/noAvatar.png';
 import s from './AboutProfile.module.css';
 import {ProfileType, setProfileError} from "../../../Redux/Profile-reducer";
-import workYes from '../../../common/images/workYes.png';
-import workNo from '../../../common/images/workNo.png';
-import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../Redux/Redux-store";
+import {ProfileData} from "./ProfileData/ProfileData";
+import {ProfileDataForm} from "./ProfileData/ProfileDataForm";
 
 type AboutProfileType = {
     profile: ProfileType
@@ -18,7 +18,7 @@ type AboutProfileType = {
 
 
 function AboutProfile(props: AboutProfileType) {
-    let {profile, status, isOwner, savePhoto} = props
+    let {profile, status, isOwner, savePhoto, updateProfileStatus} = props
     const error = useSelector<AppStateType, string>(state => state.profilePage.error);
     const dispatch = useDispatch();
 
@@ -28,6 +28,7 @@ function AboutProfile(props: AboutProfileType) {
         }
         dispatch(setProfileError(''));
     }
+    const [editMode, setEditMode] = useState(false);
 
     return (
         <div className={s.wrapper}>
@@ -46,50 +47,14 @@ function AboutProfile(props: AboutProfileType) {
                 }
             </div>
             <div>
-                <div className={s.name}>
-                    {profile.fullName}
-                    <ProfileStatus status={status}
-                                   updateProfileStatus={props.updateProfileStatus}/>
-                </div>
-
-                <ul>
-                    <li className={s.li}>
-                        <span>About Me:</span> {profile.aboutMe}
-                    </li>
-                    <li className={s.li}>
-                        <span>
-                            Looking for job:
-                        </span>
-                        <img src={profile.lookingForAJob ? workYes : workNo} width={'20px'} alt="job"/>
-                    </li>
-                    <li className={s.li}>
-                        <span>Description for job:</span> {profile.lookingForAJobDescription}
-                    </li>
-                    <li className={s.li}>
-                        <span>VK:</span> {profile.contacts.vk}
-                    </li>
-                    <li className={s.li}>
-                        <span>Facebook:</span> {profile.contacts.facebook}
-                    </li>
-                    <li className={s.li}>
-                        <span>Website:</span> {profile.contacts.website}
-                    </li>
-                    <li className={s.li}>
-                        <span>Twitter:</span> {profile.contacts.twitter}
-                    </li>
-                    <li className={s.li}>
-                        <span>Instagram:</span> {profile.contacts.instagram}
-                    </li>
-                    <li className={s.li}>
-                        <span>Youtube:</span> {profile.contacts.youtube}
-                    </li>
-                    <li className={s.li}>
-                        <span>GitHub:</span> {profile.contacts.github}
-                    </li>
-                </ul>
+                {editMode ?
+                    <ProfileDataForm profile={profile} updateProfileStatus={updateProfileStatus} status={status}/> :
+                    <ProfileData profile={profile} updateProfileStatus={updateProfileStatus} status={status}/>}
+                {isOwner && <button onClick={() => setEditMode(!editMode)}>Edit Information</button>}
             </div>
         </div>
     );
 }
+
 
 export default AboutProfile;

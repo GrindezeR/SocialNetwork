@@ -20,26 +20,6 @@
 }
 
 .profileAvatar {
-    height: 90%;
-    max-width: 300px;
-    border-radius: 50%;
+    border-radius: 20%;
     object-fit: cover;
-}
-
-.name {
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    font-size: 24px;
-    margin: 5px;
-}
-
-
-.li {
-    margin: 5px 0;
-}
-
-.li span{
-    font-weight: bold;
-    margin-right: 5px;
 }

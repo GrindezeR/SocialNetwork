@@ -1,6 +1,6 @@
 import React from "react";
 import {create} from "react-test-renderer";
-import {ProfileStatus} from "../components/Profile/AboutProfile/ProfileStatus";
+import {ProfileStatus} from "../components/Profile/AboutProfile/ProfileStatus/ProfileStatus";
 
 const updateStatus = (status: string) => undefined
 

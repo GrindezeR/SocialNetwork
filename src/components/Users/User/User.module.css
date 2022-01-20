@@ -26,7 +26,8 @@
 }
 
 .avatar {
-    width: 100px;
+    width: 90px;
+    height: 95px;
     object-fit: cover;
     border-radius: 50%;
 }
