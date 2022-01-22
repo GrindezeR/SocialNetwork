@@ -1,24 +1,7 @@
 import axios from "axios";
 import {UsersType} from "../Redux/User-reducer";
-import {ProfileType} from "../Redux/Profile-reducer";
-import profile from "../components/Profile/Profile";
+import {ProfileType, TMPData} from "../Redux/Profile-reducer";
 
-
-type GetUsersType = {
-    items: UsersType[]
-    totalCount: number
-}
-type ResponseType<T = {}> = {
-    data: T
-    fieldsErrors: string[]
-    messages: string[]
-    resultCode: ResultCode,
-}
-
-export enum ResultCode {
-    Success = 0,
-    Error = 1,
-}
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -71,7 +54,7 @@ export const profileAPI = {
         return instance.put<ResponseType>(`profile/status`, {status: newStatus})
             .then(res => res.data)
     },
-    setPhoto(file: any) {
+    setPhoto(file: File) {
         const formData = new FormData();
         formData.append('image', file);
         return instance.put<ResponseType<{ photos: { small: string, large: string } }>>
@@ -80,5 +63,25 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(res => res.data)
+    },
+    updateProfile(profileData: TMPData) {
+        return instance.put<ResponseType>(`profile`, profileData)
+            .then(res => res.data)
     }
+}
+
+type GetUsersType = {
+    items: UsersType[]
+    totalCount: number
+}
+type ResponseType<T = {}> = {
+    data: T
+    fieldsErrors: string[]
+    messages: string[]
+    resultCode: ResultCode,
+}
+
+export enum ResultCode {
+    Success = 0,
+    Error = 1,
 }

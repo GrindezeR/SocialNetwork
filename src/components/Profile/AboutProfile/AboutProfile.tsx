@@ -1,8 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import noAvatar from '../../../common/images/noAvatar.png';
 import s from './AboutProfile.module.css';
-import {ProfileType, setProfileError} from "../../../Redux/Profile-reducer";
-import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+import {ProfileType, setProfileError, TMPData} from "../../../Redux/Profile-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../Redux/Redux-store";
 import {ProfileData} from "./ProfileData/ProfileData";
@@ -13,14 +12,16 @@ type AboutProfileType = {
     status: string
     isOwner: boolean
     updateProfileStatus: (status: string) => void
+    updateProfileData: (profileData: TMPData) => void
     savePhoto: (file: File) => void
 }
 
 
 function AboutProfile(props: AboutProfileType) {
-    let {profile, status, isOwner, savePhoto, updateProfileStatus} = props
+    let {profile, status, isOwner, savePhoto, updateProfileStatus, updateProfileData} = props
     const error = useSelector<AppStateType, string>(state => state.profilePage.error);
     const dispatch = useDispatch();
+    const [editMode, setEditMode] = useState(false);
 
     const mainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
@@ -28,7 +29,6 @@ function AboutProfile(props: AboutProfileType) {
         }
         dispatch(setProfileError(''));
     }
-    const [editMode, setEditMode] = useState(false);
 
     return (
         <div className={s.wrapper}>
@@ -42,15 +42,25 @@ function AboutProfile(props: AboutProfileType) {
                         <input className={s.inputAvatar}
                                type={"file"}
                                onChange={mainPhotoSelected}/>
-                        {error && <span className={s.error}>{error}</span>}
+                        {error && <div className={s.error}>{error}</div>}
                     </>
                 }
             </div>
             <div>
                 {editMode ?
-                    <ProfileDataForm profile={profile} updateProfileStatus={updateProfileStatus} status={status}/> :
-                    <ProfileData profile={profile} updateProfileStatus={updateProfileStatus} status={status}/>}
-                {isOwner && <button onClick={() => setEditMode(!editMode)}>Edit Information</button>}
+                    <ProfileDataForm profile={profile}
+                                     setEditMode={setEditMode}
+                                     updateProfileData={updateProfileData}/>
+                    :
+                    <ProfileData profile={profile}
+                                 updateProfileStatus={updateProfileStatus}
+                                 status={status}/>
+                }
+                {isOwner &&
+                    (editMode ? <button onClick={() => setEditMode(false)}>Back</button>
+                        :
+                        <button onClick={() => setEditMode(!editMode)}>Edit Information</button>)
+                }
             </div>
         </div>
     );

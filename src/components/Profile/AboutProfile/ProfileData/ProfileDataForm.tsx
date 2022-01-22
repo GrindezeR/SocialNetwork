@@ -1,43 +1,78 @@
 import React from "react";
 import s from "./ProfileData.module.css";
-import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
-import workYes from "../../../../common/images/workYes.png";
-import workNo from "../../../../common/images/workNo.png";
-import {ProfileType} from "../../../../Redux/Profile-reducer";
+import {ProfileType, setProfileError, TMPData} from "../../../../Redux/Profile-reducer";
+import {useFormik} from "formik";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../../../Redux/Redux-store";
 
 type ProfileDataProps = {
     profile: ProfileType
-    status: string
-    updateProfileStatus: (status: string) => void
+    setEditMode: (value: boolean) => void
+    updateProfileData: (profileData: TMPData) => void
 }
 
-export const ProfileDataForm = ({profile, status, updateProfileStatus}: ProfileDataProps) => {
+export const ProfileDataForm = ({profile, updateProfileData, setEditMode}: ProfileDataProps) => {
+    const error = useSelector<AppStateType, string>(state => state.profilePage.error);
+    const dispatch = useDispatch();
+    const formik = useFormik({
+        initialValues: {
+            fullName: profile.fullName,
+            aboutMe: profile.aboutMe,
+            lookingForAJob: profile.lookingForAJob,
+            lookingForAJobDescription: profile.lookingForAJobDescription,
+            contacts: profile.contacts
+        },
+        onSubmit: (values) => {
+                updateProfileData(values);
+                formik.resetForm();
+                dispatch(setProfileError(''));
+                setEditMode(false);
+        }
+    })
+
+    const contactList = Object.keys(profile.contacts).map(key => {
+        return <li className={s.title}>
+            <span className={s.value}>{key}:</span>
+            <input onFocus={(e) => e.currentTarget.select()} className={s.inputData} type="text"
+                   placeholder={`${key} link`}
+                   {...formik.getFieldProps(`contacts.${key}`)}/>
+        </li>
+    })
 
     return (
-        <div>
-            <button>Submit Changes</button>
-            <div className={s.name}>
-                {profile.fullName}
-                <ProfileStatus status={status} updateProfileStatus={updateProfileStatus}/>
+        <form className={s.form} onSubmit={formik.handleSubmit}>
+            <div>
+                <span className={s.value}>Name:</span>
+                <input onFocus={(e) => e.currentTarget.select()} type="text"
+                       placeholder={'Name'} {...formik.getFieldProps('fullName')}/>
             </div>
             <ul>
                 <li className={s.title}>
-                    <span className={s.value}>About Me:</span> {profile.aboutMe}
+                    <span className={s.value}>About me:</span>
+                    <input onFocus={(e) => e.currentTarget.select()} type="text" placeholder={'About me'}
+                           {...formik.getFieldProps('aboutMe')}/>
                 </li>
                 <li className={s.title}>
-                        <span className={s.value}>
-                            Looking for job:
-                        </span>
-                    <img src={profile.lookingForAJob ? workYes : workNo} width={'20px'} alt="job"/>
+                    <label>
+                        <span className={s.value}>Looking for job</span>
+                        <input type="checkbox" placeholder={'Looking for a job'}
+                               checked={formik.values.lookingForAJob}
+                               {...formik.getFieldProps('lookingForAJob')}/>
+                    </label>
                 </li>
                 {
-                    profile.lookingForAJob &&
+                    formik.values.lookingForAJob &&
                     <li className={s.title}>
-                        <span className={s.value}>Description for job:</span> {profile.lookingForAJobDescription}
+                        <span className={s.value}>Job description:</span>
+                        <input onFocus={(e) => e.currentTarget.select()} type="text" placeholder={'Job description'}
+                               {...formik.getFieldProps('lookingForAJobDescription')}
+                        />
                     </li>
                 }
-                {/*{contactList}*/}
+                <li className={s.value}>Contacts:</li>
+                <ul>{contactList}</ul>
             </ul>
-        </div>
+            <button className={s.saveBtn} type={'submit'}>Save</button>
+        </form>
     );
 }

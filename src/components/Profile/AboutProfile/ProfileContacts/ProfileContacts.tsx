@@ -9,7 +9,7 @@ type PropsType = {
 export const ProfileContacts = ({title, value}: PropsType) => {
     return (
         <li className={s.title}>
-            <span className={s.value}>{title}:</span> {value}
+            <span className={s.value}>{title}:</span> <a className={s.link} href={value} rel={'noreferrer'} target={'_blank'}>{value}</a>
         </li>
     );
 }

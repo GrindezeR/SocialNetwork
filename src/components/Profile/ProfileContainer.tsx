@@ -6,7 +6,7 @@ import {
     getProfileStatus,
     getUsersProfile,
     ProfileType,
-    savePhoto,
+    savePhoto, TMPData, updateProfileData,
     updateProfileStatus
 } from "../../Redux/Profile-reducer";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
@@ -42,6 +42,7 @@ class ProfileContainer extends React.Component<withRouterPropsType> {
                 <Profile {...this.props}
                          isOwner={!this.props.match.params.userId}
                          savePhoto={this.props.savePhoto}
+                         // updateProfileData={this.props.updateProfileData}
                 />
             </>
         );
@@ -67,6 +68,7 @@ type mapDispatchToPropsType = {
     getProfileStatus: (userId: string) => void
     updateProfileStatus: (status: string) => void
     savePhoto: (file: File) => void
+    updateProfileData: (profileData: TMPData) => void
 }
 
 const mapStateToProps = (state: AppStateType) => {
@@ -78,7 +80,7 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {getUsersProfile, getProfileStatus, updateProfileStatus, savePhoto}),
+    connect(mapStateToProps, {getUsersProfile, getProfileStatus, updateProfileStatus, savePhoto, updateProfileData}),
     withRouter,
     withAuthRedirect,
 )(ProfileContainer)

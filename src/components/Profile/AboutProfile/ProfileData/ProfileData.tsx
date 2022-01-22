@@ -3,8 +3,8 @@ import s from "./ProfileData.module.css";
 import workYes from "../../../../common/images/workYes.png";
 import workNo from "../../../../common/images/workNo.png";
 import React from "react";
-import {ProfileContacts} from "../ProfileContacts/ProfileContacts";
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
+import {ProfileContacts} from "../ProfileContacts/ProfileContacts";
 
 type ProfileDataProps = {
     profile: ProfileType
@@ -28,10 +28,9 @@ export const ProfileData = ({profile, status, updateProfileStatus}: ProfileDataP
                     <span className={s.value}>About Me:</span> {profile.aboutMe}
                 </li>
                 <li className={s.title}>
-                        <span className={s.value}>
-                            Looking for job:
-                        </span>
-                    <img src={profile.lookingForAJob ? workYes : workNo} width={'20px'} alt="job"/>
+                    <span className={s.value}>Looking for job:</span>
+                    {profile.lookingForAJob ? 'Yes' : 'No'}
+                    {/*<img src={profile.lookingForAJob ? workYes : workNo} height={'15px'} alt="job"/>*/}
                 </li>
                 {
                     profile.lookingForAJob &&
@@ -39,7 +38,8 @@ export const ProfileData = ({profile, status, updateProfileStatus}: ProfileDataP
                         <span className={s.value}>Description for job:</span> {profile.lookingForAJobDescription}
                     </li>
                 }
-                {contactList}
+                <li className={s.value}>Contacts:</li>
+                <ul>{contactList}</ul>
             </ul>
         </>
     );

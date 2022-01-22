@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {Dispatch} from "redux";
 import {profileAPI, ResultCode} from "../API/api";
 import {setLoading} from "./App-reducer";
+import {AppStateType, AppThunk} from "./Redux-store";
 
 export const profileReducer = (state = initialState, action: ProfileActionType): InitialStateType => {
     switch (action.type) {
@@ -98,6 +99,29 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
         dispatch(setProfileError(response.messages[0]));
     }
     dispatch(setLoading(false));
+}
+
+export const updateProfileData = (profileData: TMPData): AppThunk =>
+    async (dispatch, getState: () => AppStateType) => {
+        dispatch(setLoading(true));
+        const response = await profileAPI.updateProfile(profileData);
+        if (response.resultCode === ResultCode.Success) {
+            await dispatch(getUsersProfile(getState().profilePage.profile.userId));
+            // dispatch(savePhotoSuccess(response.data.photos));
+        } else {
+            dispatch(setProfileError(response.messages[0]));
+            setTimeout(() => {
+                dispatch(setProfileError(''));
+            }, 5000)
+        }
+        dispatch(setLoading(false));
+    }
+
+export type TMPData = {
+    fullName: string
+    aboutMe: string
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string
 }
 
 export type PostDataType = {

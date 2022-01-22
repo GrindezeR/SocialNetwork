@@ -12,14 +12,22 @@
 }
 
 .inputAvatar {
+    margin-top: 10px;
     padding: 8px 0;
 }
 
 .error {
-    color: crimson;
+    color: white;
+    background-color: crimson;
+    padding: 2px 10px;
+    max-width: 280px;
+    margin-top: 20px;
+    border-radius: 15px;
+    text-align: center;
 }
 
 .profileAvatar {
+    max-width: 300px;
     border-radius: 20%;
     object-fit: cover;
 }
