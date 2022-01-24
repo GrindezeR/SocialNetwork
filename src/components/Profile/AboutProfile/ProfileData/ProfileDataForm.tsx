@@ -1,19 +1,18 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from "./ProfileData.module.css";
-import {ProfileType, setProfileError, TMPData} from "../../../../Redux/Profile-reducer";
+import {ProfileType, setProfileError, ProfileFormDataType} from "../../../../Redux/Profile-reducer";
 import {useFormik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../../Redux/Redux-store";
+import {useDispatch} from "react-redux";
 
 type ProfileDataProps = {
     profile: ProfileType
     setEditMode: (value: boolean) => void
-    updateProfileData: (profileData: TMPData) => void
+    updateProfileData: (profileData: ProfileFormDataType) => Promise<{}>
 }
 
 export const ProfileDataForm = ({profile, updateProfileData, setEditMode}: ProfileDataProps) => {
-    const error = useSelector<AppStateType, string>(state => state.profilePage.error);
     const dispatch = useDispatch();
+    const selectAll = (e: ChangeEvent<HTMLInputElement>) => e.currentTarget.select()
     const formik = useFormik({
         initialValues: {
             fullName: profile.fullName,
@@ -23,17 +22,20 @@ export const ProfileDataForm = ({profile, updateProfileData, setEditMode}: Profi
             contacts: profile.contacts
         },
         onSubmit: (values) => {
-                updateProfileData(values);
-                formik.resetForm();
-                dispatch(setProfileError(''));
-                setEditMode(false);
+            updateProfileData(values)
+                .then(() => {
+                    formik.resetForm();
+                    dispatch(setProfileError(''));
+                    setEditMode(false);
+                });
+
         }
     })
 
     const contactList = Object.keys(profile.contacts).map(key => {
         return <li className={s.title}>
             <span className={s.value}>{key}:</span>
-            <input onFocus={(e) => e.currentTarget.select()} className={s.inputData} type="text"
+            <input onFocus={selectAll} className={s.inputData} type="text"
                    placeholder={`${key} link`}
                    {...formik.getFieldProps(`contacts.${key}`)}/>
         </li>
@@ -43,13 +45,13 @@ export const ProfileDataForm = ({profile, updateProfileData, setEditMode}: Profi
         <form className={s.form} onSubmit={formik.handleSubmit}>
             <div>
                 <span className={s.value}>Name:</span>
-                <input onFocus={(e) => e.currentTarget.select()} type="text"
+                <input onFocus={selectAll} type="text"
                        placeholder={'Name'} {...formik.getFieldProps('fullName')}/>
             </div>
             <ul>
                 <li className={s.title}>
                     <span className={s.value}>About me:</span>
-                    <input onFocus={(e) => e.currentTarget.select()} type="text" placeholder={'About me'}
+                    <input onFocus={selectAll} type="text" placeholder={'About me'}
                            {...formik.getFieldProps('aboutMe')}/>
                 </li>
                 <li className={s.title}>
@@ -64,7 +66,7 @@ export const ProfileDataForm = ({profile, updateProfileData, setEditMode}: Profi
                     formik.values.lookingForAJob &&
                     <li className={s.title}>
                         <span className={s.value}>Job description:</span>
-                        <input onFocus={(e) => e.currentTarget.select()} type="text" placeholder={'Job description'}
+                        <input onFocus={selectAll} type="text" placeholder={'Job description'}
                                {...formik.getFieldProps('lookingForAJobDescription')}
                         />
                     </li>

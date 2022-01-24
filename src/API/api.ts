@@ -1,6 +1,6 @@
 import axios from "axios";
 import {UsersType} from "../Redux/User-reducer";
-import {ProfileType, TMPData} from "../Redux/Profile-reducer";
+import {ProfileType, ProfileFormDataType} from "../Redux/Profile-reducer";
 
 
 const instance = axios.create({
@@ -31,9 +31,9 @@ export const authAPI = {
         return instance.get<ResponseType<{ id: number, email: string, login: string }>>
         (`auth/me`).then(res => res.data)
     },
-    login(email: string, password: string, remember: boolean) {
+    login(email: string, password: string, remember: boolean, captcha?: string) {
         return instance.post<ResponseType<{ userId: number }>>
-        (`auth/login`, {email: email, password: password, rememberMe: remember,})
+        (`auth/login`, {email, password, rememberMe: remember, captcha})
             .then(res => res.data)
     },
     logout() {
@@ -64,9 +64,15 @@ export const profileAPI = {
             }
         }).then(res => res.data)
     },
-    updateProfile(profileData: TMPData) {
+    updateProfile(profileData: ProfileFormDataType) {
         return instance.put<ResponseType>(`profile`, profileData)
             .then(res => res.data)
+    }
+}
+
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get<{ url: string }>(`security/get-captcha-url`)
     }
 }
 
@@ -84,4 +90,5 @@ type ResponseType<T = {}> = {
 export enum ResultCode {
     Success = 0,
     Error = 1,
+    CaptchaError = 10,
 }

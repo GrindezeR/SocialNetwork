@@ -3,6 +3,7 @@ import {Dispatch} from "redux";
 import {profileAPI, ResultCode} from "../API/api";
 import {setLoading} from "./App-reducer";
 import {AppStateType, AppThunk} from "./Redux-store";
+import axios from "axios";
 
 export const profileReducer = (state = initialState, action: ProfileActionType): InitialStateType => {
     switch (action.type) {
@@ -101,27 +102,35 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
     dispatch(setLoading(false));
 }
 
-export const updateProfileData = (profileData: TMPData): AppThunk =>
+export const updateProfileData = (profileData: ProfileFormDataType): AppThunk =>
     async (dispatch, getState: () => AppStateType) => {
         dispatch(setLoading(true));
-        const response = await profileAPI.updateProfile(profileData);
-        if (response.resultCode === ResultCode.Success) {
-            await dispatch(getUsersProfile(getState().profilePage.profile.userId));
-            // dispatch(savePhotoSuccess(response.data.photos));
-        } else {
-            dispatch(setProfileError(response.messages[0]));
-            setTimeout(() => {
-                dispatch(setProfileError(''));
-            }, 5000)
+        try {
+            const response = await profileAPI.updateProfile(profileData);
+            if (response.resultCode === ResultCode.Success) {
+                await dispatch(getUsersProfile(getState().profilePage.profile.userId));
+            } else {
+                dispatch(setProfileError(response.messages[0]));
+                setTimeout(() => {
+                    dispatch(setProfileError(''));
+                }, 5000)
+                return Promise.reject(response.messages[0]);
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                dispatch(setProfileError(error.message));
+            }
+        } finally {
+            dispatch(setLoading(false));
         }
-        dispatch(setLoading(false));
     }
 
-export type TMPData = {
+export type ProfileFormDataType = {
     fullName: string
     aboutMe: string
     lookingForAJob: boolean,
     lookingForAJobDescription: string
+    contacts: ContactsType
 }
 
 export type PostDataType = {

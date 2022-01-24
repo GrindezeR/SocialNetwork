@@ -18,7 +18,6 @@ export const DialogsForm = ({addMessage}: DialogsFormType) => {
     }
 
     const onSubmitHandler = (values: MessageFormValues, actions: FormikHelpers<MessageFormValues>) => {
-        // console.log(values.message);
         addMessage(values.message);
         actions.resetForm();
         actions.setSubmitting(false);
@@ -35,7 +34,7 @@ export const DialogsForm = ({addMessage}: DialogsFormType) => {
                 ({errors}) => (
                     <Form className={s.messageSendWrapper}>
                         <Field name={'message'}
-                               validate={maxLengthCreator(3)}>
+                               validate={maxLengthCreator(10)}>
                             {customField}
                         </Field>
                         <div>

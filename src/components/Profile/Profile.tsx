@@ -14,7 +14,7 @@ function Profile(props: ProfilePropsType) {
                           isOwner={props.isOwner}
                           updateProfileData={props.updateProfileData}
             />
-            <MyPostsContainer/>
+            <MyPostsContainer isOwner={props.isOwner}/>
         </div>
     );
 }

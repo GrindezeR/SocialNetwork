@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import noAvatar from '../../../common/images/noAvatar.png';
 import s from './AboutProfile.module.css';
-import {ProfileType, setProfileError, TMPData} from "../../../Redux/Profile-reducer";
+import {ProfileType, setProfileError, ProfileFormDataType} from "../../../Redux/Profile-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../Redux/Redux-store";
 import {ProfileData} from "./ProfileData/ProfileData";
@@ -12,7 +12,7 @@ type AboutProfileType = {
     status: string
     isOwner: boolean
     updateProfileStatus: (status: string) => void
-    updateProfileData: (profileData: TMPData) => void
+    updateProfileData: (profileData: ProfileFormDataType) => Promise<{}>
     savePhoto: (file: File) => void
 }
 

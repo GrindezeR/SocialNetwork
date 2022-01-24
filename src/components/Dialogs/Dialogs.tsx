@@ -5,21 +5,14 @@ import {DialogsPropsType} from "./DialogsContainer";
 import {DialogsForm} from "./DialogsForm";
 
 function Dialogs(props: DialogsPropsType) {
-    const dialogsElements = props.dialogsNamesData.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
-    const messagesElements = props.dialogsMessagesData.map(m => <Messages key={m.id} id={m.id}
-                                                                          message={m.message}/>)
-    // const addMessage = () => {
-    //     props.addMessage();
-    // }
-    // const onEnterAddMessage = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    //     if (e.key === 'Enter') {
-    //         e.preventDefault();
-    //         addMessage();
-    //     }
-    // }
-    // const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     props.onMessageChange(e.currentTarget.value);
-    // }
+    const dialogsElements = props.dialogsNamesData.map(d =>
+        <DialogItem key={d.id}
+                    id={d.id}
+                    name={d.name}/>)
+    const messagesElements = props.dialogsMessagesData.map(m =>
+        <Messages key={m.id}
+                  id={m.id}
+                  message={m.message}/>)
 
     return (
         <div className={s.dialogsWrapper}>
@@ -32,18 +25,6 @@ function Dialogs(props: DialogsPropsType) {
                     <span>{messagesElements}</span>
                 </div>
                 <DialogsForm addMessage={props.addMessage}/>
-                {/*<div className={s.messageSendWrapper}>*/}
-                {/*    <textarea*/}
-                {/*        placeholder={'Type your message'}*/}
-                {/*        className={s.textarea}*/}
-                {/*        onKeyPress={onEnterAddMessage}*/}
-                {/*        onChange={onMessageChange}*/}
-                {/*        value={props.newMessageText}/>*/}
-                {/*    <button*/}
-                {/*        className={s.submitBtn}*/}
-                {/*        onClick={addMessage}>Send*/}
-                {/*    </button>*/}
-                {/*</div>*/}
             </div>
 
         </div>

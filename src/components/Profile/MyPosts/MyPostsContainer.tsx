@@ -9,13 +9,14 @@ export type MyPostsPropsType = MapStatePropsType & MapDispatchPropsType
 
 type MapStatePropsType = {
     postsData: PostDataType[]
+    isOwner: boolean
 }
 
 type MapDispatchPropsType = {
     addPost: (newPostText: string) => void
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         postsData: state.profilePage.postData,
     }

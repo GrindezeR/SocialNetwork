@@ -35,7 +35,7 @@ export const MyPostsForm = ({addPost}: MyPostsFormPropsType) => {
             validateOnBlur={false}>
                     <Form className={s.newPost}>
                         <Field name={'newPostText'}
-                               validate={maxLengthCreator(5)}
+                               validate={maxLengthCreator(500)}
                                placeholder={'Type your post'}>
                             {customField}
                         </Field>

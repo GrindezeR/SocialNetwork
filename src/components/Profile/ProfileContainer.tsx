@@ -6,7 +6,7 @@ import {
     getProfileStatus,
     getUsersProfile,
     ProfileType,
-    savePhoto, TMPData, updateProfileData,
+    savePhoto, ProfileFormDataType, updateProfileData,
     updateProfileStatus
 } from "../../Redux/Profile-reducer";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
@@ -68,7 +68,7 @@ type mapDispatchToPropsType = {
     getProfileStatus: (userId: string) => void
     updateProfileStatus: (status: string) => void
     savePhoto: (file: File) => void
-    updateProfileData: (profileData: TMPData) => void
+    updateProfileData: (profileData: ProfileFormDataType) => Promise<{}>
 }
 
 const mapStateToProps = (state: AppStateType) => {

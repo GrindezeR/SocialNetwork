@@ -15,17 +15,18 @@ export type FormikErrorType = {
 export const LoginForm = () => {
     const dispatch = useDispatch();
     const errorLogin = useSelector<AppStateType, string>(state => state.auth.error);
+    const captchaUrl = useSelector<AppStateType, string>(state => state.auth.captcha);
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
             remember: false,
+            captcha: '',
         },
         onSubmit: values => {
-            // console.log({values});
-            let {email, password, remember} = values
-            dispatch(login(email, password, remember));
+            let {email, password, remember, captcha} = values
+            dispatch(login(email, password, remember, captcha));
             formik.resetForm();
         },
         validate: values => {
@@ -35,10 +36,15 @@ export const LoginForm = () => {
     });
 
     return (
-        <form className={s.formWrapper} onSubmit={formik.handleSubmit}>
+        <form className={s.formWrapper} autoComplete={'on'}
+              onSubmit={formik.handleSubmit}>
+            <datalist id="suggestions">
+                <option value="valariot@gmail.com"/>
+            </datalist>
             <div>
                 <div>Email</div>
                 <input className={s.inputs}
+                       list="suggestions"
                        placeholder="Type email"
                        {...formik.getFieldProps('email')}/>
                 {formik.touched.email && formik.errors.email &&
@@ -61,6 +67,13 @@ export const LoginForm = () => {
                     <span className={s.rememberMe}>Remember me</span>
                 </label>
             </div>
+            {captchaUrl &&
+                <div className={s.captchaWrapper}>
+                    <img src={captchaUrl} alt="captcha" width={'140px'}/>
+                    <input className={s.captcha}
+                           type="text"
+                           {...formik.getFieldProps('captcha')}/>
+                </div>}
             {errorLogin && <div className={s.error}>{errorLogin}</div>}
             <button className={s.loginBtn} type="submit">LogIn</button>
         </form>

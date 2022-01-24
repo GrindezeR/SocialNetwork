@@ -40,6 +40,17 @@
     color: red;
 }
 
+.captchaWrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.captcha {
+    width: 150px;
+}
+
 .rememberMe {
     user-select: none;
 }
