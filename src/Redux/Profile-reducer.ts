@@ -4,6 +4,7 @@ import {profileAPI, ResultCode} from "../API/api";
 import {setLoading} from "./App-reducer";
 import {AppStateType, AppThunk} from "./Redux-store";
 import axios from "axios";
+import {ErrorHandler} from "../Utils/errorsHandlers/errorHandler";
 
 export const profileReducer = (state = initialState, action: ProfileActionType): InitialStateType => {
     switch (action.type) {
@@ -84,11 +85,20 @@ export const getProfileStatus = (userId: number) => async (dispatch: Dispatch) =
 
 export const updateProfileStatus = (status: string) => async (dispatch: Dispatch) => {
     dispatch(setLoading(true));
-    const response = await profileAPI.setStatus(status)
-    if (response.resultCode === ResultCode.Success) {
-        dispatch(setProfileStatus(status))
+    try {
+        const response = await profileAPI.setStatus(status)
+        if (response.resultCode === ResultCode.Success) {
+            dispatch(setProfileStatus(status))
+        } else {
+            ErrorHandler(dispatch, setProfileError, response.messages[0], 3000);
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            dispatch(setProfileError(error.message));
+        }
+    } finally {
+        dispatch(setLoading(false));
     }
-    dispatch(setLoading(false));
 }
 
 export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
@@ -110,15 +120,12 @@ export const updateProfileData = (profileData: ProfileFormDataType): AppThunk =>
             if (response.resultCode === ResultCode.Success) {
                 await dispatch(getUsersProfile(getState().profilePage.profile.userId));
             } else {
-                dispatch(setProfileError(response.messages[0]));
-                setTimeout(() => {
-                    dispatch(setProfileError(''));
-                }, 5000)
+                ErrorHandler(dispatch, setProfileError, response.messages[0], 5000);
                 return Promise.reject(response.messages[0]);
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                dispatch(setProfileError(error.message));
+                ErrorHandler(dispatch, setProfileError, error.message, 3000);
             }
         } finally {
             dispatch(setLoading(false));

@@ -67,11 +67,11 @@ export const login = (email: string, password: string, remember: boolean, captch
         const response = await authAPI.login(email, password, remember, captcha)
         if (response.resultCode === ResultCode.Success) {
             await dispatch(getAuthUserData());
+            dispatch(setAuthCaptcha(''));
         } else {
-            if (ResultCode.CaptchaError) {
+            if (response.resultCode === ResultCode.CaptchaError) {
                 dispatch(getCaptchaUrl());
             }
-
             dispatch(setAuthError(response.messages[0] ?? 'Unknown error'));
         }
         dispatch(setLoading(false));

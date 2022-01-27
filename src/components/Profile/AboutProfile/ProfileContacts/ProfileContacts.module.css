@@ -7,6 +7,6 @@
     margin-right: 5px;
 }
 
-.link {
-    /*text-decoration: none;*/
+.link:hover {
+    color: blueviolet;
 }

@@ -1,7 +1,5 @@
 import {ContactsType, ProfileType} from "../../../../Redux/Profile-reducer";
 import s from "./ProfileData.module.css";
-import workYes from "../../../../common/images/workYes.png";
-import workNo from "../../../../common/images/workNo.png";
 import React from "react";
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 import {ProfileContacts} from "../ProfileContacts/ProfileContacts";
@@ -30,7 +28,6 @@ export const ProfileData = ({profile, status, updateProfileStatus}: ProfileDataP
                 <li className={s.title}>
                     <span className={s.value}>Looking for job:</span>
                     {profile.lookingForAJob ? 'Yes' : 'No'}
-                    {/*<img src={profile.lookingForAJob ? workYes : workNo} height={'15px'} alt="job"/>*/}
                 </li>
                 {
                     profile.lookingForAJob &&

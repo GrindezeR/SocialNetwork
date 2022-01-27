@@ -5,6 +5,7 @@ import s from "./Login.module.css";
 import React from "react";
 import {AppStateType} from "../../Redux/Redux-store";
 import {validateFormik} from "../../Utils/validators/validators";
+import sc from '../../common/styles/commonStyles.module.css';
 
 export type FormikErrorType = {
     email?: string
@@ -75,7 +76,7 @@ export const LoginForm = () => {
                            {...formik.getFieldProps('captcha')}/>
                 </div>}
             {errorLogin && <div className={s.error}>{errorLogin}</div>}
-            <button className={s.loginBtn} type="submit">LogIn</button>
+            <button className={sc.button} type="submit">LogIn</button>
         </form>
     );
 }

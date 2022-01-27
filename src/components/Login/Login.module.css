@@ -24,6 +24,11 @@
 }
 
 .inputs {
+    border-radius: 20px;
+    border: none;
+    padding: 7px 10px;
+    background-color: rgba(0,0,0,0.05);
+    font-family: Bahnschrift, sans-serif;
     width: 250px;
     height: 20px;
 }

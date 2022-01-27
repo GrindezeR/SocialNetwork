@@ -4,6 +4,7 @@ import React from "react";
 import {maxLengthCreator} from "../../../Utils/validators/validators";
 import {CustomInput} from "../../../common/FormsControls/FormsControls";
 import {FieldProps} from "formik/dist/Field";
+import sc from '../../../common/styles/commonStyles.module.css';
 
 type NewPostType = {
     newPostText: string
@@ -39,7 +40,7 @@ export const MyPostsForm = ({addPost}: MyPostsFormPropsType) => {
                                placeholder={'Type your post'}>
                             {customField}
                         </Field>
-                        <button className={s.submitButton} type={'submit'}>Send</button>
+                        <button className={sc.button} type={'submit'}>Send</button>
                     </Form>
         </Formik>
     );

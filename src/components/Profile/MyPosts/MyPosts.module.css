@@ -12,16 +12,6 @@
     box-sizing: border-box;
 }
 
-.submitButton {
-    width: 100px;
-    height: 30px;
-    background-color: white;
-    border-radius: 30px;
-    border: 1px solid blue;
-    cursor: pointer;
-    transition: .5s;
-}
-
 .submitButton:hover {
     background-color: forestgreen;
     color: white;

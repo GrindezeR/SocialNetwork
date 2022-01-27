@@ -3,6 +3,7 @@ import s from "./DialogsForm.module.css";
 import React from "react";
 import {CustomInput} from "../../common/FormsControls/FormsControls";
 import {maxLengthCreator} from "../../Utils/validators/validators";
+import sc from '../../common/styles/commonStyles.module.css';
 
 type DialogsFormType = {
     addMessage: (newMessageText: string) => void
@@ -38,7 +39,7 @@ export const DialogsForm = ({addMessage}: DialogsFormType) => {
                             {customField}
                         </Field>
                         <div>
-                            <button className={s.submitBtn} type={'submit'}>Send</button>
+                            <button className={sc.button} type={'submit'}>Send</button>
                         </div>
                     </Form>
                 )

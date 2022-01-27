@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../Redux/Redux-store";
 import {ProfileData} from "./ProfileData/ProfileData";
 import {ProfileDataForm} from "./ProfileData/ProfileDataForm";
+import sc from '../../../common/styles/commonStyles.module.css';
 
 type AboutProfileType = {
     profile: ProfileType
@@ -39,9 +40,12 @@ function AboutProfile(props: AboutProfileType) {
                 />
                 {isOwner &&
                     <>
-                        <input className={s.inputAvatar}
-                               type={"file"}
-                               onChange={mainPhotoSelected}/>
+                        <label className={sc.button}>
+                            Upload avatar
+                            <input hidden
+                                   type={"file"}
+                                   onChange={mainPhotoSelected}/>
+                        </label>
                         {error && <div className={s.error}>{error}</div>}
                     </>
                 }
@@ -57,9 +61,9 @@ function AboutProfile(props: AboutProfileType) {
                                  status={status}/>
                 }
                 {isOwner &&
-                    (editMode ? <button onClick={() => setEditMode(false)}>Back</button>
+                    (editMode ? <button className={sc.button} onClick={() => setEditMode(false)}>Back</button>
                         :
-                        <button onClick={() => setEditMode(!editMode)}>Edit Information</button>)
+                        <button className={sc.button} onClick={() => setEditMode(!editMode)}>Edit Information</button>)
                 }
             </div>
         </div>

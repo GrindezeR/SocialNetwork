@@ -1,12 +1,13 @@
 import React, {Component, Suspense} from 'react';
 import './App.css';
 import Navigation from "./Navigation/Navigation";
-import {Redirect, Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import HeaderContainer from "./Header/HeaderContainer";
 import {connect} from "react-redux";
 import {initializeApp} from "../Redux/App-reducer";
 import {AppStateType} from "../Redux/Redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
+import {ErrorPage} from "./ErrorPage/ErrorPage";
 
 const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./Profile/ProfileContainer'));
@@ -32,11 +33,14 @@ class App extends Component<AppPropsType> {
 
                 <div className="app-wrapper-content">
                     <Suspense fallback={<Preloader type={"circle"}/>}>
-                        <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
-                        <Route render={() => <ProfileContainer/>} path={'/profile/:userId?'}/>
-                        <Route render={() => <DialogsContainer/>} path={'/dialogs'}/>
-                        <Route render={() => <UsersContainer/>} path={'/users'}/>
-                        <Route render={() => <Login/>} path={'/login'}/>
+                        <Switch>
+                            <Route render={() => <ProfileContainer/>} path={'/profile/:userId?'}/>
+                            <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                            <Route render={() => <DialogsContainer/>} path={'/dialogs'}/>
+                            <Route render={() => <UsersContainer/>} path={'/users'}/>
+                            <Route render={() => <Login/>} path={'/login'}/>
+                            <Route render={() => <ErrorPage/>} path={'*'}/>
+                        </Switch>
                     </Suspense>
                 </div>
             </div>

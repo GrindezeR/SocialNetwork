@@ -1,0 +1,17 @@
+.button {
+    border: none;
+    background-color: rgba(133,38,255,0.54);
+    color: white;
+    font-family: Bahnschrift, sans-serif;
+    font-size: 16px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: fit-content;
+    transition: .5s ease;
+}
+
+.button:hover {
+    background: deepskyblue;
+    transition: .5s ease;
+}

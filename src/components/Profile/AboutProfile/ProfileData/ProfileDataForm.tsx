@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from "./ProfileData.module.css";
-import {ProfileType, setProfileError, ProfileFormDataType} from "../../../../Redux/Profile-reducer";
+import {ProfileFormDataType, ProfileType} from "../../../../Redux/Profile-reducer";
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import sc from "../../../../common/styles/commonStyles.module.css";
 
 type ProfileDataProps = {
     profile: ProfileType
@@ -11,7 +11,6 @@ type ProfileDataProps = {
 }
 
 export const ProfileDataForm = ({profile, updateProfileData, setEditMode}: ProfileDataProps) => {
-    const dispatch = useDispatch();
     const selectAll = (e: ChangeEvent<HTMLInputElement>) => e.currentTarget.select()
     const formik = useFormik({
         initialValues: {
@@ -25,15 +24,13 @@ export const ProfileDataForm = ({profile, updateProfileData, setEditMode}: Profi
             updateProfileData(values)
                 .then(() => {
                     formik.resetForm();
-                    dispatch(setProfileError(''));
                     setEditMode(false);
-                });
-
+                })
         }
     })
 
     const contactList = Object.keys(profile.contacts).map(key => {
-        return <li className={s.title}>
+        return <li key={key} className={s.title}>
             <span className={s.value}>{key}:</span>
             <input onFocus={selectAll} className={s.inputData} type="text"
                    placeholder={`${key} link`}
@@ -74,7 +71,7 @@ export const ProfileDataForm = ({profile, updateProfileData, setEditMode}: Profi
                 <li className={s.value}>Contacts:</li>
                 <ul>{contactList}</ul>
             </ul>
-            <button className={s.saveBtn} type={'submit'}>Save</button>
+            <button className={`${sc.button} ${s.saveBtn}`} type={'submit'}>Save</button>
         </form>
     );
 }

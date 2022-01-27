@@ -13,8 +13,6 @@
     grid-template-columns: 1fr 5fr;
     border-radius: 10px 10px 0 0;
     animation: start .5s ease;
-
-    /*gap: 10px;*/
 }
 
 .app-wrapper-content {

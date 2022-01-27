@@ -38,8 +38,6 @@ export const User = ({user, followingUsers, unfollowingUsers, followingInProgres
                 <NavLink to={`/profile/${user.id}`}>
                     <span className={s.name}>{user.name}</span>
                 </NavLink>
-                <span className={s.location}>u.location.country</span>
-                <span className={s.location}>u.location.city</span>
                 <span className={s.statusMessage}>{user.status}</span>
             </div>
         </div>
